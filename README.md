@@ -2,7 +2,7 @@
 
 ## Database Schema Design
 
-![DBD for Airbnb](https://user-images.githubusercontent.com/99756315/186535375-e2949a3b-622d-42cc-85ed-f5ce49d5644d.png)
+![DBD for Airbnb](https://user-images.githubusercontent.com/99756315/186540799-ad745de4-3f7e-474d-a424-d6801ccb3d99.png)
 
 
 
