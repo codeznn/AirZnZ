@@ -2,7 +2,8 @@
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+![DBD for Airbnb](https://user-images.githubusercontent.com/99756315/186530896-61b5fd12-3a81-412d-b5ef-be6c60d09249.png)
+
 
 ## API Documentation
 
