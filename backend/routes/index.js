@@ -13,6 +13,10 @@ router.use('/api', apiRouter);
 //   res.send('Hello World!');
 // });
 
+router.post('/test', function(req, res) {
+  res.json({ requestBody: req.body });
+});
+
 // Add a XSRF-TOKEN cookie
 router.get("/api/csrf/restore", (req, res) => {
   const csrfToken = req.csrfToken();
