@@ -1,34 +1,25 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('SpotImages', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName: {
-        type: Sequelize.STRING,
-        allowNull:false,
+      spotId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {model: 'Spots'}
       },
-      lastName: {
+      url: {
         type: Sequelize.STRING,
-        allowNull:false,
+        allowNull: false
       },
-      username: {
-        type: Sequelize.STRING,
-        allowNull:false,
-        unique: true
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull:false,
-        unique: true
-      },
-      hashedPassword: {
-        type: Sequelize.STRING,
-        allowNull:false,
+      preview: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -43,6 +34,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('SpotImages');
   }
 };
