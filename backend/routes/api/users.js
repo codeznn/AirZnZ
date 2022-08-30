@@ -27,16 +27,30 @@ const validateSignup = [
     .withMessage('Password must be 6 characters or more.'),
   check('firstName')
     .isLength({ min: 1 })
-    .withMessage('FirstName cannot be empty'),
+    .withMessage('First Name is required'),
   check('lastName')
     .isLength({ min: 1 })
-    .withMessage('LastName cannot be empty'),
+    .withMessage('Last Name is required'),
   handleValidationErrors
 ];
 
 // Sign up
 router.post('/', validateSignup, async (req, res) => {
   const { email, password, username, firstName, lastName } = req.body;
+
+  // if(!username || !email || !firstName || !lastName){
+  //   res.status(400);
+  //   return res.json({
+  //       "message": "Validation error",
+  //       "statusCode": 400,
+  //       "errors": {
+  //         "email": "Invalid email",
+  //         "username": "Username is required",
+  //         "firstName": "First Name is required",
+  //         "lastName": "Last Name is required"
+  //       }
+  //   })
+  // }
 
   const existedEmail = await User.findOne({
     where: {email: email}
@@ -67,13 +81,14 @@ router.post('/', validateSignup, async (req, res) => {
       }
     });
   }
-  const user = await User.signup({ email, username, password, firstName, lastName });
+  let user = await User.signup({ email, username, password, firstName, lastName });
 
-  await setTokenCookie(res, user);
+  const token = await setTokenCookie(res, user);
 
-  return res.json({
-    user
-  });
+  user = user.toJSON();
+  user.token = token;
+
+  return res.json(user);
 
 })
 
