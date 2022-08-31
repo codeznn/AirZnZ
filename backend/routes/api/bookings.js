@@ -25,12 +25,13 @@ router.get('/current', requireAuth, async (req, res) => {
               }
             },
         ],
-        // raw: true
+        raw: true,
+        nest: true
 
     });
     for (let i = 0; i < bookings.length; i++) {
-        const currentBooking = bookings[i].toJSON();
-        currentBooking.Spot.previewImage = currentBooking.Spot.SpotImages[0].url;
+        const currentBooking = bookings[i];
+        currentBooking.Spot.previewImage = currentBooking.Spot.SpotImages.url;
         delete currentBooking.Spot.SpotImages;
 
         bookings[i] = currentBooking

@@ -51,9 +51,9 @@ async function getAllSpots(ownerId) {
 
 // Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res) => {
-    const userSpots = await getAllSpots(req.user.id);
+    const curuserSpots = await getAllSpots(req.user.id);
     res.json({
-        Spots: userSpots
+        Spots: curuserSpots
     })
 })
 
@@ -89,12 +89,15 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
             "message": "Spot couldn't be found",
             "statusCode": 404
         })
+
     };
 
     if (spot.toJSON().ownerId !== req.user.id) {
         const bookings = await Booking.findAll({
             where: { spotId: req.params.spotId},
             attributes: ['spotId', 'startDate', 'endDate'],
+            raw: true,
+            nest: true
         })
         res.json({
             Bookings: bookings
@@ -105,6 +108,8 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
             include:{
                 model: User, attributes: ['id', 'firstName', 'lastName']
             },
+            raw: true,
+            nest: true
         })
         res.json({
             Bookings: bookings
@@ -150,7 +155,37 @@ router.get('/:spotId', async (req, res) => {
 
 // Get all Spots
 router.get('/', async (req, res) => {
-    const spots = await getAllSpots()
+    const spots = await Spot.findAll({
+        include: {
+            model: SpotImage,
+            where: { preview: true },
+            attributes: ["url"],
+            },
+    })
+
+    for (let i = 0; i < spots.length; i++) {
+        const currentSpot = spots[i].toJSON();
+        let aveRating = await Review.findAll({
+            where: { spotId: currentSpot.id},
+            attributes: [
+                [
+                    sequelize.fn("AVG", sequelize.col("stars")),
+                    "avgRating"
+                ]
+            ]
+        });
+        currentSpot.aveRating = aveRating[0].toJSON().avgRating;
+
+        // previewImages
+        if (currentSpot.SpotImages.length > 0) {
+            currentSpot.previewImages = currentSpot.SpotImages[0].url;
+            delete currentSpot.SpotImages;
+        } else {
+            currentSpot.previewImages = null;
+            delete currentSpot.SpotImages;
+        }
+        spots[i] = currentSpot
+    }
 
     res.json({"Spots": spots})
 });
