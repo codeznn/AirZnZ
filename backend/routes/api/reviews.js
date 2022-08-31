@@ -52,6 +52,14 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
             "statusCode": 404
         })
     };
+    if (review.toJSON().userId !== req.user.id) {
+        res.status(403);
+        res.json({
+            "message": "Review not belong to current user",
+            "statusCode": 403
+        })
+    }
+
 
     const reviewImages = await ReviewImage.findAll({
         where: {reviewId: req.params.reviewId}

@@ -38,20 +38,6 @@ const validateSignup = [
 router.post('/', validateSignup, async (req, res) => {
   const { email, password, username, firstName, lastName } = req.body;
 
-  // if(!username || !email || !firstName || !lastName){
-  //   res.status(400);
-  //   return res.json({
-  //       "message": "Validation error",
-  //       "statusCode": 400,
-  //       "errors": {
-  //         "email": "Invalid email",
-  //         "username": "Username is required",
-  //         "firstName": "First Name is required",
-  //         "lastName": "Last Name is required"
-  //       }
-  //   })
-  // }
-
   const existedEmail = await User.findOne({
     where: {email: email}
   });
