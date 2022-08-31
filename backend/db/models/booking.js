@@ -31,10 +31,27 @@ module.exports = (sequelize, DataTypes) => {
     endDate: {
       type: DataTypes.DATE,
       allowNull: false,
+      validate: {
+        isValidateDate(value) {
+          if (value <= this.startDate ) {
+            throw new Error('endDate cannot come before startDate')
+          }
+        }
+      }
     }
   }, {
     sequelize,
     modelName: 'Booking',
+    // defaultScope: {
+    //   attributes: {
+    //     exclude: ["userId", "createdAt", "updatedAt"]
+    //   }
+    // },
+    // scopes: {
+    //   owner: {
+    //     attributes: {}
+    //   }
+    // }
   });
   return Booking;
 };
