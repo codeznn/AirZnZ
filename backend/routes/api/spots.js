@@ -308,7 +308,8 @@ router.get('/', async (req, res, next) => {
                 ]
             ]
         });
-        currentSpot.aveRating = aveRating[0].toJSON().avgRating.toFixed(1);
+        const temaveRating = aveRating[0].toJSON().avgRating
+        currentSpot.aveRating = Number.parseFloat(temaveRating).toFixed(1);
 
         // previewImages
         if (currentSpot.SpotImages.length > 0) {
@@ -412,7 +413,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview,async (req, res, nex
 })
 
 // Create a Booking from a Spot based on the Spot's id
-async function isDateIntersection(start1, end1, start2, end2) {
+function isDateIntersection(start1, end1, start2, end2) {
 
     if (start1 >= start2 && start1 <= end2) {
         return true;
@@ -469,7 +470,6 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
     for (let i = 0; i < exsitedBooking.length; i++) {
         let currentBooking = exsitedBooking[i]
-        console.log(currentBooking)
         if (isDateIntersection(startDate, endDate, currentBooking.startDate, currentBooking.endDate)) {
 
             res.status(403);
