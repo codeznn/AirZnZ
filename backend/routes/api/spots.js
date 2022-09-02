@@ -8,6 +8,41 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
+const validateQuery = [
+    check("page")
+      .isInt({ min: 1 }, { max: 10 })
+      .optional()
+      .withMessage("Page must be greater than or equal to 0"),
+    check("size")
+      .isInt({ min: 1 }, { max: 20 })
+      .optional()
+      .withMessage("Size must be greater than or equal to 0"),
+    check("minLat")
+      .isDecimal()
+      .optional()
+      .withMessage("Minimum latitude is invalid"),
+    check("maxLat")
+      .isDecimal()
+      .optional()
+      .withMessage("Maximum latitude is invalid"),
+    check("minLng")
+      .isDecimal()
+      .optional()
+      .withMessage("Minimum longitude is invalid"),
+    check("maxLng")
+      .isDecimal()
+      .optional()
+      .withMessage("Maximum longitude is invalid"),
+    check("minPrice")
+      .isDecimal({ min: 0 })
+      .optional()
+      .withMessage("Minimum price must be greater than or equal to 0"),
+    check("maxPrice")
+      .isDecimal({ min: 0 })
+      .optional()
+      .withMessage("Maximum price must be greater than or equal to 0"),
+  ];
+
 async function getAllSpots(ownerId) {
     const wherequery = {};
     if(ownerId) {
@@ -157,15 +192,19 @@ router.get('/:spotId', async (req, res) => {
 router.get('/', async (req, res) => {
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
     if (page > 10) page = 10;
-    if (size > 20) size = 10;
+    if (size > 20) size = 20;
     page = parseInt(page);
     size = parseInt(size);
 
-    if (isNaN(page)) page = 0;
+    if (isNaN(page)) page = 1;
     if (isNaN(size)) size = 20;
-    const where = {}
+    const where = {};
 
-    //const where = {minLat, maxLat, minLng, maxLng, minPrice, maxPrice};
+    // if (minLng) {
+
+    // }
+
+
 
 
     const spots = await Spot.findAll({
@@ -292,7 +331,7 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
 })
 
 // Create a Booking from a Spot based on the Spot's id
-function isDateIntersection(start1, end1, start2, end2) {
+async function isDateIntersection(start1, end1, start2, end2) {
     var startdate1 = new Date(start1.replace("-", "/").replace("-", "/"));
     var enddate1 = new Date(end1.replace("-", "/").replace("-", "/"));
 
