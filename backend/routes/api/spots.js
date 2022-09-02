@@ -79,6 +79,16 @@ const validateQuery = [
     handleValidationErrors
   ];
 
+  const validateReview = [
+    check("review")
+      .exists({ checkFalsy: true })
+      .withMessage("Review text is required"),
+    check("stars")
+      .exists({ checkFalsy: true })
+      .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors,
+  ];
+
 async function getAllSpots(ownerId) {
     const wherequery = {};
     if(ownerId) {
@@ -298,7 +308,7 @@ router.get('/', async (req, res, next) => {
                 ]
             ]
         });
-        currentSpot.aveRating = aveRating[0].toJSON().avgRating;
+        currentSpot.aveRating = aveRating[0].toJSON().avgRating.toFixed(1);
 
         // previewImages
         if (currentSpot.SpotImages.length > 0) {
@@ -322,7 +332,7 @@ router.get('/', async (req, res, next) => {
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId)
     const currentSpotId = parseInt(req.params.spotId);
-    const { url } = req.body
+    const { url, preview } = req.body
     if (!spot) {
         res.status(400);
         res.json(
@@ -333,16 +343,20 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         );
     };
 
+
+
     if (spot.toJSON().ownerId === req.user.id) {
         const spotImage = await SpotImage.create({
             spotId: currentSpotId,
             url: url,
+            preview: preview
         });
-        const res = await SpotImage.findAll({
-            where: {spotId: currentSpotId, url: url},
-            attributes: ['id', 'url']
-          })
-        res.json(res[res.length - 1])
+        const newImage = await SpotImage.findOne({
+            where: { id: spotImage.toJSON().id},
+            attributes: ['id', 'url', 'preview']
+        })
+
+        res.json(newImage)
     } else {
         res.status(403);
         res.json({
@@ -354,7 +368,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 
 
 // Create a Review for a Spot based on the Spot's id
-router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
+router.post('/:spotId/reviews', requireAuth, validateReview,async (req, res, next) => {
     const currentSpotId = parseInt(req.params.spotId);
     const spot = await Spot.findByPk(currentSpotId)
     if (!spot) {
@@ -400,16 +414,15 @@ router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
 // Create a Booking from a Spot based on the Spot's id
 async function isDateIntersection(start1, end1, start2, end2) {
 
-    if (startdate1 >= startdate2 && startdate1 <= enddate2) {
-
+    if (start1 >= start2 && start1 <= end2) {
         return true;
     }
 
-    if (enddate1 >= startdate2 && enddate1 <= enddate2) {
+    if (end1 >= start2 && end1 <= end2) {
         return true;
     }
 
-    if (startdate1 <= startdate2 && enddate1 >= enddate2) {
+    if (start1 <= start2 && end1 >= end2) {
         return true;
     }
     return false;
@@ -435,6 +448,16 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     }
 
     const { startDate, endDate } = req.body;
+    if ( endDate < startDate ) {
+        return res.status(400)
+           .json({
+            "message": "Validation error",
+            "statusCode": 400,
+            "errors": {
+              "endDate": "endDate cannot be on or before startDate"
+            }
+          })
+      }
 
     const exsitedBooking = await Booking.findAll({
         where: {
@@ -461,7 +484,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         }
     }
 
-    try {
+
         const newBooking = await Booking.create({
             spotId: req.params.spotId,
             userId: req.user.id,
@@ -471,16 +494,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         res.status(201);
         res.json(newBooking)
 
-    } catch(err) {
-        res.status(400);
-        res.json({
-            "message": "Validation error",
-            "statusCode": 400,
-            "errors": {
-                "endDate": "endDate cannot be on or before startDate"
-            }
-        });
-    }
+
 });
 
 // Create a Spot
@@ -488,34 +502,14 @@ router.post('/', requireAuth, validateSpot, async (req, res, next) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
     const spot = await Spot.create({ ownerId: req.user.id, address, city, state, country, lat, lng, name, description, price });
     res.status(201);
-    res.json({spot})
+    res.json(spot)
 
 })
 
 // Edit a Spot
 router.put('/:spotId', requireAuth, async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId);
-    const { address, city, state, country, lat, lng, name, description, price } = req.body;
-    if (!address || !city || !state || !country || !lat || !lng || !name || !description || !price) {
-        res.status(400);
-        res.json(
-            {
-                "message": "Validation Error",
-                "statusCode": 400,
-                "errors": {
-                  "address": "Street address is required",
-                  "city": "City is required",
-                  "state": "State is required",
-                  "country": "Country is required",
-                  "lat": "Latitude is not valid",
-                  "lng": "Longitude is not valid",
-                  "name": "Name must be less than 50 characters",
-                  "description": "Description is required",
-                  "price": "Price per day is required"
-                }
-              }
-        )
-    };
+    const { address, city, state, country, lat, lng, name, description, price } = req.body
 
     if (!spot) {
         res.status(400);

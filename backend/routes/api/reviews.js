@@ -8,6 +8,16 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
+const validateReview = [
+    check("review")
+      .exists({ checkFalsy: true })
+      .withMessage("Review text is required"),
+    check("stars")
+      .exists({ checkFalsy: true })
+      .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors,
+  ];
+
 
 // Get all Reviews of the Current User
 router.get('/current', requireAuth, async (req, res) => {
@@ -26,11 +36,13 @@ router.get('/current', requireAuth, async (req, res) => {
               }
             },
             { model: ReviewImage, attributes: ['id', 'url'] },
-        ]
+        ],
+        raw: true,
+        nest: true
     });
     for (let i = 0; i < reviews.length; i++) {
-        const currentReview = reviews[i].toJSON();
-        currentReview.Spot.previewImage = currentReview.Spot.SpotImages[0].url;
+        const currentReview = reviews[i];
+        currentReview.Spot.previewImage = currentReview.Spot.SpotImages.url;
         delete currentReview.Spot.SpotImages;
 
         reviews[i] = currentReview
@@ -87,7 +99,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 })
 
 // Edit a Review
-router.put('/:reviewId', requireAuth, async (req, res) => {
+router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
     const updateReview = await Review.findByPk(req.params.reviewId)
     if(!updateReview) {
         res.status(404);
@@ -106,23 +118,28 @@ router.put('/:reviewId', requireAuth, async (req, res) => {
     }
 
     const { review, stars } = req.body;
-    try {
-        await updateReview.update({
-            review: review,
-            stars: stars,
-        })
-        res.json(updateReview)
-    } catch(err) {
-        res.status(400);
-        res.json({
-            "message": "Validation error",
-            "statusCode": 400,
-            "errors": {
-              "review": "Review text is required",
-              "stars": "Stars must be an integer from 1 to 5",
-            }
-        })
-    }
+    await updateReview.update({
+        review: review,
+        stars: stars,
+    })
+    res.json(updateReview)
+    // try {
+    //     await updateReview.update({
+    //         review: review,
+    //         stars: stars,
+    //     })
+    //     res.json(updateReview)
+    // } catch(err) {
+    //     res.status(400);
+    //     res.json({
+    //         "message": "Validation error",
+    //         "statusCode": 400,
+    //         "errors": {
+    //           "review": "Review text is required",
+    //           "stars": "Stars must be an integer from 1 to 5",
+    //         }
+    //     })
+    // }
 })
 
 // Delete a Review

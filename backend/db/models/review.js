@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         moreThanOneChar(review) {
-            if (review.length < 1) throw new Error('Review field cannot be empty!');
+            if (review.length < 1) throw new Error('Review text is required');
         }
     }
     },
@@ -39,8 +39,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isInt: true,
-        min: 1,
-        max: 5
+        isValidate(value) {
+          if (value < 1 || value > 5) throw new Error('Stars must be an integer from 1 to 5')
+        }
       }
     },
   }, {
