@@ -115,7 +115,7 @@ async function getAllSpots(ownerId) {
                 ]
             ]
         });
-        currentSpot.aveRating = aveRating[0].toJSON().avgRating;
+        currentSpot.avgRating = Number(aveRating[0].toJSON().avgRating).toFixed(1);
 
         // previewImages
         if (currentSpot.SpotImages.length > 0) {
@@ -221,7 +221,7 @@ router.get('/:spotId', async (req, res, next) => {
 
         const currentSpot = spot.toJSON();
         currentSpot.numReviews = numReviews;
-        currentSpot.aveStarRating = avgRating[0].toJSON().avgRating;
+        currentSpot.avgStarRating = Number(avgRating[0].toJSON().avgRating).toFixed(1);
 
         res.json(currentSpot)
     } else {
@@ -308,8 +308,8 @@ router.get('/', async (req, res, next) => {
                 ]
             ]
         });
-        const temaveRating = aveRating[0].toJSON().avgRating
-        currentSpot.aveRating = Number.parseFloat(temaveRating).toFixed(1);
+        const temavgRating = aveRating[0].toJSON().avgRating
+        currentSpot.avgRating = Number.parseFloat(temavgRating).toFixed(1);
 
         // previewImages
         if (currentSpot.SpotImages.length > 0) {
