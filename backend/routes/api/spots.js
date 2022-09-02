@@ -479,9 +479,15 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         nest: true
     })
 
+    const sameBooking = await Booking.findAll({
+        where: {spotId: req.params.spotId,
+                startDate: new Date(startDate),
+                endDate: new Date(endDate)}
+    });
+    
     for (let i = 0; i < exsitedBooking.length; i++) {
         let currentBooking = exsitedBooking[i]
-        if (isDateIntersection(startDate, endDate, currentBooking.startDate, currentBooking.endDate)) {
+        if (sameBooking[0] || isDateIntersection(startDate, endDate, currentBooking.startDate, currentBooking.endDate)) {
 
             res.status(403);
             res.json({
