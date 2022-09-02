@@ -42,7 +42,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     lat: {
       type: DataTypes.DECIMAL,
-      unique: true,
       validate: {
         min: -90,
         max: 90
@@ -50,7 +49,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     lng: {
       type: DataTypes.DECIMAL,
-      unique: true,
       validate: {
         min: -180,
         max: 180
@@ -59,7 +57,6 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
     description: {
       type: DataTypes.STRING,
