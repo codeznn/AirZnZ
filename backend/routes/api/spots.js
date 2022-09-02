@@ -369,7 +369,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 
 
 // Create a Review for a Spot based on the Spot's id
-router.post('/:spotId/reviews', requireAuth, validateReview,async (req, res, next) => {
+router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
     const currentSpotId = parseInt(req.params.spotId);
     const spot = await Spot.findByPk(currentSpotId)
     if (!spot) {
@@ -397,6 +397,17 @@ router.post('/:spotId/reviews', requireAuth, validateReview,async (req, res, nex
     }
 
     const { review, stars } = req.body;
+    if (stars < 1 || stars > 5) {
+        res.status(400);
+        res.json({
+            "message": "Validation error",
+            "statusCode": 400,
+            "errors": {
+                "stars": "Stars must be an integer from 1 to 5",
+            }
+    })
+
+    }
     const newReview = await Review.create({
         userId: req.user.id,
         spotId: currentSpotId,

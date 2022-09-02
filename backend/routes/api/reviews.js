@@ -16,7 +16,8 @@ const validateReview = [
       .exists({ checkFalsy: true })
       .withMessage("Stars must be an integer from 1 to 5"),
     handleValidationErrors,
-  ];
+];
+
 
 
 // Get all Reviews of the Current User
@@ -118,28 +119,25 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
     }
 
     const { review, stars } = req.body;
+    console.log(stars)
+    if (stars < 1 || stars > 5) {
+        res.status(400);
+        res.json({
+            "message": "Validation error",
+            "statusCode": 400,
+            "errors": {
+                "stars": "Stars must be an integer from 1 to 5",
+            }
+        })
+
+    };
+
     await updateReview.update({
         review: review,
         stars: stars,
     })
     res.json(updateReview)
-    // try {
-    //     await updateReview.update({
-    //         review: review,
-    //         stars: stars,
-    //     })
-    //     res.json(updateReview)
-    // } catch(err) {
-    //     res.status(400);
-    //     res.json({
-    //         "message": "Validation error",
-    //         "statusCode": 400,
-    //         "errors": {
-    //           "review": "Review text is required",
-    //           "stars": "Stars must be an integer from 1 to 5",
-    //         }
-    //     })
-    // }
+
 })
 
 // Delete a Review
