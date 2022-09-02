@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Review.belongsTo(models.Spot, { foreignKey: 'spotId'});
       Review.belongsTo(models.User, { foreignKey: 'userId'});
-      Review.hasMany(models.ReviewImage, { foreignKey: 'reviewId'});
+      Review.hasMany(models.ReviewImage, { foreignKey: 'reviewId', onDelete: 'CASCADE'});
     }
   }
   Review.init({
@@ -28,11 +28,17 @@ module.exports = (sequelize, DataTypes) => {
     review: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        moreThanOneChar(review) {
+            if (review.length < 1) throw new Error('Review field cannot be empty!');
+        }
+    }
     },
     stars: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
+        isInt: true,
         min: 1,
         max: 5
       }
