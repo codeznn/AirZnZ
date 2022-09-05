@@ -237,13 +237,35 @@ router.get('/:spotId', async (req, res, next) => {
 // Get all Spots
 router.get('/', async (req, res, next) => {
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
-    if (page > 10) page = 10;
-    if (size > 20) size = 20;
+    if (page < 0) {
+        res.status(400);
+        res.json({
+            "message": "Validation Error",
+            "statusCode": 400,
+            "page": "Page must be greater than or equal to 0",
+        })
+    };
+    if (size < 0) {
+        res.status(400);
+        res.json({
+            "message": "Validation Error",
+            "statusCode": 400,
+            "size": "Size must be greater than or equal to 0",
+        })
+    }
+    let paginationReal = {}
     page = parseInt(page);
     size = parseInt(size);
 
-    if (isNaN(page)) page = 1;
-    if (isNaN(size)) size = 20;
+    if (!page || isNaN(page)) page = 1;
+    if (!size || isNaN(size)) size = 20;
+
+    paginationReal.limit = size
+    paginationReal.offset = size * (page - 1)
+
+
+
+
     let pagination = { options: [] };
     if (minLat) {
         pagination.options.push({
@@ -293,8 +315,7 @@ router.get('/', async (req, res, next) => {
             where: { preview: true },
             attributes: ["url"],
         },
-        limit: size,
-        offset: (page - 1) * size
+        ...paginationReal,
     })
 
     for (let i = 0; i < spots.length; i++) {
@@ -484,7 +505,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
                 startDate: new Date(startDate),
                 endDate: new Date(endDate)}
     });
-    
+
     for (let i = 0; i < exsitedBooking.length; i++) {
         let currentBooking = exsitedBooking[i]
         if (sameBooking[0] || isDateIntersection(startDate, endDate, currentBooking.startDate, currentBooking.endDate)) {
