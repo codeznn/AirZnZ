@@ -25,7 +25,7 @@ router.post('/', validateLogin, async (req, res, next) => {
 
     let user;
     user = await User.login({ credential, password });
-    
+
 
     if (!user) {
       // const err = new Error('Login failed');
@@ -59,12 +59,13 @@ router.delete('/', (_req, res) => {
 
 // Restore session user
 router.get('/', restoreUser, (req, res) => {
+  console.log("in the backend route")
   const { user } = req;
   if (user) {
     return res.json({
       user: user.toSafeObject()
     });
-  } else return res.json({});
+  } else return res.json(null);
 });
 
 
