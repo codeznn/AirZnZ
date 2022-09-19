@@ -69,7 +69,7 @@ export const restoreUser = () => async dispatch => {
   const data = await response.json();
   console.log("in restore thunk", data)
   //dispatch(setUser(data.newUser));
-  dispatch(setUser(data));
+  dispatch(setUser(data.user));
 
   return response;
 };
