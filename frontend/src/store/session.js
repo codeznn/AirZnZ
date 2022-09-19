@@ -31,7 +31,8 @@ export const signup = (user) => async (dispatch) => {
     }),
   });
   const data = await response.json();
-  //dispatch(setUser(data.user));
+  console.log("in signup thunk", data)
+  //dispatch(setUser(data.newUser));
   dispatch(setUser(data));
   return response;
 };
@@ -47,6 +48,7 @@ export const login = (user) => async (dispatch) => {
     }),
   });
   const data = await response.json();
+  console.log("in login thunk", data)
   dispatch(setUser(data.user));
 
   return response;
@@ -65,7 +67,8 @@ export const logout = () => async (dispatch) => {
 export const restoreUser = () => async dispatch => {
   const response = await csrfFetch('/api/session');
   const data = await response.json();
-  //dispatch(setUser(data.user));
+  console.log("in restore thunk", data)
+  //dispatch(setUser(data.newUser));
   dispatch(setUser(data));
 
   return response;
