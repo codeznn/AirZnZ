@@ -6,8 +6,10 @@ import './SpotDetails.css';
 
 const SpotDetails = () => {
     const { spotId } = useParams();
+    console.log(spotId)
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spots.singleSpot.spotData)
+    console.log('in spotdetails+++++', spot)
 
     useEffect(() => {
         dispatch(getOneSpot(+spotId))

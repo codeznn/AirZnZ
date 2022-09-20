@@ -6,12 +6,13 @@ import './SpotsItems.css'
 
 const SpotsItems = () => {
     const dispatch = useDispatch();
-    const spots = useSelector(state => (Object.values(state.spots.allSpots)))
-    console.log("in SpotsItems", spots)
+    const spotsObj = useSelector(state => (state.spots.allSpots))
+    //console.log("in SpotsItems------", spotsObj)
+    const spots = Object.values(spotsObj);
 
 
     useEffect(() => {
-        dispatch(getAllSpots)
+        dispatch(getAllSpots())
     }, [dispatch])
 
     if (!spots) return null;
@@ -20,7 +21,7 @@ const SpotsItems = () => {
             <div className="spots-wrapper">
                 { spots.map(spot => (
                     <div key={spot.id} className="spot-card">
-                        <SpotCard spor={spot} />
+                        <SpotCard spot={spot} />
                     </div>
                 )
                 )}

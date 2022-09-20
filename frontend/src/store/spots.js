@@ -44,11 +44,11 @@ export const removeSpot = (spotId) => {
 
 // getAllSpots thunk
 export const getAllSpots = () => async dispatch => {
-    const response = await fetch(`api/spots`);
+    const response = await csrfFetch(`api/spots`);
 
     if (response.ok) {
         const data = await response.json();
-        console.log('in getAllSpots thunk++++++', data)
+        //console.log('in getAllSpots thunk++++++', data)
         dispatch(loadAllSpots(data.Spots))
         return data
     }
@@ -57,11 +57,10 @@ export const getAllSpots = () => async dispatch => {
 // getOneSpot thunk
 export const getOneSpot = (spotId) => async dispatch => {
     const response = await csrfFetch(`api/spots/${spotId}`)
-    console.log('in getOneSpot thunk------', response)
-
     if (response.ok) {
         const data = await response.json();
         dispatch(loadOneSpot(data))
+        console.log('in getOneSpot thunk------', data)
         return data
     } else {
         console.log("errors in getOneSpot thunk")
@@ -137,10 +136,12 @@ const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_ALL_SPOTS:
             newState = { ...state, allSpots: { ...action.spots } };
+            //console.log("in reducer", newState)
             return newState;
-        // case LOAD_ONE_SPOT:
-        //     newState = { ...state.singleSpot, spotData: { ...action.spot } };
-        //     return newState;
+        case LOAD_ONE_SPOT:
+            newState = { ...state.singleSpot, spotData: { ...action.spot } };
+            console.log("in reducer----", newState)
+            return newState;
         // case REMOVE_SPOT:
         //     newState = {...state};
         //     delete newState.allSpots[action.spotId];
