@@ -8,6 +8,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import SpotsItems from "./components/SpotsItems";
 import SpotDetails from "./components/SpotDetails";
+import CreateSpot from "./components/CreateSpotForm";
 
 
 function App() {
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route  path='/spots/:spotId'>
             <SpotDetails />
+          </Route>
+          <Route path='/createspot'>
+            <CreateSpot />
           </Route>
 
         </Switch>

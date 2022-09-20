@@ -67,7 +67,7 @@ export const logout = () => async (dispatch) => {
 export const restoreUser = () => async dispatch => {
   const response = await csrfFetch('/api/session');
   const data = await response.json();
-  console.log("in restore thunk", data)
+  //console.log("in restore thunk", data)
   //dispatch(setUser(data.newUser));
   dispatch(setUser(data.user));
 

@@ -423,9 +423,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         res.json({
             "message": "Validation error",
             "statusCode": 400,
-            "errors": {
-                "stars": "Stars must be an integer from 1 to 5",
-            }
+            "errors": ["Stars must be an integer from 1 to 5"]
     })
 
     }

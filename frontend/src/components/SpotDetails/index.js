@@ -9,8 +9,8 @@ const SpotDetails = () => {
     //console.log(+spotId)
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spots.singleSpot)
-    const img = spot.SpotImages.map(img => img.url)
-    console.log('in spotdetails+++++', img)
+    const img = spot.SpotImages
+    //console.log('in spotdetails+++++', spot)
 
     useEffect(() => {
         dispatch(getOneSpot(+spotId))
@@ -29,11 +29,9 @@ const SpotDetails = () => {
                 <span className="single-spot-address">{spot.city}, {spot.state}, {spot.country}</span>
             </div>
             <div className="single-spot-imgs">
-                {/* {spot.spotImages.map(img => (
-                    <img  src={img.url} alt={img.url} className='spot-details--img'/>
-                )
-                )} */}
-                <img src={img}/>
+                {spot.SpotImages.map(img => (
+                    <img key={img.url} src={img.url} alt={img.name}/>
+                ))}
             </div>
             <div className="single-spot-description">
                 {spot.description}

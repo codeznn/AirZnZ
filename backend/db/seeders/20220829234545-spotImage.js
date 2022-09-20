@@ -14,9 +14,30 @@ module.exports = {
     await queryInterface.bulkInsert('SpotImages', [
       {
         spotId: 1,
+        url:'https://herebnb-seeds.s3.amazonaws.com/dining4.jpg',
+        preview: true
+      },
+      {
+        spotId: 1,
         url: 'https://herebnb-seeds.s3.amazonaws.com/living6.jpg',
         preview: true
       },
+      {
+        spotId: 1,
+        url: 'https://herebnb-seeds.s3.amazonaws.com/living3.jpg',
+        preview: true
+      },
+      {
+        spotId: 1,
+        url: 'https://herebnb-seeds.s3.amazonaws.com/living2.jpg',
+        preview: true
+      },
+      {
+        spotId: 1,
+        url:'https://herebnb-seeds.s3.amazonaws.com/dining10.jpg',
+        preview: true
+      },
+      
       {
         spotId: 2,
         url:'https://herebnb-seeds.s3.amazonaws.com/dining4.jpg',

@@ -82,19 +82,38 @@ export const deleteSpot = (spotId) => async dispatch => {
 
 // createSpot thunk
 export const createSpot = (spot) => async dispatch => {
-    const response = await csrfFetch(`api/spots`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(spot)
-    });
+    try {
+        const response = await csrfFetch(`/api/spots`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(spot)
+        });
 
-    if (response.ok) {
-        const newSpot = await response.json();
-        console.log('in createSpot thunk=======', newSpot);
-        dispatch(createOneSpot(newSpot))
-        return newSpot
-    } else {
-        console.log("errors in createSpot thunk")
+        console.log('in createSpot thunk********', response)
+        if (!response.ok) {
+            let error;
+            let errorJSON
+            error = await response.text();
+            try {
+                // Check if the error is JSON, i.e., from the Pokemon server. If so,
+                // don't throw error yet or it will be caught by the following catch
+                errorJSON = JSON.parse(error);
+            } catch {
+                // Case if server could not be reached
+                throw new Error(error);
+            }
+            throw new Error(error);
+
+          }
+
+            const newSpot = await response.json();
+            console.log('in createSpot thunk=======', newSpot);
+            dispatch(createOneSpot(newSpot))
+            return newSpot
+
+    } catch (error) {
+        let errorJSON = await error.json()
+        throw errorJSON
     }
 };
 
@@ -138,9 +157,10 @@ const spotsReducer = (state = initialState, action) => {
         //     newState = {...state};
         //     delete newState.allSpots[action.spotId];
         //     return newState;
-        // case CREATE_SPOT:
-        //     newState = { ...state, allSpots: { ...state.allSpots, [action.spot.id]: action.spot } };
-        //     return newState;
+        case CREATE_SPOT:
+            newState = { ...state, allSpots: { ...state.allSpots, [action.spot.id]: action.spot } };
+            console.log("in reducer----", newState)
+            return newState;
         // case UPDATE_SPOT:
         //     newState = { ...state, allSpots:{ [action.spot.id]: {...state[action.spot.id]}, ...action.spot} };
         //     return newState;
