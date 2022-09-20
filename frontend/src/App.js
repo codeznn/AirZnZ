@@ -25,7 +25,7 @@ function App() {
           <Route exact path='/'>
             <SpotsItems />
           </Route>
-          <Route exact path='/spots/:spotId'>
+          <Route  path='/spots/:spotId'>
             <SpotDetails />
           </Route>
 

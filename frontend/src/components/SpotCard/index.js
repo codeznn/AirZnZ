@@ -1,11 +1,9 @@
 import './SpotCard.css'
-import { Link } from 'react-router-dom'
 
 export default function SpotCard ({spot}) {
     return (
-        <div className='spot-link'>
 
-        <Link to={`/spots/${spot.id}`} >
+        <>
 
             <img src={spot.previewImages} alt={spot.name} className='spotcard-img'/>
 
@@ -24,11 +22,12 @@ export default function SpotCard ({spot}) {
                     {`$${spot.price} `}
                     <span>night</span>
                 </div>
-
             </div>
-        </Link>
+        </>
 
 
-    </div>
+
+
+
     )
 }

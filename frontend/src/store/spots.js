@@ -44,7 +44,7 @@ export const removeSpot = (spotId) => {
 
 // getAllSpots thunk
 export const getAllSpots = () => async dispatch => {
-    const response = await csrfFetch(`api/spots`);
+    const response = await fetch(`/api/spots`);
 
     if (response.ok) {
         const data = await response.json();
@@ -56,20 +56,19 @@ export const getAllSpots = () => async dispatch => {
 
 // getOneSpot thunk
 export const getOneSpot = (spotId) => async dispatch => {
-    const response = await csrfFetch(`api/spots/${spotId}`)
+    const response = await fetch(`/api/spots/${spotId}`)
+    //console.log('in reducer',spotId)
     if (response.ok) {
-        const data = await response.json();
-        dispatch(loadOneSpot(data))
-        console.log('in getOneSpot thunk------', data)
-        return data
-    } else {
-        console.log("errors in getOneSpot thunk")
+        const spot = await response.json();
+        //console.log('in getOneSpot thunk------', spot)
+        dispatch(loadOneSpot(spot))
+        return spot
     }
 };
 
 // deleteSpot thunk
 export const deleteSpot = (spotId) => async dispatch => {
-    const response = await csrfFetch(`api/spots/${spotId}`, {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'DELETE'
     });
     console.log('in deleteSpot thunk********', response)
@@ -101,7 +100,7 @@ export const createSpot = (spot) => async dispatch => {
 
 //updateSpot thunk
 export const updateSpot = (data) => async dispatch => {
-    const response = await csrfFetch(`api/spots/${data.id}`, {
+    const response = await csrfFetch(`/api/spots/${data.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -120,15 +119,8 @@ export const updateSpot = (data) => async dispatch => {
 
 
 const initialState = {
-    allSpots: {
-        // spotId: {},
-        //optionalOrderedList: [],
-    },
-    singleSpot: {
-    //     spotData: {},
-    //     SpotImages: [],
-    //     Owner: {},
-    },
+    allSpots: {},
+    singleSpot: {},
 }
 
 const spotsReducer = (state = initialState, action) => {
@@ -139,8 +131,8 @@ const spotsReducer = (state = initialState, action) => {
             //console.log("in reducer", newState)
             return newState;
         case LOAD_ONE_SPOT:
-            newState = { ...state.singleSpot, spotData: { ...action.spot } };
-            console.log("in reducer----", newState)
+            newState = { ...state, singleSpot: {...action.spot} };
+            //console.log("in reducer----", newState)
             return newState;
         // case REMOVE_SPOT:
         //     newState = {...state};

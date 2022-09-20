@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllSpots } from "../../store/spots";
+import { NavLink } from "react-router-dom";
 import SpotCard from "../SpotCard";
 import './SpotsItems.css'
 
@@ -21,7 +22,9 @@ const SpotsItems = () => {
             <div className="spots-wrapper">
                 { spots.map(spot => (
                     <div key={spot.id} className="spot-card">
-                        <SpotCard spot={spot} />
+                        <NavLink to={`/spots/${spot.id}`} className="link--spot">
+                            <SpotCard spot={spot} />
+                        </NavLink>
                     </div>
                 )
                 )}
