@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getOneSpot } from "../../store/spots";
+import { Link } from "react-router-dom";
 import './SpotDetails.css';
 
 const SpotDetails = () => {
@@ -35,6 +36,9 @@ const SpotDetails = () => {
             <div className="single-spot-description">
                 {spot.description}
             </div>
+            <Link to={`/spots/${spotId}/add-image`}>
+                Add SpotImages
+            </Link>
 
         </div>
     )

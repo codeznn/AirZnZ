@@ -475,7 +475,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     } else {
         res.status(403);
         res.json({
-        "message": "Forbidden",
+        "message": "You are not the owner",
         "statusCode": 403
         })
     }

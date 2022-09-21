@@ -5,6 +5,7 @@ const LOAD_ONE_SPOT = 'spots/loadonespot';
 const REMOVE_SPOT = 'spots/deletespot';
 const CREATE_SPOT = 'spots/createspot';
 const UPDATE_SPOT = 'spots/updatespot';
+const ADD_IMG = 'spots/addimg';
 
 export const loadAllSpots = (spots) => {
     return {
@@ -23,9 +24,16 @@ export const loadOneSpot = (spot) => {
 export const createOneSpot = (spot) => {
     return {
         type: CREATE_SPOT,
-        payload: spot
+        spot
     }
 };
+
+export const addImage = (imgData) => {
+    return {
+        type: ADD_IMG,
+        imgData
+    }
+}
 
 export const updateOneSpot = (spot) => {
     return {
@@ -107,6 +115,26 @@ export const createSpot = (spot) => async dispatch => {
       }
 };
 
+// addSpotImage thunk
+export const addSpotImage = (imgData, spotId) => async dispatch => {
+    const { url, preview } = imgData;
+    console.log('in addSpotImage thunk-imgDate///////', imgData);
+    const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ url, preview})
+    });
+
+    if (response.ok) {
+        const img = await response.json()
+        console.log('in addSpotImage thunk-img///////', img);
+        dispatch(addImage(img))
+        return img;
+    }
+}
+
 //updateSpot thunk
 export const updateSpot = (data) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${data.id}`, {
@@ -162,13 +190,15 @@ const spotsReducer = (state = initialState, action) => {
         //     delete newState.allSpots[action.spotId];
         //     return newState;
         case CREATE_SPOT:
-            newState={}
-            newState = { ...state, allSpots: { ...state.allSpots, [action.payload.id]: action.payload } };
-            console.log("in reducer----", newState)
+            newState = { ...state, allSpots: { ...state.allSpots, [action.spot.id]: action.spot } };
+            //console.log("in reducer----", newState)
             return newState;
         // case UPDATE_SPOT:
         //     newState = { ...state, allSpots:{ [action.spot.id]: {...state[action.spot.id]}, ...action.spot} };
         //     return newState;
+        case ADD_IMG:
+            newState = { ...state, singleSpot: { ...state.singleSpot, SpotImages:[action.imgData]}}
+            return newState;
         default:
             return state;
     }
