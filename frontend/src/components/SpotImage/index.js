@@ -11,7 +11,7 @@ const AddSpotImageForm = () => {
 
     const sessionUser = useSelector((state) => state.session.user.id);
     const currentOwner = useSelector((state) => state.spots.singleSpot.ownerId)
-    console.log('in AddSpotImageForm-sessionUser', sessionUser)
+    //console.log('in AddSpotImageForm-sessionUser', sessionUser)
 
     const [url, setUrl] = useState('');
     const [preview, setPreview] = useState(true);

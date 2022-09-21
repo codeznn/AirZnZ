@@ -10,6 +10,8 @@ import SpotsItems from "./components/SpotsItems";
 import SpotDetails from "./components/SpotDetails";
 import CreateSpot from "./components/CreateSpotForm";
 import AddSpotImageForm from "./components/SpotImage";
+import UpdateSpot from "./components/EditSpotForm";
+import UpdateSpotForm from "./components/EditSpotForm";
 
 
 function App() {
@@ -35,6 +37,9 @@ function App() {
           </Route>
           <Route path="/spots/:spotId/add-image">
             <AddSpotImageForm />
+          </Route>
+          <Route path="/spots/:spotId/edit">
+            <UpdateSpotForm />
           </Route>
 
         </Switch>

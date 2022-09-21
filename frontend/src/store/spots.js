@@ -118,7 +118,7 @@ export const createSpot = (spot) => async dispatch => {
 // addSpotImage thunk
 export const addSpotImage = (imgData, spotId) => async dispatch => {
     const { url, preview } = imgData;
-    console.log('in addSpotImage thunk-imgDate///////', imgData);
+    //console.log('in addSpotImage thunk-imgDate///////', imgData);
     const response = await csrfFetch(`/api/spots/${spotId}/images`, {
         method: 'POST',
         headers: {
@@ -129,28 +129,49 @@ export const addSpotImage = (imgData, spotId) => async dispatch => {
 
     if (response.ok) {
         const img = await response.json()
-        console.log('in addSpotImage thunk-img///////', img);
+        //console.log('in addSpotImage thunk-img///////', img);
         dispatch(addImage(img))
         return img;
     }
 }
 
 //updateSpot thunk
-export const updateSpot = (data) => async dispatch => {
-    const response = await csrfFetch(`/api/spots/${data.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    });
+export const updateSpot = (spot, spotId) => async dispatch => {
+    try {
+        const response = await csrfFetch(`/api/spots/${spotId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(spot)
+        });
 
-    if (response.ok) {
-        const updated = await response.json();
-        console.log('in createSpot thunk///////', updated);
-        dispatch(updateOneSpot(updated));
-        return updated;
-    } else {
-        console.log("errors in updateSpot thunk")
-    }
+        if (!response.ok) {
+          let error;
+          if (response.status === 404) {
+            error = await response.json();
+            return error;
+          } else {
+            let errorJSON;
+            error = await response.text();
+            console.log('in updataSpot thunk-error', error)
+            try {
+              errorJSON = JSON.parse(error);
+              console.log('in updataSpot thunk-errorJSON', errorJSON)
+            } catch {
+              console.log('in updataSpot thunk-error', error)
+              throw new Error(error);
+            }
+            console.log('in updataSpot thunk-errortitle&message', `${errorJSON.title}: ${errorJSON.message}`)
+            throw new Error(`${errorJSON.title}: ${errorJSON.message}`)
+          }
+        }
+
+        const newSpot = await response.json();
+        console.log('in updataSpot thunk-newSpot', newSpot)
+        dispatch(updateOneSpot(newSpot));
+        return newSpot;
+      } catch(error) {
+        throw error;
+      }
 }
 
 // deleteSpot thunk
@@ -193,9 +214,10 @@ const spotsReducer = (state = initialState, action) => {
             newState = { ...state, allSpots: { ...state.allSpots, [action.spot.id]: action.spot } };
             //console.log("in reducer----", newState)
             return newState;
-        // case UPDATE_SPOT:
-        //     newState = { ...state, allSpots:{ [action.spot.id]: {...state[action.spot.id]}, ...action.spot} };
-        //     return newState;
+        case UPDATE_SPOT:
+            newState = { ...state, allSpots:{ [action.spot.id]: {...state[action.spot.id]}, ...action.spot} };
+            //console.log("in reducer----", newState)
+            return newState;
         case ADD_IMG:
             newState = { ...state, singleSpot: { ...state.singleSpot, SpotImages:[action.imgData]}}
             return newState;

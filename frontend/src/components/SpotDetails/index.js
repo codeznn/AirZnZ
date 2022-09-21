@@ -39,6 +39,11 @@ const SpotDetails = () => {
             <Link to={`/spots/${spotId}/add-image`}>
                 Add SpotImages
             </Link>
+            <br></br>
+            <Link to={`/spots/${spotId}/edit`}>
+                Update Spot
+            </Link>
+
 
         </div>
     )
