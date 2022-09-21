@@ -23,7 +23,7 @@ const SpotsItems = () => {
                 { spots.map(spot => (
                     <div key={spot.id} className="spot-card">
                         <NavLink to={`/spots/${spot.id}`} className="link--spot">
-                            <SpotCard spot={spot} />
+                            <SpotCard key={spot.id}spot={spot} />
                         </NavLink>
                     </div>
                 )

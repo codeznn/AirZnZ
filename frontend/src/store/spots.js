@@ -23,7 +23,7 @@ export const loadOneSpot = (spot) => {
 export const createOneSpot = (spot) => {
     return {
         type: CREATE_SPOT,
-        spot
+        payload: spot
     }
 };
 
@@ -66,55 +66,45 @@ export const getOneSpot = (spotId) => async dispatch => {
     }
 };
 
-// deleteSpot thunk
-export const deleteSpot = (spotId) => async dispatch => {
-    const response = await csrfFetch(`/api/spots/${spotId}`, {
-        method: 'DELETE'
-    });
-    console.log('in deleteSpot thunk********', response)
-
-    if (response.ok) {
-        dispatch(removeSpot(spotId))
-    } else {
-        console.log("errors in removeSpot thunk")
-    }
-}
-
 // createSpot thunk
 export const createSpot = (spot) => async dispatch => {
     try {
         const response = await csrfFetch(`/api/spots`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(spot)
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(spot)
         });
 
-        console.log('in createSpot thunk********', response)
         if (!response.ok) {
-            let error;
-            let errorJSON
+          let error;
+          if (response.status === 404) {
+            error = await response.json();
+            return error;
+          } else {
+            let errorJSON;
             error = await response.text();
+            console.log('in creatOneSpot thunk-error', error)
             try {
-                // Check if the error is JSON, i.e., from the Pokemon server. If so,
-                // don't throw error yet or it will be caught by the following catch
-                errorJSON = JSON.parse(error);
+              errorJSON = JSON.parse(error);
+              console.log('in creatOneSpot thunk-errorJSON', errorJSON)
             } catch {
-                // Case if server could not be reached
-                throw new Error(error);
+              console.log('in creatOneSpot thunk-error', error)
+              throw new Error(error);
             }
-            throw new Error(error);
-
+            console.log('in creatOneSpot thunk-errortitle&message', `${errorJSON.title}: ${errorJSON.message}`)
+            throw new Error(`${errorJSON.title}: ${errorJSON.message}`)
           }
+        }
 
-            const newSpot = await response.json();
-            console.log('in createSpot thunk=======', newSpot);
-            dispatch(createOneSpot(newSpot))
-            return newSpot
-
-    } catch (error) {
-        let errorJSON = await error.json()
-        throw errorJSON
-    }
+        const newSpot = await response.json();
+        console.log('in creatOneSpot thunk-newSpot', newSpot)
+        dispatch(createOneSpot(newSpot));
+        return newSpot;
+      } catch(error) {
+        throw error;
+      }
 };
 
 //updateSpot thunk
@@ -132,6 +122,20 @@ export const updateSpot = (data) => async dispatch => {
         return updated;
     } else {
         console.log("errors in updateSpot thunk")
+    }
+}
+
+// deleteSpot thunk
+export const deleteSpot = (spotId) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'DELETE'
+    });
+    console.log('in deleteSpot thunk********', response)
+
+    if (response.ok) {
+        dispatch(removeSpot(spotId))
+    } else {
+        console.log("errors in removeSpot thunk")
     }
 }
 
@@ -158,7 +162,8 @@ const spotsReducer = (state = initialState, action) => {
         //     delete newState.allSpots[action.spotId];
         //     return newState;
         case CREATE_SPOT:
-            newState = { ...state, allSpots: { ...state.allSpots, [action.spot.id]: action.spot } };
+            newState={}
+            newState = { ...state, allSpots: { ...state.allSpots, [action.payload.id]: action.payload } };
             console.log("in reducer----", newState)
             return newState;
         // case UPDATE_SPOT:

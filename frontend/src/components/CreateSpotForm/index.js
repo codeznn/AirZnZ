@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { createOneSpot } from '../../store/spots';
+import { createSpot } from '../../store/spots';
 import './CreateSpotForm.css'
 
 const CreateSpot = () => {
@@ -22,42 +22,18 @@ const CreateSpot = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const payload = {
-            address,
-            city,
-            state,
-            country,
-            lat,
-            lng,
-            name,
-            description,
-            price,
-        }
+        const payload = { address, city, state, country, lat, lng, name, description, price,}
+        console.log(payload)
+        dispatch(createSpot(payload)).catch(async (res) => {
+            const message = await res.json();
+            console.log('in CreatSpotForm-message', message)
+            if (message && message.errors) setErrors(message.errors);
+            console.log('in CreatSpotForm-errors', errors)
+        });
 
-        let createdSpot;
-        try {
-            createdSpot = await dispatch(createOneSpot(payload))
-        } catch (error) {
-            console.log(error)
-            if (error) setErrors(error.errors);
-            // If error is not a ValidationError, add slice at the end to remove extra
-            // "Error: "
-            else setErrors({ overall: error.toString().slice(7) })
-        }
+        //return history.push('/');
 
-        if (createdSpot) {
-            setAddress('')
-            setCity('')
-            setState('')
-            setCountry('')
-            setLat('')
-            setLng('')
-            setName('')
-            setDescription('')
-            setPrice('')
-            setErrors([])
-            history.push(`/`)
-        }
+
     }
 
     return (
@@ -67,13 +43,9 @@ const CreateSpot = () => {
                 <h1>Create A New Spot</h1>
 
                 <div className='create-spot-errors'>
-                    {/* {errors.length > 0 && (
-                        <ul className='create-spot-errorlist' key={errors}>
-                            {errors.map(error => (
-                                <li className='create-spot-error' key={error}>{error}</li>
-                            ))}
-                        </ul>
-                    )} */}
+                    <ul>
+                        {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>
                 </div>
 
                 <form className='create-spot-form' onSubmit={handleSubmit}>
@@ -83,6 +55,7 @@ const CreateSpot = () => {
                             <input
                                 type="text"
                                 value={address}
+                                required
                                 onChange={(e) => setAddress(e.target.value)}
                             />
                         </label>
@@ -94,6 +67,7 @@ const CreateSpot = () => {
                             <input
                                 type="text"
                                 value={city}
+                                required
                                 onChange={(e) => setCity(e.target.value)}
                             />
                         </label>
@@ -105,6 +79,7 @@ const CreateSpot = () => {
                             <input
                                 type="text"
                                 value={state}
+                                required
                                 onChange={(e) => setState(e.target.value)}
                             />
                         </label>
@@ -114,9 +89,9 @@ const CreateSpot = () => {
                         <label>
                             Country:
                             <input
-                                id='country'
                                 type="text"
                                 value={country}
+                                required
                                 onChange={(e) => setCountry(e.target.value)}
                             />
                         </label>
@@ -128,6 +103,7 @@ const CreateSpot = () => {
                             <input
                                 type="text"
                                 value={lat}
+                                required
                                 onChange={(e) => setLat(e.target.value)}
                             />
                         </label>
@@ -139,6 +115,7 @@ const CreateSpot = () => {
                             <input
                                 type="text"
                                 value={lng}
+                                required
                                 onChange={(e) => setLng(e.target.value)}
                             />
                         </label>
@@ -150,6 +127,7 @@ const CreateSpot = () => {
                             <input
                                 type="text"
                                 value={name}
+                                required
                                 onChange={(e) => setName(e.target.value)}
                             />
                         </label>
@@ -161,6 +139,7 @@ const CreateSpot = () => {
                             <input
                                 type="text"
                                 value={description}
+                                required
                                 onChange={(e) => setDescription(e.target.value)}
                             />
                         </label>
@@ -172,6 +151,7 @@ const CreateSpot = () => {
                             <input
                                 type="text"
                                 value={price}
+                                required
                                 onChange={(e) => setPrice(e.target.value)}
                             />
                         </label>

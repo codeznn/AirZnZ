@@ -29,7 +29,7 @@ function App() {
           <Route  path='/spots/:spotId'>
             <SpotDetails />
           </Route>
-          <Route path='/createspot'>
+          <Route path='/new-spot'>
             <CreateSpot />
           </Route>
 

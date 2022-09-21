@@ -32,31 +32,42 @@ function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => (
-          <li key={idx}>{error}</li>
-        ))}
-      </ul>
-      <label>
-        Username or Email
-        <input
-          type="text"
-          value={credential}
-          onChange={(e) => setCredential(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Password
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      <button type="submit">Log In</button>
+    <form className="form" onSubmit={handleSubmit}>
+      <div className="Login_Airbnb_logo">
+        <i className="fa-brands fa-airbnb">Airznz</i>
+      </div>
+      <div className="login_error_container">
+        <ul>
+          {errors.map((error, idx) => (
+            <li key={idx}>{error}</li>
+          ))}
+        </ul>
+      </div>
+      <div className="Login_Container">
+        <div className="Username_Email">
+          <label>
+            Username or Email
+            <input className="input_1"
+              type="text"
+              value={credential}
+              onChange={(e) => setCredential(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+        <div className="Password">
+          <label>
+            Password
+            <input className="input_1"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+      </div>
+      <button className="login_login" type="submit">Log In</button>
       <button className="styledButton" onClick={handleDemoUser}>Demo User</button>
     </form>
   );

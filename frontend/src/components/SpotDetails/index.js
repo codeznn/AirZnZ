@@ -9,14 +9,13 @@ const SpotDetails = () => {
     //console.log(+spotId)
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spots.singleSpot)
-    const img = spot.SpotImages
     //console.log('in spotdetails+++++', spot)
 
     useEffect(() => {
         dispatch(getOneSpot(+spotId))
     }, [dispatch, spotId])
 
-    if (!spot) return null;
+    if (!Object.keys(spot).length) return null;
 
     return (
         <div className="single-spot-wrapper">
