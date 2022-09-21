@@ -182,9 +182,9 @@ export const deleteSpot = (spotId) => async dispatch => {
     console.log('in deleteSpot thunk********', response)
 
     if (response.ok) {
-        dispatch(removeSpot(spotId))
-    } else {
-        console.log("errors in removeSpot thunk")
+        dispatch(removeSpot(spotId));
+        const successMsg = await response.json();
+        return successMsg;
     }
 }
 
@@ -206,10 +206,10 @@ const spotsReducer = (state = initialState, action) => {
             newState = { ...state, singleSpot: {...action.spot} };
             //console.log("in reducer----", newState)
             return newState;
-        // case REMOVE_SPOT:
-        //     newState = {...state};
-        //     delete newState.allSpots[action.spotId];
-        //     return newState;
+        case REMOVE_SPOT:
+            newState = {...state};
+            delete newState.allSpots[action.spotId];
+            return newState;
         case CREATE_SPOT:
             newState = { ...state, allSpots: { ...state.allSpots, [action.spot.id]: action.spot } };
             //console.log("in reducer----", newState)
