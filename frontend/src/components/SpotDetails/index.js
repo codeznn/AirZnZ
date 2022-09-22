@@ -20,13 +20,23 @@ const SpotDetails = () => {
     const currentOwner = useSelector((state) => state.spots.singleSpot.ownerId || false)
     const spot = useSelector(state => state.spots.singleSpot)
     const reviews = useSelector(state => state.reviews.spot)
-    reviews.map(ele => {
-        console.log('ele', ele.review)
-    })
+    // const review = reviews.map(ele => {
+    //     if (ele.userId === sessionUser) {
+    //         return ele
+    //     }
+    // })
+    // const reviewId = review.id
+    let reviewId
+
+
+    // reviews.map(ele => {
+    //     console.log('ele', ele.User.id)
+    // })
     // console.log('in spotdetails+++++', spot)
-    // console.log('in spotdetails+++++', sessionUser)
-    console.log('in spotdetails+++++', reviews)
-    console.log('in spotdetails+++++', currentOwner)
+    console.log('in spotdetails+++++reviewId', reviews)
+    console.log('in spotdetails+++++sessionUser', sessionUser)
+    // console.log('in spotdetails+++++', reviews)
+    // console.log('in spotdetails+++++', currentOwner)
 
     useEffect(() => {
         dispatch(getOneSpot(+spotId))
@@ -42,7 +52,7 @@ const SpotDetails = () => {
 
     const reviewhandleClick= async() => {
 
-        await dispatch(deleteReview(spotId))
+        await dispatch(deleteReview(+reviewId))
         history.replace('/')
     }
     const spothandleClick= async() => {
@@ -78,9 +88,23 @@ const SpotDetails = () => {
             </div>
             <section> Reviews:
                 <br></br>
-                {reviews.map( ele => (
-                    <div key={ele}>{ele.review}</div>
-                ))}
+                <div>
+                    {reviews.map( ele => (
+                    <div key={ele}>
+                        <div>
+                        <i className="fa-solid fa-star"></i>{ele.stars}
+                        {ele.User.firstName}
+                        </div>
+                        <div>
+                        {ele.createdAt.slice(0,10)}
+                        </div>
+                        <div>
+                        {ele.review}
+                        </div>
+
+                    </div>
+                    ))}
+                </div>
             </section>
             {/* <Link to={`/spots/${spotId}/add-image`}>
                 Add SpotImages

@@ -150,13 +150,13 @@ router.delete('/:reviewId', requireAuth, async (req, res) => {
             "statusCode": 404
         })
     };
-    // if (deadReview.toJSON().userId !== req.user.id) {
-    //     res.status(403);
-    //     res.json({
-    //         "message": "Review not belong to current user",
-    //         "statusCode": 403
-    //     })
-    // }
+    if (deadReview.toJSON().userId !== req.user.id) {
+        res.status(403);
+        res.json({
+            "message": "Review not belong to current user",
+            "statusCode": 403
+        })
+    }
 
     await deadReview.destroy();
     res.json({

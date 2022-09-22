@@ -29,9 +29,9 @@ const CreateSpot = () => {
 
         dispatch(createSpot(payload)).then(async (res) => {
             console.log("res", res)
-            // const message = await res.json();
+            const message = await res.json();
 
-            // console.log('in CreatSpotForm-message', message)
+            console.log('in CreatSpotForm-message', message)
             if (res && res.errors) {
                 setErrors(res.errors);
                 console.log('in CreatSpotForm-errors', res.errors)
