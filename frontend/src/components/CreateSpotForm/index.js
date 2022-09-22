@@ -40,6 +40,7 @@ const CreateSpot = () => {
                 const imgData = { url, preview }
                 console.log('imgData', imgData)
                 dispatch(addSpotImage(imgData, res.id))}
+                //return history.push(`/spots/${res.id}`);
                 //.then(async(res) => {
                 //     const data =  res.json();
                 //     console.log("in create-spotImage", data)

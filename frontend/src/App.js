@@ -12,6 +12,7 @@ import CreateSpot from "./components/CreateSpotForm";
 import AddSpotImageForm from "./components/SpotImage";
 import UpdateSpot from "./components/EditSpotForm";
 import UpdateSpotForm from "./components/EditSpotForm";
+import CreateReviewForm from "./components/ReviewForm";
 
 
 function App() {
@@ -40,6 +41,9 @@ function App() {
           </Route> */}
           <Route path="/spots/:spotId/edit">
             <UpdateSpotForm />
+          </Route>
+          <Route path="/spots/:spotId/new-review">
+            <CreateReviewForm />
           </Route>
 
         </Switch>

@@ -526,12 +526,12 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         review,
         stars,
     });
-    const findNewReview = await Review.findOne({
-        where: { spotId: currentSpotId }
-    })
+    // const findNewReview = await Review.findOne({
+    //     where: { spotId: currentSpotId }
+    // })
 
-        res.status(201);
-        res.json(newReview)
+    //     res.status(201);
+    //     res.json(newReview)
 
 })
 
