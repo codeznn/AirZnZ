@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateSpot } from '../../store/spots';
 import { getOneSpot } from '../../store/spots';
 import { getAllSpots } from '../../store/spots';
+import { addSpotImage } from '../../store/spots';
 
 
 const UpdateSpotForm = () => {
@@ -12,16 +13,19 @@ const UpdateSpotForm = () => {
     const { spotId } = useParams();
     const sessionUser = useSelector((state) => state.session.user.id);
     const currentOwner = useSelector((state) => state.spots.singleSpot.ownerId)
+    const spot = useSelector((state) => state.spots.singleSpot)
 
-    const [address, setAddress] = useState('')
-    const [city, setCity] = useState('')
-    const [state, setState] = useState('')
-    const [country, setCountry] = useState('')
-    const [lat, setLat] = useState('')
-    const [lng, setLng] = useState('')
-    const [name, setName] = useState('')
-    const [description, setDescription] = useState('')
-    const [price, setPrice] = useState('')
+    const [address, setAddress] = useState(spot.address)
+    const [city, setCity] = useState(spot.city)
+    const [state, setState] = useState(spot.state)
+    const [country, setCountry] = useState(spot.country)
+    const [lat, setLat] = useState(spot.lat)
+    const [lng, setLng] = useState(spot.lng)
+    const [name, setName] = useState(spot.name)
+    const [description, setDescription] = useState(spot.description)
+    const [price, setPrice] = useState(spot.price)
+    const [url, setUrl] = useState(spot.SpotImages[0].url)
+    const [preview, setPreview] = useState(true);
     const [errors, setErrors] = useState([])
 
     useEffect(() => {
@@ -46,23 +50,31 @@ const UpdateSpotForm = () => {
 
         const payload = { address, city, state, country, lat, lng, name, description, price,}
         console.log(payload)
-        dispatch(updateSpot(payload, spotId)).catch(async (res) => {
-            const message = await res.json();
-            console.log('in updateSpotForm-message', message)
-            if (message && message.errors) setErrors(message.errors);
-            console.log('in updateSpotForm-errors', errors)
-        });
+        dispatch(updateSpot(payload, spotId)).then(async (res) => {
+            // const message = await res.json();
+            console.log('in updateSpotForm-message', res)
+            if (res && res.errors) {
+                setErrors(res.errors);
+                console.log('in updateSpotForm-errors', errors)
+            } else {
+                const imgData = { url, preview }
+                dispatch(addSpotImage(imgData, res.id))}
+            }
+
+        );
 
         //return history.push('/');
-
-
     }
+
+    const handleCancelClick = () => {
+        return history.push('/');
+    };
 
     return (
         <>
             <div className='create-spot-wrapper'>
 
-                <h1>Create A New Spot</h1>
+                <h1>Update Spot</h1>
 
                 <div className='create-spot-errors'>
                     <ul>
@@ -179,8 +191,28 @@ const UpdateSpotForm = () => {
                         </label>
                     </div>
 
-                    <div className='creat-spot-wrapper'>
-                        <button id='create-spot-button' type='submit'>Submit</button>
+                    <div className = 'url'>
+                        <label>
+                            Image:
+                            <input
+                                type="text"
+                                value={url}
+                                required
+                                onChange={(e) => setUrl(e.target.value)}
+                            />
+                        </label>
+                        <label>Preview Image:</label>
+                            <select onChange={e => setPreview(e.target.value)} value={preview}>
+                                <option key='true'>true</option>
+                                <option key='false'>false</option>
+                            </select>
+                    </div>
+
+
+
+                    <div className='update-spot-wrapper'>
+                        <button id='update-spot-button' type='submit'>Submit</button>
+                        <button type="button" onClick={handleCancelClick}>Cancel</button>
                     </div>
 
                 </form>

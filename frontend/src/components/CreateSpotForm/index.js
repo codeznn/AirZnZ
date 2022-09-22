@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { createSpot } from '../../store/spots';
+import { createSpot, addSpotImage } from '../../store/spots';
 import './CreateSpotForm.css'
 
 const CreateSpot = () => {
@@ -17,6 +17,8 @@ const CreateSpot = () => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
+    const [url, setUrl] = useState('')
+    const [preview, setPreview] = useState(true);
     const [errors, setErrors] = useState([])
 
     const handleSubmit = async (e) => {
@@ -24,17 +26,38 @@ const CreateSpot = () => {
 
         const payload = { address, city, state, country, lat, lng, name, description, price,}
         console.log(payload)
-        dispatch(createSpot(payload)).catch(async (res) => {
-            const message = await res.json();
-            console.log('in CreatSpotForm-message', message)
-            if (message && message.errors) setErrors(message.errors);
-            console.log('in CreatSpotForm-errors', errors)
+
+        dispatch(createSpot(payload)).then(async (res) => {
+            console.log("res", res)
+            // const message = await res.json();
+
+            // console.log('in CreatSpotForm-message', message)
+            if (res && res.errors) {
+                setErrors(res.errors);
+                console.log('in CreatSpotForm-errors', res.errors)
+            } else {
+                console.log("res.id", res.id)
+                const imgData = { url, preview }
+                console.log('imgData', imgData)
+                dispatch(addSpotImage(imgData, res.id))}
+                //.then(async(res) => {
+                //     const data =  res.json();
+                //     console.log("in create-spotImage", data)
+                //     if (data && data.errors) {
+                //         setErrors(data.errors)
+                //     } else {
+                //         return history.push('/');
+                //     }
+                //}))
+
         });
-
-        //return history.push('/');
-
-
     }
+
+    const handleCancelClick = () => {
+        return history.push('/');
+    };
+
+
 
     return (
         <>
@@ -156,9 +179,26 @@ const CreateSpot = () => {
                             />
                         </label>
                     </div>
+                    <div className = 'url'>
+                        <label>
+                            Image:
+                            <input
+                                type="text"
+                                value={url}
+                                required
+                                onChange={(e) => setUrl(e.target.value)}
+                            />
+                        </label>
+                        <label>Preview Image:</label>
+                            <select onChange={e => setPreview(e.target.value)} value={preview}>
+                                <option key='true'>true</option>
+                                <option key='false'>false</option>
+                            </select>
+                    </div>
 
                     <div className='creat-spot-wrapper'>
                         <button id='create-spot-button' type='submit'>Submit</button>
+                        <button type="button" onClick={handleCancelClick}>Cancel</button>
                     </div>
 
                 </form>

@@ -35,9 +35,9 @@ function App() {
           <Route path='/new-spot'>
             <CreateSpot />
           </Route>
-          <Route path="/spots/:spotId/add-image">
+          {/* <Route path="/spots/:spotId/add-image">
             <AddSpotImageForm />
-          </Route>
+          </Route> */}
           <Route path="/spots/:spotId/edit">
             <UpdateSpotForm />
           </Route>

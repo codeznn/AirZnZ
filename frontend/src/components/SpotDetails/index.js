@@ -9,13 +9,15 @@ import './SpotDetails.css';
 
 const SpotDetails = () => {
     const { spotId } = useParams();
-    //console.log(+spotId)
+    console.log(+spotId)
     const dispatch = useDispatch();
     const history = useHistory();
-    // const sessionUser = useSelector((state) => state.session.user.id);
-    // const currentOwner = useSelector((state) => state.spots.singleSpot.ownerId)
+    const sessionUser = useSelector((state) => state.session.user.id || true);
+    const currentOwner = useSelector((state) => state.spots.singleSpot.ownerId || false)
     const spot = useSelector(state => state.spots.singleSpot)
-    //console.log('in spotdetails+++++', spot)
+    console.log('in spotdetails+++++', spot)
+    console.log('in spotdetails+++++', sessionUser)
+    console.log('in spotdetails+++++', currentOwner)
 
     useEffect(() => {
         dispatch(getOneSpot(+spotId))
@@ -57,16 +59,22 @@ const SpotDetails = () => {
             <div className="single-spot-description">
                 {spot.description}
             </div>
-            <Link to={`/spots/${spotId}/add-image`}>
+            {/* <Link to={`/spots/${spotId}/add-image`}>
                 Add SpotImages
-            </Link>
+            </Link> */}
             <br></br>
             <Link to={`/spots/${spotId}/edit`}>
-                Update Spot
+                <button>Update Spot</button>
             </Link>
+            <div>
+                {currentOwner === sessionUser
+                ?
+                <button onClick={handleClick}>Delete Spot</button>
+                : null
+                }
+            </div>
             <br></br>
 
-            <button onClick={handleClick}>Delete Spot</button>
 
 
 

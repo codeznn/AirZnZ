@@ -75,7 +75,7 @@ const validateQuery = [
     check('price')
       .notEmpty()
       .isDecimal()
-      .withMessage('Price per day is required'),
+      .withMessage('Price should be Decimal'),//'Price per day is required'),
     handleValidationErrors
   ];
 
