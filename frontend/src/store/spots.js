@@ -127,22 +127,22 @@ export const createSpot = (spot) => async dispatch => {
     //     dispatch(createOneSpot(newSpot));
     //     return newSpot;
     // };
-    const {url, preview} = imgData
-    console.log('in addSpotImage thunk-imgDate///////', { url, preview });
-    const response = await csrfFetch(`/api/spots/${spotId}/images`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ url, preview})
-    });
+    // const {url, preview} = imgData
+    // console.log('in addSpotImage thunk-imgDate///////', { url, preview });
+    // const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({ url, preview})
+    // });
 
-    if (response.ok) {
-        const img = await response.json()
-        console.log('in addSpotImage thunk-img///////', img);
-        dispatch(addImage(img))
-        return img;
-    }
+    // if (response.ok) {
+    //     const img = await response.json()
+    //     console.log('in addSpotImage thunk-img///////', img);
+    //     dispatch(addImage(img))
+    //     return img;
+    // }
 }
 
 // addSpotImage thunk
