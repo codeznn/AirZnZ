@@ -66,8 +66,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
         })
     };
     if (review.toJSON().userId !== req.user.id) {
-        res.status(403);
-        res.json({
+        return res.status(403).json({
             "message": "Review not belong to current user",
             "statusCode": 403
         })
@@ -79,8 +78,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
     })
 
     if (reviewImages.length >= 10) {
-        res.status(403);
-        res.json({
+        return res.status(403).json({
             "message": "Maximum number of images for this resource was reached",
             "statusCode": 403
         })
@@ -111,8 +109,7 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
     };
 
     if (updateReview.toJSON().userId !== req.user.id) {
-        res.status(403);
-        res.json({
+        return res.status(403).json({
             "message": "Review not belong to current user",
             "statusCode": 403
         })
@@ -151,8 +148,7 @@ router.delete('/:reviewId', requireAuth, async (req, res) => {
         })
     };
     if (deadReview.toJSON().userId !== req.user.id) {
-        res.status(403);
-        res.json({
+        return res.status(403).json({
             "message": "Review not belong to current user",
             "statusCode": 403
         })

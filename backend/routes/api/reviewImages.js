@@ -21,8 +21,7 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
     };
     const review = await Review.findByPk(deadImage.toJSON().reviewId)
     if (review.toJSON().userId !== req.user.id) {
-        res.status(403);
-        res.json({
+        return res.status(403).json({
             "message": "Review Image not belong to current user",
             "statusCode": 403
         })

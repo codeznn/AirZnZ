@@ -473,8 +473,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 
         res.json(newImage)
     } else {
-        res.status(403);
-        res.json({
+        return res.status(403).json({
         "message": "You are not the owner",
         "statusCode": 403
         })
@@ -503,11 +502,12 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
             },
     })
     if (userReview) {
-        res.status(403);
-        res.json({
+
+        return res.status(403).json({
             "message": "User already has a review for this spot",
             "statusCode": 403
         })
+
     }
 
     const { review, stars } = req.body;
@@ -526,12 +526,12 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         review,
         stars,
     });
-    // const findNewReview = await Review.findOne({
-    //     where: { spotId: currentSpotId }
-    // })
+    const findNewReview = await Review.findOne({
+        where: { spotId: currentSpotId }
+    })
 
-    //     res.status(201);
-    //     res.json(newReview)
+        res.status(201);
+        res.json(newReview)
 
 })
 
@@ -564,8 +564,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     };
 
     if (spot.toJSON().ownerId === req.user.id) {
-        res.status(403);
-        res.json({
+        return res.status(403).json({
             "message": "Spot must NOT belong to the current user",
             "statusCode": 403
         })
@@ -601,8 +600,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         let currentBooking = exsitedBooking[i]
         if (sameBooking[0] || isDateIntersection(startDate, endDate, currentBooking.startDate, currentBooking.endDate)) {
 
-            res.status(403);
-            res.json({
+            return res.status(403).json({
                 "message": "Sorry, this spot is already booked for the specified dates",
                 "statusCode": 403,
                 "errors": {
@@ -651,8 +649,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     }
 
     if (spot.toJSON().ownerId !== req.user.id) {
-        res.status(403);
-        res.json({
+        return res.status(403).json({
             "message": "Spot not belong to current user",
             "statusCode": 403
         })
@@ -679,8 +676,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
         })
     }
     if (deadSpot.toJSON().ownerId !== req.user.id) {
-        res.status(403);
-        res.json({
+        return res.status(403).json({
             "message": "Spot not belong to current user",
             "statusCode": 403
         })

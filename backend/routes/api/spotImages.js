@@ -21,8 +21,7 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
     };
     const spot = await Spot.findByPk(deadImage.toJSON().spotId)
     if (spot.toJSON().ownerId !== req.user.id) {
-        res.status(403);
-        res.json({
+        return res.status(403).json({
             "message": "Spot Image not belong to current user",
             "statusCode": 403
         })

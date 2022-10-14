@@ -113,7 +113,37 @@ export const createSpot = (spot) => async dispatch => {
       } catch(error) {
         throw error;
       }
-};
+    // const response = await csrfFetch(`/api/spots`, {
+    //     method: 'POST',
+    //     headers: {
+    //     'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(spot)
+    //     });
+
+    // if (response.ok) {
+    //     const newSpot = await response.json();
+    //     console.log('in creatOneSpot thunk-newSpot', newSpot)
+    //     dispatch(createOneSpot(newSpot));
+    //     return newSpot;
+    // };
+    const {url, preview} = imgData
+    console.log('in addSpotImage thunk-imgDate///////', { url, preview });
+    const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ url, preview})
+    });
+
+    if (response.ok) {
+        const img = await response.json()
+        console.log('in addSpotImage thunk-img///////', img);
+        dispatch(addImage(img))
+        return img;
+    }
+}
 
 // addSpotImage thunk
 export const addSpotImage = (imgData, spotId) => async dispatch => {

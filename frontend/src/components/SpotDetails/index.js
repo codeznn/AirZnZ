@@ -130,7 +130,7 @@ const SpotDetails = () => {
                 {currentOwner === sessionUser
                 ?
                 <Link to={`/spots/${spotId}/edit`}>
-                <button>Update Spot</button>
+                <button>Edit Spot</button>
                 </Link>
                 : null
                 }

@@ -54,19 +54,21 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
     };
     const userId = updateBooking.toJSON().userId
     if ( userId !== req.user.id) {
-        res.status(403);
-        res.json({
+        return res.status(403).json(
+            {
             "message": "Booking not belong to current user",
             "statusCode": 403
-        })
+            }
+        )
     }
     const existedendDate = updateBooking.toJSON().endDate;
     if (Date.parse(existedendDate) < Date.now ()) {
-        res.status(403);
-        res.json({
+        return res.status(403).json(
+            {
             "message": "Past bookings can't be modified",
             "statusCode": 403
-        })
+            }
+        )
     }
 
     const { startDate, endDate } = req.body;
@@ -103,16 +105,16 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
         })
     };
     if (deadBooking.toJSON().userId !== req.user.id) {
-        res.status(403);
-        res.json({
+        return res.status(403).json(
+            {
             "message": "Booking not belong to current user",
             "statusCode": 403
-        })
+            }
+        )
     }
     const startDate = deadBooking.toJSON().startDate;
     if ( Date.parse (startDate) < Date.now()) {
-        res.status(403);
-        res.json({
+        return res.status(403).json({
             "message": "Bookings that have been started can't be deleted",
             "statusCode": 403
         })
