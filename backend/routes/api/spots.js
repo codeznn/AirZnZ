@@ -75,7 +75,7 @@ const validateQuery = [
     check('price')
       .notEmpty()
       .isDecimal()
-      .withMessage('Price per day is required'),
+      .withMessage('Price should be Decimal'),//'Price per day is required'),
     handleValidationErrors
   ];
 
@@ -237,118 +237,211 @@ router.get('/:spotId', async (req, res, next) => {
 // Get all Spots
 router.get('/', async (req, res, next) => {
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
-    if (page < 0) {
-        res.status(400);
-        res.json({
-            "message": "Validation Error",
-            "statusCode": 400,
-            "page": "Page must be greater than or equal to 0",
-        })
-    };
-    if (size < 0) {
-        res.status(400);
-        res.json({
-            "message": "Validation Error",
-            "statusCode": 400,
-            "size": "Size must be greater than or equal to 0",
-        })
+    if (!size) { size = 20 };
+    if (!page) { page = 1 };
+
+    let pagination = {};
+    if (page >= 1 && size >= 1 && page <= 10 && size <= 20) {
+        pagination.limit = size;
+        pagination.offset = size * (page - 1);
+    } else {
+      pagination.limit = 20;
+      pagination.offset = 180;
     }
-    let paginationReal = {}
-    page = parseInt(page);
-    size = parseInt(size);
 
-    if (!page || isNaN(page)) page = 1;
-    if (!size || isNaN(size)) size = 20;
-
-    paginationReal.limit = size
-    paginationReal.offset = size * (page - 1)
-
-
-
-
-    let pagination = { options: [] };
-    if (minLat) {
-        pagination.options.push({
+    let queryOptions = [];
+      if (minLat) {
+        queryOptions.push({
           lat: { [Op.gte]: Number(minLat) },
         });
       }
 
       if (maxLat) {
-        pagination.options.push({
+        queryOptions.push({
           lat: { [Op.lte]: Number(maxLat) },
         });
       }
 
       if (minLng) {
-        pagination.options.push({
+        queryOptions.push({
           lng: { [Op.gte]: Number(minLng) },
         });
       }
 
       if (maxLng) {
-        pagination.options.push({
+        queryOptions.push({
           lat: { [Op.lte]: Number(maxLng) },
         });
       }
 
       if (minPrice) {
-        pagination.options.push({
+        queryOptions.push({
           price: { [Op.gte]: Number(minPrice) },
         });
       }
 
       if (maxPrice) {
-        pagination.options.push({
+        queryOptions.push({
           price: { [Op.lte]: Number(maxPrice) },
         });
       };
 
+    let allSpots = await Spot.findAll({
+      where: {
+        [Op.and]: queryOptions,
+      },
+       ...pagination
+    });
 
+    let spotsArr = []
 
+    for(let i = 0; i< allSpots.length; i++){
+      let spotObj = allSpots[i].toJSON();
+      let currentId = allSpots[i].id;
 
-    const spots = await Spot.findAll({
-        where: {
-            [Op.and]: pagination.options,
-        },
-        include: {
-            model: SpotImage,
-            where: { preview: true },
-            attributes: ["url"],
-        },
-        ...paginationReal,
-    })
+      let avgRating = await Review.findByPk(currentId, {
+          attributes: [[sequelize.fn('AVG', sequelize.col("stars")), 'avgRating']]
+      })
+      const rawAvgRating = avgRating.dataValues.avgRating;
+      spotObj.avgRating = Number.parseInt(rawAvgRating).toFixed(1);
 
-    for (let i = 0; i < spots.length; i++) {
-        const currentSpot = spots[i].toJSON();
-        let aveRating = await Review.findAll({
-            where: { spotId: currentSpot.id},
-            attributes: [
-                [
-                    sequelize.fn("AVG", sequelize.col("stars")),
-                    "avgRating"
-                ]
-            ]
-        });
-        const temavgRating = aveRating[0].toJSON().avgRating
-        currentSpot.avgRating = Number.parseFloat(temavgRating).toFixed(1);
+      const previewImageUrl = await SpotImage.findAll({
+          where: { spotId: currentId, preview: true },
+          attributes: ['url'],
+          limit: 1
+      })
 
-        // previewImages
-        if (currentSpot.SpotImages.length > 0) {
-            currentSpot.previewImages = currentSpot.SpotImages[0].url;
-            delete currentSpot.SpotImages;
-        } else {
-            currentSpot.previewImages = null;
-            delete currentSpot.SpotImages;
-        }
-        spots[i] = currentSpot
+      if (previewImageUrl[0]) {
+        spotObj.previewImages = previewImageUrl[0].url
+      } else {
+        spotObj.previewImages = null;
+      }
+
+      spotsArr.push(spotObj)
     }
 
-    res.json({
-        "Spots": spots,
-        "page": page,
-        "size": size
+
+    return res.json({
+      Spots: spotsArr,
+      page,
+      size
     })
-});
+
+  })
+// router.get('/', async (req, res, next) => {
+//     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+//     if (page < 0) {
+//         res.status(400);
+//         res.json({
+//             "message": "Validation Error",
+//             "statusCode": 400,
+//             "page": "Page must be greater than or equal to 0",
+//         })
+//     };
+//     if (size < 0) {
+//         res.status(400);
+//         res.json({
+//             "message": "Validation Error",
+//             "statusCode": 400,
+//             "size": "Size must be greater than or equal to 0",
+//         })
+//     }
+//     let paginationReal = {}
+//     page = parseInt(page);
+//     size = parseInt(size);
+
+//     if (!page || isNaN(page)) page = 1;
+//     if (!size || isNaN(size)) size = 20;
+
+//     paginationReal.limit = size
+//     paginationReal.offset = size * (page - 1)
+
+
+
+
+//     let pagination = { options: [] };
+//     if (minLat) {
+//         pagination.options.push({
+//           lat: { [Op.gte]: Number(minLat) },
+//         });
+//       }
+
+//       if (maxLat) {
+//         pagination.options.push({
+//           lat: { [Op.lte]: Number(maxLat) },
+//         });
+//       }
+
+//       if (minLng) {
+//         pagination.options.push({
+//           lng: { [Op.gte]: Number(minLng) },
+//         });
+//       }
+
+//       if (maxLng) {
+//         pagination.options.push({
+//           lat: { [Op.lte]: Number(maxLng) },
+//         });
+//       }
+
+//       if (minPrice) {
+//         pagination.options.push({
+//           price: { [Op.gte]: Number(minPrice) },
+//         });
+//       }
+
+//       if (maxPrice) {
+//         pagination.options.push({
+//           price: { [Op.lte]: Number(maxPrice) },
+//         });
+//       };
+
+
+
+
+//     const spots = await Spot.findAll({
+//         where: {
+//             [Op.and]: pagination.options,
+//         },
+//         include: {
+//             model: SpotImage,
+//             where: { preview: true },
+//             attributes: ["url"],
+//         },
+//         ...paginationReal,
+//     })
+
+//     for (let i = 0; i < spots.length; i++) {
+//         const currentSpot = spots[i].toJSON();
+//         let aveRating = await Review.findAll({
+//             where: { spotId: currentSpot.id},
+//             attributes: [
+//                 [
+//                     sequelize.fn("AVG", sequelize.col("stars")),
+//                     "avgRating"
+//                 ]
+//             ]
+//         });
+//         const temavgRating = aveRating[0].toJSON().avgRating
+//         currentSpot.avgRating = Number.parseFloat(temavgRating).toFixed(1);
+
+//         // previewImages
+//         if (currentSpot.SpotImages.length > 0) {
+//             currentSpot.previewImages = currentSpot.SpotImages[0].url;
+//             delete currentSpot.SpotImages;
+//         } else {
+//             currentSpot.previewImages = null;
+//             delete currentSpot.SpotImages;
+//         }
+//         spots[i] = currentSpot
+//     }
+
+//     res.json({
+//         "Spots": spots,
+//         "page": page,
+//         "size": size
+//     })
+// });
 
 // Add an Image to a Spot based on the Spot's id
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
@@ -380,9 +473,8 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 
         res.json(newImage)
     } else {
-        res.status(403);
-        res.json({
-        "message": "Forbidden",
+        return res.status(403).json({
+        "message": "You are not the owner",
         "statusCode": 403
         })
     }
@@ -410,11 +502,12 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
             },
     })
     if (userReview) {
-        res.status(403);
-        res.json({
+
+        return res.status(403).json({
             "message": "User already has a review for this spot",
             "statusCode": 403
         })
+
     }
 
     const { review, stars } = req.body;
@@ -423,9 +516,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         res.json({
             "message": "Validation error",
             "statusCode": 400,
-            "errors": {
-                "stars": "Stars must be an integer from 1 to 5",
-            }
+            "errors": ["Stars must be an integer from 1 to 5"]
     })
 
     }
@@ -473,8 +564,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     };
 
     if (spot.toJSON().ownerId === req.user.id) {
-        res.status(403);
-        res.json({
+        return res.status(403).json({
             "message": "Spot must NOT belong to the current user",
             "statusCode": 403
         })
@@ -510,8 +600,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         let currentBooking = exsitedBooking[i]
         if (sameBooking[0] || isDateIntersection(startDate, endDate, currentBooking.startDate, currentBooking.endDate)) {
 
-            res.status(403);
-            res.json({
+            return res.status(403).json({
                 "message": "Sorry, this spot is already booked for the specified dates",
                 "statusCode": 403,
                 "errors": {
@@ -545,7 +634,7 @@ router.post('/', requireAuth, validateSpot, async (req, res, next) => {
 })
 
 // Edit a Spot
-router.put('/:spotId', requireAuth, async (req, res, next) => {
+router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId);
     const { address, city, state, country, lat, lng, name, description, price } = req.body
 
@@ -560,8 +649,7 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
     }
 
     if (spot.toJSON().ownerId !== req.user.id) {
-        res.status(403);
-        res.json({
+        return res.status(403).json({
             "message": "Spot not belong to current user",
             "statusCode": 403
         })
@@ -588,8 +676,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
         })
     }
     if (deadSpot.toJSON().ownerId !== req.user.id) {
-        res.status(403);
-        res.json({
+        return res.status(403).json({
             "message": "Spot not belong to current user",
             "statusCode": 403
         })

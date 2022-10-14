@@ -44,13 +44,10 @@ router.post('/', validateSignup, async (req, res) => {
   });
 
   if (existedEmail) {
-    res.status(403)
-    res.json({
+    return res.status(403).json({
       "message": "User already exists",
       "statusCode": 403,
-      "errors": {
-        "email": "User with that email already exists"
-      }
+      "errors": ["User with that email already exists"]
     });
   }
 
@@ -59,13 +56,10 @@ router.post('/', validateSignup, async (req, res) => {
   })
 
   if (existedUsername) {
-    res.status(403)
-    res.json({
+    return res.status(403).json({
       "message": "User already exists",
       "statusCode": 403,
-      "errors": {
-        "username": "User with that username already exists"
-      }
+      "errors": ["User with that username already exists"]
     });
   }
   const user = await User.signup({ email, username, password, firstName, lastName });
@@ -73,10 +67,10 @@ router.post('/', validateSignup, async (req, res) => {
 
   const token = await setTokenCookie(res, user);
 
-  const newuser = user.toJSON();
-  newuser.token = token;
+  const newUser = user.toJSON();
+  newUser.token = token;
 
-  return res.json(newuser);
+  return res.json(newUser);
 
 })
 

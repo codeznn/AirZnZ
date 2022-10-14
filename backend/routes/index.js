@@ -46,9 +46,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 
-router.post('/test', function(req, res) {
-  res.json({ requestBody: req.body });
-});
+// router.post('/test', function(req, res) {
+//   res.json({ requestBody: req.body });
+// });
 
 // Add a XSRF-TOKEN cookie
 router.get("/api/csrf/restore", (req, res) => {

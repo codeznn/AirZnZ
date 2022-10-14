@@ -31,12 +31,13 @@ export const signup = (user) => async (dispatch) => {
     }),
   });
   const data = await response.json();
-  dispatch(setUser(data.user));
-  // dispatch(setUser(data));
+  console.log("in signup thunk", data)
+  //dispatch(setUser(data.newUser));
+  dispatch(setUser(data));
   return response;
 };
 
-// login user thunk
+
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;
   const response = await csrfFetch('/api/session', {
@@ -47,12 +48,13 @@ export const login = (user) => async (dispatch) => {
     }),
   });
   const data = await response.json();
+  console.log("in login thunk", data)
   dispatch(setUser(data.user));
-  // dispatch(setUser(data));
+
   return response;
 };
 
-// logout user thunk
+
 export const logout = () => async (dispatch) => {
   const response = await csrfFetch('/api/session', {
     method: 'DELETE',
@@ -61,12 +63,14 @@ export const logout = () => async (dispatch) => {
   return response;
 };
 
-// restore session user thunk
+
 export const restoreUser = () => async dispatch => {
   const response = await csrfFetch('/api/session');
   const data = await response.json();
+  //console.log("in restore thunk", data)
+  //dispatch(setUser(data.newUser));
   dispatch(setUser(data.user));
-  // dispatch(setUser(data));
+
   return response;
 };
 

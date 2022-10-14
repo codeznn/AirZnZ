@@ -1,0 +1,141 @@
+#signupContainer {
+    margin-top: 148px;
+    /*z-index: 3;*/
+    width: 566px;
+    min-height: 418px;
+    /*max-height: 468px;*/
+    height: 758px;
+
+    border-color: #B0B0B0;
+    border-width: 1px;
+    border-radius: 12px;
+    border-style: solid;
+
+    top: 24px;
+}
+
+#signupTitle {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 64px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    border-bottom: #EBEBEB solid 1px;
+}
+
+#fieldContainer {
+    box-sizing: border-box;
+    padding: 32px;
+}
+
+#welcomeDiv {
+    font-size: 22px;
+    font-weight: 450;
+
+    margin-top: 8px;
+    margin-bottom: 24px;
+}
+
+.inputContainer {
+    display: flex;
+    align-items: center;
+    height: 56px;
+
+    border: 1px solid #222222;
+    border-radius: 8px;
+}
+
+.inputField {
+    height: 20px;
+    width: 478px;
+    /*margin: 26px 10px 12px;*/
+    margin: 0 12px;
+
+    font-size: 16px;
+    color: #222222;
+
+    border: none;
+    outline: none;
+}
+
+#fNameContainer {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#lNameContainer {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: none;
+}
+
+#fieldCaption {
+    color: #717171;
+
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 200;
+
+    margin-bottom: 24px;
+}
+
+#bdayContainer {
+}
+
+#emailContainer {
+}
+
+#passwordField {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#cPasswordField {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: none;
+}
+
+.styledButton {
+    height: 48px;
+    min-width: 200px;
+    width: 502px;
+
+    margin-top: 16px;
+    padding: 14px 24px;
+
+    outline: none;
+    border: none;
+    border-radius: 8px;
+
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    /*background-image: radial-gradient(circle at center,*/
+    /*#FF385C 0%,*/
+    /*#E61E4D 27.5%,*/
+    /*#E31C5F 40%,*/
+    /*#D70466 57.5%,*/
+    /*#BD1E59 75%,*/
+    /*#BD1E59 100%*/
+    /*) !important;*/
+
+    background: linear-gradient(to right, #E61E4D 0%, #E31C5F 50%, #D70466 100%) !important;
+
+    background-size: 200% 200%;
+}
+
+.styledButton:active {
+    transform: scale(0.96);
+    background: #FF385C;
+}
+
+#demoButton {
+    margin-top: 6px;
+}

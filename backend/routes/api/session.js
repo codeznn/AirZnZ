@@ -28,16 +28,16 @@ router.post('/', validateLogin, async (req, res, next) => {
 
 
     if (!user) {
-      // const err = new Error('Login failed');
-      // err.status = 401;
-      // err.title = 'Login failed';
-      // err.errors = ['The provided credentials were invalid.'];
-      // return next(err);
-      res.status(401);
-      res.json({
-        "message": "Invalid credentials",
-        "statusCode": 401
-      })
+      const err = new Error('Login failed');
+      err.status = 401;
+      err.title = 'Login failed';
+      err.errors = ['The provided credentials were invalid.'];
+      return next(err);
+      // res.status(401);
+      // res.json({
+      //   "message": "Invalid credentials",
+      //   "statusCode": 401
+      // })
     }
 
     const token = await setTokenCookie(res, user);
@@ -57,7 +57,7 @@ router.delete('/', (_req, res) => {
   }
 );
 
-// Restore session user
+//Restore session user
 router.get('/', restoreUser, (req, res) => {
   console.log("in the backend route")
   const { user } = req;
@@ -65,7 +65,7 @@ router.get('/', restoreUser, (req, res) => {
     return res.json({
       user: user.toSafeObject()
     });
-  } else return res.json(null);
+  } else return res.json({user: null});
 });
 
 
