@@ -3,11 +3,19 @@ import { csrfFetch } from "./csrf";
 const LOAD_REVIEWS = 'reviews/loadreviews';
 const REMOVE_REVIEW = 'reviews/deletereviews';
 const CREATE_REVIEW = 'reviews/createreview';
+const USER_REVIEWS = 'reviews/loaduserreviews';
 
 
 const loadReviews = (reviews) => {
     return {
         type: LOAD_REVIEWS,
+        reviews
+    }
+};
+
+const loadUserReviews = (reviews) => {
+    return {
+        type: USER_REVIEWS,
         reviews
     }
 };
@@ -35,6 +43,16 @@ export const getReviews = (spotId) => async (dispatch) => {
         console.log('in getReviews thunk////', reviews)
         dispatch(loadReviews(reviews));
         return reviews;
+    }
+}
+
+export const getUserReviews = () => async (dispatch) => {
+    const response = await csrfFetch(`/api/reviews/current`);
+
+    if (response.ok) {
+        const userReviews = await response.json();
+        dispatch(loadUserReviews(userReviews));
+        return userReviews;
     }
 }
 
@@ -110,6 +128,12 @@ export default function reviewsReducer (state = initialState, action) {
         case REMOVE_REVIEW:
             newState = { ...state };
             delete newState[action.reviewId];
+            return newState;
+        case USER_REVIEWS:
+            newState = { ...state, user: { ...state.user } }
+            action.reviews.Reviews.forEach(review => {
+                newState.user[review.id] = review
+            });
             return newState;
         default:
             return state;
