@@ -18,7 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     spotId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: { model: 'Spots' }
+      references: {model: 'Spots', },
+      onDelete: 'cascade',
     },
     url: {
       type: DataTypes.STRING,
