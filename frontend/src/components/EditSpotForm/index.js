@@ -2,9 +2,6 @@ import { useEffect, useState } from 'react';
 import { Redirect, useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateSpot } from '../../store/spots';
-import { getOneSpot } from '../../store/spots';
-import { getAllSpots } from '../../store/spots';
-import { addSpotImage } from '../../store/spots';
 
 
 const UpdateSpotForm = () => {
@@ -24,17 +21,7 @@ const UpdateSpotForm = () => {
     const [name, setName] = useState(spot.name)
     const [description, setDescription] = useState(spot.description)
     const [price, setPrice] = useState(spot.price)
-    const [url, setUrl] = useState(spot.SpotImages[0].url)
-    const [preview, setPreview] = useState(true);
     const [errors, setErrors] = useState([])
-
-    useEffect(() => {
-        dispatch(getOneSpot(spotId))
-    }, [dispatch, spotId]);
-
-    useEffect(() => {
-        dispatch(getAllSpots())
-    }, [dispatch]);
 
     if (!sessionUser) {
         alert("You need to logged in first!");
@@ -56,14 +43,10 @@ const UpdateSpotForm = () => {
             if (res && res.errors) {
                 setErrors(res.errors);
                 console.log('in updateSpotForm-errors', errors)
-            } else {
-                const imgData = { url, preview }
-                dispatch(addSpotImage(imgData, res.id))}
             }
+        });
 
-        );
-
-        //return history.push('/');
+        return history.push(`/spots/${spotId}`);
     }
 
     const handleCancelClick = () => {
@@ -190,25 +173,6 @@ const UpdateSpotForm = () => {
                             />
                         </label>
                     </div>
-
-                    <div className = 'url'>
-                        <label>
-                            Image:
-                            <input
-                                type="text"
-                                value={url}
-                                required
-                                onChange={(e) => setUrl(e.target.value)}
-                            />
-                        </label>
-                        <label>Preview Image:</label>
-                            <select onChange={e => setPreview(e.target.value)} value={preview}>
-                                <option key='true'>true</option>
-                                <option key='false'>false</option>
-                            </select>
-                    </div>
-
-
 
                     <div className='update-spot-wrapper'>
                         <button id='update-spot-button' type='submit'>Submit</button>

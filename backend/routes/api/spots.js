@@ -471,7 +471,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
             attributes: ['id', 'url', 'preview']
         })
 
-        res.json(newImage)
+        return res.json(newImage)
     } else {
         return res.status(403).json({
         "message": "You are not the owner",
