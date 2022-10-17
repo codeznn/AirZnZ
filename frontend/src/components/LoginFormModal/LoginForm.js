@@ -32,44 +32,50 @@ function LoginForm() {
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <div className="Login_Airbnb_logo">
-        <i className="fa-brands fa-airbnb">Airznz</i>
-      </div>
-      <div className="login_error_container">
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
-      </div>
-      <div className="Login_Container">
-        <div className="Username_Email">
-          <label>
-            Username or Email
-            <input className="input_1"
-              type="text"
-              value={credential}
-              onChange={(e) => setCredential(e.target.value)}
-              required
-            />
-          </label>
+    <div className="login-form-container">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <div className="login-title">Log In</div>
+        <div className="content-container">
+          <div className="welcome-title">Welcome to AirZnZ</div>
+          <div className="login_error_container">
+            <ul className="errors">
+              {errors.map((error, idx) => (
+                <li key={idx}>{error}</li>
+              ))}
+            </ul>
+          </div>
+            <div className="input-container">
+              <label className="input-label">
+                Username or Email
+                <br></br>
+                <input className="input"
+                  type="text"
+                  value={credential}
+                  onChange={(e) => setCredential(e.target.value)}
+                  required
+                />
+              </label>
+            </div>
+            <div className="input-container">
+              <label className="input-label">
+                Password
+                <br></br>
+                <input className="input"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </label>
+
+          </div>
+          <div>
+            <button className="styled-button" type="submit">Log In</button>
+            <button className="styled-button" onClick={handleDemoUser}>Demo User</button>
+          </div>
         </div>
-        <div className="Password">
-          <label>
-            Password
-            <input className="input_1"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </label>
-        </div>
-      </div>
-      <button className="login_login" type="submit">Log In</button>
-      <button className="styledButton" onClick={handleDemoUser}>Demo User</button>
-    </form>
+      </form>
+    </div>
   );
 }
 

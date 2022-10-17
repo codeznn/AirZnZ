@@ -13,7 +13,9 @@ const UserReviews = () => {
 
     const reviewsObj = useSelector(state => (state.reviews.user));
     const reviewsArr = Object.values(reviewsObj);
-    console.log('in UserReviews////', reviewsObj);
+    console.log('in UserReviewsbefore-obj', reviewsObj);
+    console.log('in UserReviewsbefore-Arr', reviewsArr);
+
 
     useEffect(() => {
         dispatch(getUserReviews())
@@ -24,7 +26,7 @@ const UserReviews = () => {
         console.log('delete///', reviewsObj)
         console.log('delete///', reviewsArr)
         await dispatch(deleteReview(reviewId));
-        // history.push(`/my-reviews`);
+        history.push(`/my-reviews`);
     };
 
     if (!reviewsArr.length) return (<div className="user-none-reviews">

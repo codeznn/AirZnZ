@@ -123,7 +123,8 @@ export default function reviewsReducer (state = initialState, action) {
                 // allReviews[review.id] = review
                 return [ ...acc, review ]
             }, []);
-            return { ...state, spot: [...allReviews]};
+            newState = { ...state, spot: [...allReviews]}
+            return newState;
 
         case CREATE_REVIEW:
             newState = { ...state };
@@ -132,10 +133,10 @@ export default function reviewsReducer (state = initialState, action) {
         case REMOVE_REVIEW:
             newState = { ...state };
             console.log("33333")
-            console.log("reducer-1", newState)
+            console.log("reducer-beforedelete", newState)
             console.log("reducer-reviewId", action.reviewId)
             delete newState.user[action.reviewId];
-            console.log("reducer-2", newState)
+            console.log("reducer-afterdelete", newState)
             return newState;
         case USER_REVIEWS:
             newState = { ...state, user: { ...state.user } }

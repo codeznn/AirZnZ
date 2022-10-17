@@ -21,7 +21,7 @@ const SpotsItems = () => {
     return (
             <div className="spots-wrapper">
                 { spots.map(spot => (
-                    <div key={spot.id} className="spot-card">
+                    <div key={spot.id} className="spot-card-outer" style={{ textDecoration: 'none'}}>
                         <NavLink to={`/spots/${spot.id}`} className="link--spot">
                             <SpotCard key={spot.id}spot={spot} />
                         </NavLink>

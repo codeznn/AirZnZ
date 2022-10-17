@@ -14,8 +14,8 @@ const SpotDetails = () => {
     //console.log(+spotId)
     const dispatch = useDispatch();
     const history = useHistory();
-    const sessionUser = useSelector((state) => state.session.user.id || true);
-    const currentOwner = useSelector((state) => state.spots.singleSpot.ownerId || false)
+    const sessionUser = useSelector((state) => state.session.user);
+    const currentOwner = useSelector((state) => state.spots.singleSpot.ownerId)
     const spot = useSelector(state => state.spots.singleSpot)
     const reviews = useSelector(state => state.reviews.spot)
 
@@ -79,7 +79,7 @@ const SpotDetails = () => {
                 Add SpotImages
             </Link> */}
             <div>
-                {currentOwner !== sessionUser
+                {currentOwner !== sessionUser?.id
                 ?
                 <Link to={`/spots/${spotId}/new-review`}>
                     <button>Create Review</button>
