@@ -11,31 +11,33 @@ const UserSpots = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const sessionUser = useSelector((state) => state.session.user);
-    const spots = useSelector(state => Object.values(state.spots.allSpots));
-    console.log("in UserSpots--spots//////", spots)
+    const spotsObj = useSelector(state => state.spots.allSpots);
+    //console.log("in UserSpots--spotsObj", spotsObj.Spots)
+
+    const spotsArr = spotsObj.Spots
+    //console.log("in UserSpots--spotsArr", spotsArr)
 
     useEffect(() => {
         dispatch(getUserSpots())
     }, [dispatch]);
 
-    if (!spots) return (
+    if (!spotsArr) return (
         <div >
            <h2>Sorry, you are not hosting any Spots </h2>
        </div>
     )
     const spothandleClick= async(spotId) => {
         await dispatch(deleteSpot(spotId))
-        history.push('/')
     }
 
 return (
     <div className='user-spots'>
         <h2>My Spots</h2>
         <div className="spots-wrapper">
-                { spots.map(spot => (
+                {spotsArr.map(spot => (
                     <div key={spot.id} className="spot-card">
                         <NavLink to={`/spots/${spot.id}`} className="link--spot">
-                            <SpotCard key={spot.id}spot={spot} />
+                            <SpotCard key={spot.id} spot={spot} />
                         </NavLink>
                         <div>
                             <Link to={`/spots/${spot.id}/edit`}>
@@ -43,7 +45,7 @@ return (
                             </Link>
                         </div>
                         <div>
-                            <button onClick={spothandleClick(spot.id)}>Delete Spot</button>
+                            <button onClick={() => spothandleClick(spot.id)}>Delete Spot</button>
                         </div>
                     </div>
                 ))}

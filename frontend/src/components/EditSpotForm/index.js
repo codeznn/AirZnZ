@@ -8,29 +8,33 @@ const UpdateSpotForm = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const { spotId } = useParams();
+    console.log('in editform-spotId', spotId)
     const sessionUser = useSelector((state) => state.session.user.id);
     const currentOwner = useSelector((state) => state.spots.singleSpot.ownerId)
-    const spot = useSelector((state) => state.spots.singleSpot)
+    const spotsArr = useSelector((state) => state.spots.allSpots.Spots)
+    //console.log('in editform-spotsArr', spotsArr)
+    const spot = spotsArr.find(spot => spot.id === +spotId)
+    //console.log('in editform-spot', spot)
 
-    const [address, setAddress] = useState(spot.address)
-    const [city, setCity] = useState(spot.city)
-    const [state, setState] = useState(spot.state)
-    const [country, setCountry] = useState(spot.country)
-    const [lat, setLat] = useState(spot.lat)
-    const [lng, setLng] = useState(spot.lng)
-    const [name, setName] = useState(spot.name)
-    const [description, setDescription] = useState(spot.description)
-    const [price, setPrice] = useState(spot.price)
+    const [address, setAddress] = useState(spot?.address)
+    const [city, setCity] = useState(spot?.city)
+    const [state, setState] = useState(spot?.state)
+    const [country, setCountry] = useState(spot?.country)
+    const [lat, setLat] = useState(spot?.lat)
+    const [lng, setLng] = useState(spot?.lng)
+    const [name, setName] = useState(spot?.name)
+    const [description, setDescription] = useState(spot?.description)
+    const [price, setPrice] = useState(spot?.price)
     const [errors, setErrors] = useState([])
 
-    if (!sessionUser) {
-        alert("You need to logged in first!");
-        return <Redirect to="/" />;
-    }
-    if (currentOwner !== sessionUser) {
-        alert("You are not the owner!");
-        return <Redirect to="/" />;
-    }
+    // if (!sessionUser) {
+    //     alert("You need to logged in first!");
+    //     return <Redirect to="/" />;
+    // }
+    // if (currentOwner !== sessionUser) {
+    //     alert("You are not the owner!");
+    //     return <Redirect to="/" />;
+    // }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -46,11 +50,11 @@ const UpdateSpotForm = () => {
             }
         });
 
-        return history.push(`/spots/${spotId}`);
+        return history.push('/my-spots');
     }
 
     const handleCancelClick = () => {
-        return history.push('/');
+        return history.push('/my-spots');
     };
 
     return (

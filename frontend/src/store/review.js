@@ -98,10 +98,14 @@ export const deleteReview = (reviewId) => async (dispatch) => {
     const response = await csrfFetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE',
     });
+    if (response.ok) {
+        const review = await response.json();
+        console.log("22222")
+        console.log('in deleteReviews thunk////', review)
+        dispatch(removeReview(reviewId));
+        return review;
+    }
 
-    const review = await response.json();
-    dispatch(removeReview(reviewId));
-    return review;
 }
 
 
@@ -127,7 +131,11 @@ export default function reviewsReducer (state = initialState, action) {
             return newState;
         case REMOVE_REVIEW:
             newState = { ...state };
-            delete newState[action.reviewId];
+            console.log("33333")
+            console.log("reducer-1", newState)
+            console.log("reducer-reviewId", action.reviewId)
+            delete newState.user[action.reviewId];
+            console.log("reducer-2", newState)
             return newState;
         case USER_REVIEWS:
             newState = { ...state, user: { ...state.user } }

@@ -13,19 +13,22 @@ const UserReviews = () => {
 
     const reviewsObj = useSelector(state => (state.reviews.user));
     const reviewsArr = Object.values(reviewsObj);
-    console.log('in UserReviews////', reviewsArr);
-
+    console.log('in UserReviews////', reviewsObj);
 
     useEffect(() => {
         dispatch(getUserReviews())
     }, [dispatch])
 
     const handleDelete = async (reviewId) => {
-        await dispatch(deleteReview(reviewId))
+        console.log("11111")
+        console.log('delete///', reviewsObj)
+        console.log('delete///', reviewsArr)
+        await dispatch(deleteReview(reviewId));
+        // history.push(`/my-reviews`);
     };
 
-    if (!reviewsArr) return (<div className="user-none-reviews">
-        <h2>Sorry, you have not created any review yet, please click add a review </h2>
+    if (!reviewsArr.length) return (<div className="user-none-reviews">
+        <h2>Sorry, you don't have any review! </h2>
     </div>)
 
     return (
@@ -51,7 +54,7 @@ const UserReviews = () => {
                             <i className="fa-sharp fa-solid fa-star"></i>
                             <span>{review.stars}</span>
                         </div>
-                        <div className="deleteReview-div">
+                        <div className="delete-review">
                             <button className="deleteReview-button" onClick={() => handleDelete(review.id)}>Delete Review</button>
                         </div>
                     </div>

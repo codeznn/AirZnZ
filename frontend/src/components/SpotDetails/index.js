@@ -1,13 +1,11 @@
 import { useEffect } from "react";
-import { Redirect, useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getOneSpot } from "../../store/spots";
 import { Link } from "react-router-dom";
-import { deleteSpot } from "../../store/spots";
+//import { deleteSpot } from "../../store/spots";
 //import SpotReviews from "../SpotReview";
 import { getReviews } from "../../store/review";
-import { deleteReview } from "../../store/review";
-import CreateReviewForm from "../ReviewForm";
 import './SpotDetails.css';
 
 
@@ -34,10 +32,10 @@ const SpotDetails = () => {
     if (!Object.keys(spot).length) return null;
 
 
-    const spothandleClick= async() => {
-        await dispatch(deleteSpot(spotId))
-        history.replace('/')
-    }
+    // const spothandleClick= async() => {
+    //     await dispatch(deleteSpot(spotId))
+    //     history.push('/')
+    // }
 
     return (
         <div className="single-spot-wrapper">
@@ -89,7 +87,7 @@ const SpotDetails = () => {
                 : null
                 }
             </div>
-            <br></br>
+            {/* <br></br>
             <div>
                 {currentOwner === sessionUser
                 ?
@@ -106,7 +104,7 @@ const SpotDetails = () => {
                 : null
                 }
             </div>
-            <br></br>
+            <br></br> */}
         </div>
     )
 

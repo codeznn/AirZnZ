@@ -224,7 +224,16 @@ const spotsReducer = (state = initialState, action) => {
             return newState;
         case REMOVE_SPOT:
             newState = {...state};
-            delete newState.allSpots[action.spotId];
+            console.log("in reducer----", newState)
+            const spotArr = newState.allSpots.Spots;
+            console.log("in reducer-spotArr", spotArr)
+            const deleteSpot = spotArr.find(spot => spot.id === +action.spotId);
+            const deleteId = spotArr.indexOf(deleteSpot);
+            console.log("in reducer-deleteId", deleteId)
+            delete newState.allSpots.Spots[deleteId]
+
+            //delete newState.allSpots[action.spotId];
+            console.log("in reducer----", newState)
             return newState;
         case CREATE_SPOT:
             newState = { ...state, allSpots: { ...state.allSpots, [action.spot.id]: action.spot } };
