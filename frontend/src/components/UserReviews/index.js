@@ -2,14 +2,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUserReviews } from "../../store/review";
-import { NavLink } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { deleteReview } from "../../store/review";
 
 const UserReviews = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const sessionUser = useSelector((state) => state.session.user);
 
     const reviewsObj = useSelector(state => (state.reviews.user));
     const reviewsArr = Object.values(reviewsObj);
@@ -23,8 +20,8 @@ const UserReviews = () => {
 
     const handleDelete = async (reviewId) => {
         console.log("11111")
-        console.log('delete///', reviewsObj)
-        console.log('delete///', reviewsArr)
+        console.log('delete-reviewObj', reviewsObj)
+        console.log('delete-reviewArr', reviewsArr)
         await dispatch(deleteReview(reviewId));
         history.push(`/my-reviews`);
     };

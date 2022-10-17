@@ -116,14 +116,14 @@ export const createSpot = (spot) => async dispatch => {
             body: JSON.stringify({ url, preview })
         });
 
-        console.log('in addSpot thunk-resAddImg///////', resAddImg);
+        console.log('in addSpot thunk-resAddImg', resAddImg);
 
         if (resAddImg.ok) {
-            const img = await response.json();
-            console.log('in addSpot thunk-img///////', img);
+            const img = await resAddImg.json();
+            console.log('in addSpot thunk-img', img);
             dispatch(addImage(img))
             newSpot['spotImage'] = [img];
-            console.log('in addSpot thunk-newSpot+img///////', newSpot)
+            console.log('in addSpot thunk-newSpot+img', newSpot)
             return newSpot;
         }
 
@@ -253,9 +253,6 @@ const spotsReducer = (state = initialState, action) => {
             return newState;
         default:
             return state;
-            newState = { ...state, allSpots: { ...action.spots } };
-            //console.log("in reducer", newState)
-            return newState;
     }
 }
 

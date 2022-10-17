@@ -131,12 +131,12 @@ export default function reviewsReducer (state = initialState, action) {
             newState[action.review.id] = action.review;
             return newState;
         case REMOVE_REVIEW:
-            newState = { ...state };
-            console.log("33333")
-            console.log("reducer-beforedelete", newState)
-            console.log("reducer-reviewId", action.reviewId)
+            newState = { ...state, user: {...state.user} };
+            // console.log("33333")
+            // console.log("reducer-beforedelete", newState)
+            // console.log("reducer-reviewId", action.reviewId)
             delete newState.user[action.reviewId];
-            console.log("reducer-afterdelete", newState)
+            // console.log("reducer-afterdelete", newState)
             return newState;
         case USER_REVIEWS:
             newState = { ...state, user: { ...state.user } }

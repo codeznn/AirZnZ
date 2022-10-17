@@ -45,7 +45,7 @@ const CreateSpot = () => {
         if (!url.includes('https://')) errors.push('url is not valid');
 
         setValidationErrors(errors)
-    }, [name, address, city, state, country, description, lat, lng, price, url, validationErrors])
+    }, [name, address, city, state, country, description, lat, lng, price, url])
 
     if (!sessionUser) {
         alert("You need to be logged in first!");
