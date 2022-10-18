@@ -4,17 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateSpot } from '../../store/spots';
 
 
-const UpdateSpotForm = () => {
+const UpdateSpotForm = (spots) => {
     const dispatch = useDispatch()
     const history = useHistory()
     const { spotId } = useParams();
     console.log('in editform-spotId', spotId)
-    const sessionUser = useSelector((state) => state.session.user.id);
-    const currentOwner = useSelector((state) => state.spots.singleSpot.ownerId)
-    const spotsArr = useSelector((state) => state.spots.allSpots.Spots)
-    //console.log('in editform-spotsArr', spotsArr)
-    const spot = spotsArr.find(spot => spot.id === +spotId)
-    //console.log('in editform-spot', spot)
+    // const sessionUser = useSelector((state) => state.session.user.id);
+    // const currentOwner = useSelector((state) => state.spots.singleSpot.ownerId)
+    const spotsObj = useSelector((state) => state.spots.allSpots)
+
+    console.log('in editform-spotsObj', spotsObj)
+    const spot = spotsObj[spotId]
+    console.log('in editform-spot', spot)
 
     const [address, setAddress] = useState(spot?.address)
     const [city, setCity] = useState(spot?.city)

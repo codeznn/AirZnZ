@@ -30,6 +30,7 @@ const SpotDetails = () => {
 
 
     if (!Object.keys(spot).length) return null;
+    if (!reviews) return null;
 
 
     // const spothandleClick= async() => {

@@ -12,10 +12,10 @@ const UserSpots = () => {
     const history = useHistory();
     const sessionUser = useSelector((state) => state.session.user);
     const spotsObj = useSelector(state => state.spots.allSpots);
-    //console.log("in UserSpots--spotsObj", spotsObj.Spots)
+    console.log("in UserSpots--spotsObj", spotsObj)
 
-    const spotsArr = spotsObj.Spots
-    //console.log("in UserSpots--spotsArr", spotsArr)
+    const spotsArr = Object.values(spotsObj)
+    console.log("in UserSpots--spotsArr", spotsArr)
 
     useEffect(() => {
         dispatch(getUserSpots())
@@ -28,6 +28,7 @@ const UserSpots = () => {
     )
     const spothandleClick= async(spotId) => {
         await dispatch(deleteSpot(spotId))
+        history.push('/my-spots')
     }
 
 return (
@@ -40,7 +41,7 @@ return (
                             <SpotCard key={spot.id} spot={spot} />
                         </NavLink>
                         <div>
-                            <Link to={`/spots/${spot.id}/edit`}>
+                            <Link to={`/spots/${spot.id}/edit`} spots={spotsObj}>
                                 <button>Edit Spot</button>
                             </Link>
                         </div>

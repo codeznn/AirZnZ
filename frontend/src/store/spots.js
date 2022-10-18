@@ -15,6 +15,13 @@ export const loadAllSpots = (spots) => {
     }
 };
 
+export const userSpots = (spots) => {
+    return {
+        type: USER_SPOTS,
+        spots
+    }
+};
+
 export const loadOneSpot = (spot) => {
     return {
         type: LOAD_ONE_SPOT,
@@ -51,6 +58,7 @@ export const removeSpot = (spotId) => {
 };
 
 
+
 // getAllSpots thunk
 export const getAllSpots = () => async dispatch => {
     const response = await fetch(`/api/spots`);
@@ -82,7 +90,7 @@ export const getUserSpots = () => async dispatch => {
     if (response.ok) {
         const spots = await response.json();
         //console.log('in getUserSpots thunk++++++', spots)
-        dispatch(loadAllSpots(spots));
+        dispatch(userSpots(spots));
         return spots
     }
 }
@@ -223,14 +231,14 @@ const spotsReducer = (state = initialState, action) => {
             //console.log("in reducer----", newState)
             return newState;
         case REMOVE_SPOT:
-            newState = {...state};
-            console.log("in reducer----", newState)
-            const spotArr = newState.allSpots.Spots;
-            console.log("in reducer-spotArr", spotArr)
-            const deleteSpot = spotArr.find(spot => spot.id === +action.spotId);
-            const deleteId = spotArr.indexOf(deleteSpot);
-            console.log("in reducer-deleteId", deleteId)
-            delete newState.allSpots.Spots[deleteId]
+            newState = {...state, allSpots:{...state.allSpots}};
+            // console.log("in reducer----", newState)
+            // const spotArr = newState.allSpots.Spots;
+            // console.log("in reducer-spotArr", spotArr)
+            // const deleteSpot = spotArr.find(spot => spot.id === +action.spotId);
+            // const deleteId = spotArr.indexOf(deleteSpot);
+            // console.log("in reducer-deleteId", deleteId)
+            delete newState.allSpots[action.spotId]
 
             //delete newState.allSpots[action.spotId];
             console.log("in reducer----", newState)
@@ -249,7 +257,10 @@ const spotsReducer = (state = initialState, action) => {
             return newState;
         case USER_SPOTS:
             newState = { ...state, allSpots: { ...action.spots } };
-            //console.log("in reducer", newState)
+            action.spots.Spots.forEach(spot => {
+                newState.allSpots[spot.id] = spot
+            });
+            delete newState.allSpots.Spots;
             return newState;
         default:
             return state;
