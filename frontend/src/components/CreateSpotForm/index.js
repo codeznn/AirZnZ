@@ -22,30 +22,31 @@ const CreateSpot = () => {
     const [preview, setPreview] = useState(true);
     const [submitted, setSubmitted] = useState(false);
     const [validationErrors, setValidationErrors] = useState([]);
+    const [errors, setErrors] = useState([]);
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const errors = [];
+    //     const errors = [];
 
-        if (!address.length) errors.push('Address is required');
-        if (!city.length) errors.push('City is required');
-        if (!state.length) errors.push('State is required')
-        if (!country.length) errors.push('Country is required');
-        if (!name.length) errors.push('Name is required');
-        if (!description.length) errors.push('Description is required');
-        if(!lat.length) errors.push('Latitude is required');
-        if(typeof +lat !== 'number') errors.push('Lat must be a number');
-        if (lat < -90 || lat > 90) errors.push('Latitude must be a value in the range of -90 and 90');
-        if(!lng.length) errors.push('Longitute is required');
-        if(typeof +lng !== 'number') errors.push('Lng must be a number');
-        if (lng < -180 || lng > 180) errors.push('Longitude must be a value in the range of -180 and 180');
-        if(!price) errors.push('Price is required');
-        if(typeof +price !== 'number') errors.push('Price must be a number');
-        if (price < 0) validationErrors.push('Price must be greater than 0');
-        if (!url.includes('https://')) errors.push('url is not valid');
+    //     if (!address.length) errors.push('Address is required');
+    //     if (!city.length) errors.push('City is required');
+    //     if (!state.length) errors.push('State is required')
+    //     if (!country.length) errors.push('Country is required');
+    //     if (!name.length) errors.push('Name is required');
+    //     if (!description.length) errors.push('Description is required');
+    //     if(!lat.length) errors.push('Latitude is required');
+    //     if(typeof +lat !== 'number') errors.push('Lat must be a number');
+    //     if (lat < -90 || lat > 90) errors.push('Latitude must be a value in the range of -90 and 90');
+    //     if(!lng.length) errors.push('Longitute is required');
+    //     if(typeof +lng !== 'number') errors.push('Lng must be a number');
+    //     if (lng < -180 || lng > 180) errors.push('Longitude must be a value in the range of -180 and 180');
+    //     if(!price) errors.push('Price is required');
+    //     if(typeof +price !== 'number') errors.push('Price must be a number');
+    //     if (price < 0) validationErrors.push('Price must be greater than 0');
+    //     if (!url.includes('https://')) errors.push('url is not valid');
 
-        setValidationErrors(errors)
-    }, [name, address, city, state, country, description, lat, lng, price, url])
+    //     setValidationErrors(errors)
+    // }, [name, address, city, state, country, description, lat, lng, price, url])
 
     if (!sessionUser) {
         alert("You need to be logged in first!");
@@ -54,46 +55,28 @@ const CreateSpot = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setSubmitted(true)
+        // setSubmitted(true)
 
-        console.log('in CreatSpotForm-Validation', validationErrors);
-        const newSpot = { name, address, city, state, country, lat, lng, description, price, url, preview }
-        const createdSpot = await dispatch(createSpot(newSpot))
+        // console.log('in CreatSpotForm-Validation', validationErrors);
+        // const newSpot = { name, address, city, state, country, lat, lng, description, price, url, preview }
+        // const createdSpot = await dispatch(createSpot(newSpot))
 
-        if(createdSpot) {
-            setValidationErrors([]);
-            console.log('in CreatSpotForm-setValidationErrors', setValidationErrors)
-            history.push(`/spots/${createdSpot.id}`)
-        }
+        // if(createdSpot) {
+        //     setValidationErrors([]);
+        //     console.log('in CreatSpotForm-setValidationErrors', setValidationErrors)
+        //     history.push(`/spots/${createdSpot.id}`)
+        // }
 
+        const payload = { name, address, city, state, country, lat, lng, description, price, url, preview }
 
-
-
-        // dispatch(createSpot(payload)).then(async (res) => {
-        //     console.log("res", res)
-        //     const message = await res.json();
-
-        //     console.log('in CreatSpotForm-message', message)
-        //     if (message && message.errors) {
-        //         setErrors(message.errors);
-        //         console.log('in CreatSpotForm-errors', message.errors)
-        //     } else {
-        //         console.log("res.id", res.id)
-        //         const imgData = { url, preview }
-        //         console.log('imgData', imgData)
-        //         dispatch(addSpotImage(imgData, res.id))}
-                //return history.push(`/spots/${res.id}`);
-                //.then(async(res) => {
-                //     const data =  res.json();
-                //     console.log("in create-spotImage", data)
-                //     if (data && data.errors) {
-                //         setErrors(data.errors)
-                //     } else {
-                //         return history.push('/');
-                //     }
-                //}))
-
-        // });
+        await dispatch(createSpot(payload)).then(newSpot => history.push(`/spots/${newSpot.id}`))
+        .catch(async (res) => {
+            const message = await res.json();
+            console.log('in CreatSpotForm-message', message)
+            if (message.errors) {
+                setErrors(message.errors);
+                console.log('in CreatSpotForm-errors', message.errors)
+            }});
     }
 
     const handleCancelClick = () => {
@@ -109,14 +92,11 @@ const CreateSpot = () => {
                 <h1>Create A New Spot</h1>
 
                 <div className='create-spot-errors'>
-                    {validationErrors.length > 0 && submitted && (
-                        <ul className='errors'> errors:
-                            {validationErrors.map((err) => (
+                        <ul className='errors'>
+                            {errors && errors.map((err) => (
                                 <li key={err}>{err}</li>
                             ))}
                         </ul>
-                    )}
-
                 </div>
 
                 <form className='create-spot-form' onSubmit={handleSubmit}>

@@ -512,11 +512,9 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
 
     const { review, stars } = req.body;
     if (stars < 1 || stars > 5) {
-        res.status(400);
-        res.json({
-            "message": "Validation error",
+        res.status(400).json({
+            "message": "Stars must be an integer from 1 to 5",
             "statusCode": 400,
-            "errors": ["Stars must be an integer from 1 to 5"]
     })
 
     }
@@ -639,8 +637,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body
 
     if (!spot) {
-        res.status(400);
-        res.json(
+        res.status(400).json(
             {
                 "message": "Spot couldn't be found",
                 "statusCode": 404

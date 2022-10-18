@@ -64,26 +64,28 @@ export const createReview = (review, spotId) => async (dispatch) => {
             body: JSON.stringify(review)
         });
 
-        if (!response.ok) {
-          let error;
-          if (response.status === 404) {
-            error = await response.json();
-            return error;
-          } else {
-            let errorJSON;
-            error = await response.text();
-            console.log('in creatOneSpot thunk-error', error)
-            try {
-              errorJSON = JSON.parse(error);
-              console.log('in creatOneSpot thunk-errorJSON', errorJSON)
-            } catch {
-              console.log('in creatOneSpot thunk-error', error)
-              throw new Error(error);
-            }
-            console.log('in creatOneSpot thunk-errortitle&message', `${errorJSON.title}: ${errorJSON.message}`)
-            throw new Error(`${errorJSON.title}: ${errorJSON.message}`)
-          }
-        }
+        console.log('in creatReview thunk -response', response)
+
+        // if (!response.ok) {
+        //   let error;
+        //   if (response.status === 404) {
+        //     error = await response.json();
+        //     return error;
+        //   } else {
+        //     let errorJSON;
+        //     error = await response.text();
+        //     console.log('in creatReview thunk-error', error)
+        //     try {
+        //       errorJSON = JSON.parse(error);
+        //       console.log('in creatReview thunk-errorJSON', errorJSON)
+        //     } catch {
+        //       console.log('in creatReview thunk-error', error)
+        //       throw new Error(error);
+        //     }
+        //     console.log('in creatReview thunk-errortitle&message', `${errorJSON.title}: ${errorJSON.message}`)
+        //     throw new Error(`${errorJSON.title}: ${errorJSON.message}`)
+        //   }
+        // }
 
         const newReview = await response.json();
         dispatch(createOneReview(newReview));
@@ -115,20 +117,18 @@ export default function reviewsReducer (state = initialState, action) {
     let newState;
     switch (action.type) {
         case LOAD_REVIEWS:
-            let allReviews = [];
-            console.log('in reducer -aciton reviews', action.reviews.Reviews)
-            allReviews = action.reviews.Reviews.reduce((acc, review) => {
-                console.log('reviews reducer', review)
-
-                // allReviews[review.id] = review
-                return [ ...acc, review ]
-            }, []);
-            newState = { ...state, spot: [...allReviews]}
-            return newState;
+            let spot = {};
+            newState = { ...state };
+            action.reviews.Reviews.forEach(review => {
+                spot[review.id] = review
+            });
+            newState.spot = spot
+            return newState
 
         case CREATE_REVIEW:
-            newState = { ...state };
-            newState[action.review.id] = action.review;
+            newState = {spot: {...state.spot}, user: {...state.user}}
+            newState.spot[action.review.id] = action.review
+
             return newState;
         case REMOVE_REVIEW:
             newState = { ...state, user: {...state.user} };

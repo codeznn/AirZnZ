@@ -40,9 +40,9 @@ const UserReviews = () => {
             <div className="review-Lists">
                 {reviewsArr.map(review => (
                     <div className="review-details" key={review.id}>
-                        <div className="review-spot" >
+                        {/* <div className="review-spot" >
                             <img src={review.Spot?.previewImage} alt={review.Spot?.description}></img>
-                        </div>
+                        </div> */}
                         <div className="review-spot-title">
                             {review.Spot?.name === null ? "" : `Review for ${review.Spot?.name}`}
                         </div>

@@ -100,42 +100,44 @@ export const getUserSpots = () => async dispatch => {
 // createSpot thunk
 export const createSpot = (spot) => async dispatch => {
     const { url, preview } = spot;
-    console.log('in creatOneSpot thunk-spot///////', spot)
-    console.log('in creatOneSpot thunk-imgDate///////', { url, preview })
-
-    const response = await csrfFetch(`/api/spots`, {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(spot)
-        });
-
-    if (response.ok) {
-        const newSpot = await response.json();
-        console.log('in creatOneSpot thunk-newSpot', newSpot)
-        dispatch(createOneSpot(newSpot));
-
-        const resAddImg = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+    //console.log('in creatOneSpot thunk-spot///////', spot)
+    //console.log('in creatOneSpot thunk-imgDate///////', { url, preview })
+    try {
+        const response = await csrfFetch(`/api/spots`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ url, preview })
-        });
+            body: JSON.stringify(spot)
+            });
 
-        console.log('in addSpot thunk-resAddImg', resAddImg);
+        if (response.ok) {
+            const newSpot = await response.json();
+            console.log('in creatOneSpot thunk-newSpot', newSpot)
+            dispatch(createOneSpot(newSpot));
 
-        if (resAddImg.ok) {
-            const img = await resAddImg.json();
-            console.log('in addSpot thunk-img', img);
-            dispatch(addImage(img))
-            newSpot['spotImage'] = [img];
-            console.log('in addSpot thunk-newSpot+img', newSpot)
-            return newSpot;
-        }
+            const resAddImg = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ url, preview })
+            });
 
-    };
+            console.log('in addSpot thunk-resAddImg', resAddImg);
+
+            if (resAddImg.ok) {
+                const img = await resAddImg.json();
+                console.log('in addSpot thunk-img', img);
+                dispatch(addImage(img))
+                newSpot['spotImage'] = [img];
+                console.log('in addSpot thunk-newSpot+img', newSpot)
+                return newSpot;
+            }
+        };
+    } catch(error) {
+        throw error;
+    }
 
 }
 
@@ -167,27 +169,6 @@ export const updateSpot = (spot, spotId) => async dispatch => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(spot)
         });
-
-        if (!response.ok) {
-          let error;
-          if (response.status === 404) {
-            error = await response.json();
-            return error;
-          } else {
-            let errorJSON;
-            error = await response.text();
-            console.log('in updataSpot thunk-error', error)
-            try {
-              errorJSON = JSON.parse(error);
-              console.log('in updataSpot thunk-errorJSON', errorJSON)
-            } catch {
-              console.log('in updataSpot thunk-error', error)
-              throw new Error(error);
-            }
-            console.log('in updataSpot thunk-errortitle&message', `${errorJSON.title}: ${errorJSON.message}`)
-            throw new Error(`${errorJSON.title}: ${errorJSON.message}`)
-          }
-        }
 
         const newSpot = await response.json();
         console.log('in updataSpot thunk-newSpot', newSpot)

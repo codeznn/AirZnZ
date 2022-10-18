@@ -42,16 +42,20 @@ const UpdateSpotForm = (spots) => {
 
         const payload = { address, city, state, country, lat, lng, name, description, price,}
         console.log(payload)
-        dispatch(updateSpot(payload, spotId)).then(async (res) => {
-            // const message = await res.json();
-            console.log('in updateSpotForm-message', res)
-            if (res && res.errors) {
-                setErrors(res.errors);
-                console.log('in updateSpotForm-errors', errors)
+        await dispatch(updateSpot(payload, spotId)).then(spotId => history.push('/my-spots'))
+        .catch(async (res) => {
+            const message = await res.json();
+            console.log('in updateSpotForm-message', message.errors)
+            const backendErrors = message.errors;
+            if (backendErrors.length) {
+                setErrors(backendErrors);
+                console.log('success')
             }
+
+            console.log('in updateSpotForm-errors', errors)
         });
 
-        return history.push('/my-spots');
+
     }
 
     const handleCancelClick = () => {

@@ -3,8 +3,6 @@ import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getOneSpot } from "../../store/spots";
 import { Link } from "react-router-dom";
-//import { deleteSpot } from "../../store/spots";
-//import SpotReviews from "../SpotReview";
 import { getReviews } from "../../store/review";
 import './SpotDetails.css';
 
@@ -15,13 +13,16 @@ const SpotDetails = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const sessionUser = useSelector((state) => state.session.user);
+    //console.log('in spotDetails--sessionUser', sessionUser)
     const currentOwner = useSelector((state) => state.spots.singleSpot.ownerId)
     const spot = useSelector(state => state.spots.singleSpot)
-    const reviews = useSelector(state => state.reviews.spot)
+    const reviewsObj = useSelector(state => state.reviews.spot)
+    const reviewsArr = Object.values(reviewsObj)
+    console.log('in spotDetails-reviews', reviewsArr)
 
 
     useEffect(() => {
-        dispatch(getOneSpot(+spotId))
+        dispatch(getOneSpot(spotId))
     }, [dispatch, spotId])
 
     useEffect(() => {
@@ -30,13 +31,8 @@ const SpotDetails = () => {
 
 
     if (!Object.keys(spot).length) return null;
-    if (!reviews) return null;
+    if (!reviewsArr) return null;
 
-
-    // const spothandleClick= async() => {
-    //     await dispatch(deleteSpot(spotId))
-    //     history.push('/')
-    // }
 
     return (
         <div className="single-spot-wrapper">
@@ -53,32 +49,38 @@ const SpotDetails = () => {
                     <img key={img.url} src={img.url} alt={img.name}/>
                 ))}
             </div>
+            <div>Entire home hosted by {sessionUser.firstName}</div>
+            <div>
+                <img src="https://a0.muscache.com/im/pictures/54e427bb-9cb7-4a81-94cf-78f19156faad.jpg"></img>
+                <div>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</div>
+            </div>
             <div className="single-spot-description">
                 {spot.description}
             </div>
-            <section> Reviews:
-                <br></br>
+            <section>
                 <div>
-                    {reviews.map( ele => (
-                    <div key={ele}>
+                    <div>
+                        <i className="fa-solid fa-star"></i>
+                        <span>{!Number(spot.avgStarRating) ? "New" : Number(spot.avgStarRating).toFixed(1)}</span>
+                        <span id='dots'> • </span>
+                        <span>{spot.numReviews} review(s)</span>
+                    </div>
+                    {reviewsArr.map( review => (
+                    <div key={review}>
                         <div>
-                        <i className="fa-solid fa-star"></i>{ele.stars}
-                        {ele.User.firstName}
+                        {review.User?.firstName}
                         </div>
                         <div>
-                        {ele.createdAt.slice(0,10)}
+                        {new Date(review.createdAt).toString().slice(3, -42)}
                         </div>
                         <div>
-                        {ele.review}
+                        {review.review}
                         </div>
 
                     </div>
                     ))}
                 </div>
             </section>
-            {/* <Link to={`/spots/${spotId}/add-image`}>
-                Add SpotImages
-            </Link> */}
             <div>
                 {currentOwner !== sessionUser?.id
                 ?
@@ -86,7 +88,10 @@ const SpotDetails = () => {
                     <button>Create Review</button>
                 </Link>
                 : null
-                }
+            }
+            {/* <Link to={`/spots/${spotId}/add-image`}>
+                Add SpotImages
+            </Link> */}
             </div>
             {/* <br></br>
             <div>
