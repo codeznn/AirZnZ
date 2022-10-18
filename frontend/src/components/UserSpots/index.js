@@ -5,7 +5,6 @@ import { getUserSpots } from "../../store/spots";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { deleteSpot } from "../../store/spots";
-import SpotCard from "../SpotCard";
 
 const UserSpots = () => {
     const dispatch = useDispatch();
@@ -38,7 +37,26 @@ return (
                 {spotsArr.map(spot => (
                     <div key={spot.id} className="spot-card">
                         <NavLink to={`/spots/${spot.id}`} className="link--spot">
-                            <SpotCard key={spot.id} spot={spot} />
+                            <div className="spotCard">
+                                <img src={spot.previewImages} alt={spot.name} className='spotcard-img'/>
+
+                                <div className="spotcard-info">
+
+                                    <div className="spotcard-location">
+                                        {spot.city}, {spot.state}
+                                    </div>
+
+                                    <div className="spotcard-avgRating">
+                                        <i className="fa-solid fa-star"></i>
+                                        {spot.avgRating}
+                                    </div>
+
+                                    <div className="spotcard-price">
+                                        {`$${spot.price} `}
+                                        <span>night</span>
+                                    </div>
+                                </div>
+                            </div>
                         </NavLink>
                         <div>
                             <Link to={`/spots/${spot.id}/edit`} spots={spotsObj}>

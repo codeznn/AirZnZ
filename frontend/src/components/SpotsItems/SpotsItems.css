@@ -1,0 +1,86 @@
+.spots-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 60px 150px 60px 150px;
+    flex-wrap: wrap;
+    column-gap: 30px;
+  }
+
+  .spotCard {
+    width: 100%;
+    padding-bottom: 100%;
+    margin: 1em auto;
+    /* overflow: hidden; */
+    position: relative;
+    border-radius: 20px;
+  }
+
+  .spotcard-img {
+    position: absolute;
+    object-fit: cover;
+    width: auto;
+    max-width: 100%;
+    min-height: 100%;
+    border-radius: 15px;
+  }
+
+
+  .spot-card-container {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    width: 300px;
+    justify-content: space-between;
+  }
+
+
+  .spotcard-avgRating {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    color: black;
+    margin: 10px;
+  }
+  .fa-solid {
+    margin-right: 4px;
+  }
+
+  .spotcard-info {
+    display: flex;
+    flex-direction: column;
+      margin-top: 0px;
+      margin-bottom: 25px;
+      width: auto;
+  }
+
+  .info-first {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .spot-location {
+      font-size: 16px;
+    font-weight: 500;
+      font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+          Helvetica Neue, sans-serif;
+      color: #222222;
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+
+
+
+  .spotcard-price {
+      display: flex;
+    flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-end;
+      color: #222222;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 16px;
+      font-weight: 550;
+  }

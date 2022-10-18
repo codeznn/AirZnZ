@@ -66,30 +66,9 @@ export const createReview = (review, spotId) => async (dispatch) => {
 
         console.log('in creatReview thunk -response', response)
 
-        // if (!response.ok) {
-        //   let error;
-        //   if (response.status === 404) {
-        //     error = await response.json();
-        //     return error;
-        //   } else {
-        //     let errorJSON;
-        //     error = await response.text();
-        //     console.log('in creatReview thunk-error', error)
-        //     try {
-        //       errorJSON = JSON.parse(error);
-        //       console.log('in creatReview thunk-errorJSON', errorJSON)
-        //     } catch {
-        //       console.log('in creatReview thunk-error', error)
-        //       throw new Error(error);
-        //     }
-        //     console.log('in creatReview thunk-errortitle&message', `${errorJSON.title}: ${errorJSON.message}`)
-        //     throw new Error(`${errorJSON.title}: ${errorJSON.message}`)
-        //   }
-        // }
-
         const newReview = await response.json();
         dispatch(createOneReview(newReview));
-        return newReview;
+        return spotId;
     } catch(error) {
         throw error;
     }

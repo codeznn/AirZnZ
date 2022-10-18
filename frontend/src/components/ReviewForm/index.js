@@ -3,6 +3,7 @@ import { useHistory, useParams} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createReview } from "../../store/review";
 import { getOneSpot } from "../../store/spots";
+import './ReviewForm.css'
 
 const CreateReviewForm = () => {
     const { spotId } = useParams();
@@ -45,41 +46,47 @@ const CreateReviewForm = () => {
 
     return (
         <>
-            <div>Create Review for {spot.name}</div>
-            <div>
-                <ul>
-                    {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                </ul>
-            </div>
-            <form id="create-review-form" onSubmit={onSubmit}>
-                <label>
-                    Review
-                    </label>
-                    <textarea
-                        id="review"
-                        type="text"
-                        value={review}
-                        onChange={(e) => setReview(e.target.value)}
-                        required
-                    />
-
-
-                <label id="stars-selector">
-                    Stars
-                    <input
-                        className='review-star'
-                        type='number'
-                        min='1'
-                        max='5'
-                        value={stars}
-                        onChange={e => setStars(e.target.value)}
-                    />
-                </label>
+            <div className='create-review-container'>
+                <div className='review-title'>Create Review for {spot.name}</div>
                 <div>
-                    <button id="submit-review" type="submit">Submit</button>
-                    <button type="button" onClick={handleCancelClick}>Cancel</button>
+                    <ul className='errors'>
+                        {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>
                 </div>
-            </form>
+                <form className="create-review-form" onSubmit={onSubmit}>
+                    <div className='review-div'>
+                        <label className='review-label'>
+                            Review
+                        </label>
+                        <br></br>
+                            <textarea
+                                className='review-content'
+                                type="text"
+                                value={review}
+                                onChange={(e) => setReview(e.target.value)}
+                                required
+                            />
+                    </div>
+                    <div className='stars-div'>
+                        <label className='stars-label'>
+                            Stars
+                        </label>
+                            <input
+                                className='review-star'
+                                type='number'
+                                min='1'
+                                max='5'
+                                value={stars}
+                                onChange={e => setStars(e.target.value)}
+                            />
+                    </div>
+                    <div className='button-div'>
+                        <button className='create-review-button' type="submit">Submit</button>
+                        <button type="button" onClick={handleCancelClick} className='create-review-button'>Cancel</button>
+                    </div>
+                </form>
+            </div>
+
         </>
     )
 }

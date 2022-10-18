@@ -76,6 +76,11 @@ const validateQuery = [
       .notEmpty()
       .isDecimal()
       .withMessage('Price should be Decimal'),//'Price per day is required'),
+    check('url')
+      .notEmpty()
+      .withMessage('Url cannot be empty')
+      .isURL()
+      .withMessage('Url is not valid'),
     handleValidationErrors
   ];
 
@@ -131,12 +136,50 @@ async function getAllSpots(ownerId) {
 }
 
 // Get all Spots owned by the Current User
+// router.get('/current', requireAuth, async (req, res, next) => {
+//     const curuserSpots = await getAllSpots(req.user.id);
+//     res.json({
+//         Spots: curuserSpots
+//     })
+// })
 router.get('/current', requireAuth, async (req, res, next) => {
-    const curuserSpots = await getAllSpots(req.user.id);
-    res.json({
-        Spots: curuserSpots
+    const { user } = req;
+    const currentId = user.toJSON().id;
+
+    const allSpotsforCurrOwner = await Spot.findAll({where: {ownerId: currentId}});
+
+    let spotsArr = [];
+
+    for(let i = 0; i< allSpotsforCurrOwner.length; i++){
+      let SpotsObj = allSpotsforCurrOwner[i].toJSON()
+      let currSpotId = allSpotsforCurrOwner[i].id;
+
+      let avgRating = await Review.findByPk(currSpotId, {
+        attributes: [[sequelize.fn('AVG', sequelize.col("stars")), 'avgRating']]
+      })
+      const rawAvgRating = avgRating.dataValues.avgRating;
+      SpotsObj.avgRating = Number.parseInt(rawAvgRating).toFixed(1);
+
+      let previewImageUrl = await SpotImage.findAll({
+        where: { spotId: currSpotId, preview: true },
+        attributes: ['url'],
+        limit: 1
+      })
+
+      if (previewImageUrl[0]) {
+        SpotsObj.previewImages = previewImageUrl[0].url
+      } else {
+        SpotsObj.previewImages = null;
+      }
+
+      spotsArr.push(SpotsObj)
+    }
+
+    return res.json({
+      Spots: spotsArr
     })
-})
+
+  })
 
 // Get all Reviews by a Spot's id
 router.get('/:spotId/reviews', async (req, res, next) => {
@@ -461,11 +504,13 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 
 
     if (spot.toJSON().ownerId === req.user.id) {
+      console.log("img if conditional is running")
         const spotImage = await SpotImage.create({
             spotId: currentSpotId,
             url: url,
             preview: preview
         });
+        console.log("this is spotImage", spotImage)
         const newImage = await SpotImage.findOne({
             where: { id: spotImage.toJSON().id},
             attributes: ['id', 'url', 'preview']

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Redirect, useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateSpot } from '../../store/spots';
+import { getAllSpots, updateSpot } from '../../store/spots';
 
 
 const UpdateSpotForm = (spots) => {
@@ -11,10 +11,10 @@ const UpdateSpotForm = (spots) => {
     console.log('in editform-spotId', spotId)
     // const sessionUser = useSelector((state) => state.session.user.id);
     // const currentOwner = useSelector((state) => state.spots.singleSpot.ownerId)
-    const spotsObj = useSelector((state) => state.spots.allSpots)
+    const spot = useSelector((state) => state.spots.allSpots[spotId])
 
-    console.log('in editform-spotsObj', spotsObj)
-    const spot = spotsObj[spotId]
+    // console.log('in editform-spotsObj', spotsObj)
+    // const spot = spotsObj[spotId]
     console.log('in editform-spot', spot)
 
     const [address, setAddress] = useState(spot?.address)
@@ -36,6 +36,22 @@ const UpdateSpotForm = (spots) => {
     //     alert("You are not the owner!");
     //     return <Redirect to="/" />;
     // }
+    useEffect(() => {
+        dispatch(getAllSpots())
+    }, []);
+    
+    useEffect(() => {
+        setAddress(spot?.address);
+        setCity(spot?.city);
+        setState(spot?.state);
+        setCountry(spot?.country);
+        setLat(spot?.lat);
+        setLng(spot?.lng);
+        setName(spot?.name);
+        setDescription(spot?.description);
+        setPrice(spot?.price);
+    }, [spot])
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()

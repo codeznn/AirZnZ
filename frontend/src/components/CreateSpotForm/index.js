@@ -24,29 +24,29 @@ const CreateSpot = () => {
     const [validationErrors, setValidationErrors] = useState([]);
     const [errors, setErrors] = useState([]);
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     const errors = [];
+        // const errors = [];
 
-    //     if (!address.length) errors.push('Address is required');
-    //     if (!city.length) errors.push('City is required');
-    //     if (!state.length) errors.push('State is required')
-    //     if (!country.length) errors.push('Country is required');
-    //     if (!name.length) errors.push('Name is required');
-    //     if (!description.length) errors.push('Description is required');
-    //     if(!lat.length) errors.push('Latitude is required');
-    //     if(typeof +lat !== 'number') errors.push('Lat must be a number');
-    //     if (lat < -90 || lat > 90) errors.push('Latitude must be a value in the range of -90 and 90');
-    //     if(!lng.length) errors.push('Longitute is required');
-    //     if(typeof +lng !== 'number') errors.push('Lng must be a number');
-    //     if (lng < -180 || lng > 180) errors.push('Longitude must be a value in the range of -180 and 180');
-    //     if(!price) errors.push('Price is required');
-    //     if(typeof +price !== 'number') errors.push('Price must be a number');
-    //     if (price < 0) validationErrors.push('Price must be greater than 0');
-    //     if (!url.includes('https://')) errors.push('url is not valid');
+        // if (!address.length) errors.push('Address is required');
+        // if (!city.length) errors.push('City is required');
+        // if (!state.length) errors.push('State is required')
+        // if (!country.length) errors.push('Country is required');
+        // if (!name.length) errors.push('Name is required');
+        // if (!description.length) errors.push('Description is required');
+        // if(!lat.length) errors.push('Latitude is required');
+        // if(typeof +lat !== 'number') errors.push('Lat must be a number');
+        // if (lat < -90 || lat > 90) errors.push('Latitude must be a value in the range of -90 and 90');
+        // if(!lng.length) errors.push('Longitute is required');
+        // if(typeof +lng !== 'number') errors.push('Lng must be a number');
+        // if (lng < -180 || lng > 180) errors.push('Longitude must be a value in the range of -180 and 180');
+        // if(!price) errors.push('Price is required');
+        // if(typeof +price !== 'number') errors.push('Price must be a number');
+        // if (price < 0) validationErrors.push('Price must be greater than 0');
+        // if (!url.includes('https://')) errors.push('url is not valid');
 
-    //     setValidationErrors(errors)
-    // }, [name, address, city, state, country, description, lat, lng, price, url])
+        // setValidationErrors(errors)
+    }, [name, address, city, state, country, description, lat, lng, price, url])
 
     if (!sessionUser) {
         alert("You need to be logged in first!");

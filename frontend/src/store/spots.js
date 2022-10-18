@@ -205,6 +205,7 @@ const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_ALL_SPOTS:
             newState = { ...state, allSpots: { ...action.spots } };
+            newState.singleSpot= {}
             //console.log("in reducer", newState)
             return newState;
         case LOAD_ONE_SPOT:
