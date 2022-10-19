@@ -59,7 +59,7 @@ const CreateReviewForm = () => {
                             Review
                         </label>
                         <br></br>
-                            <textarea
+                            <input
                                 className='review-content'
                                 type="text"
                                 value={review}

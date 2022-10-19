@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllSpots } from "../../store/spots";
 import { NavLink } from "react-router-dom";
 import SpotCard from "../SpotCard";
-// import './SpotsItems.css'
+import './SpotsItems.css'
 
 const SpotsItems = () => {
     const dispatch = useDispatch();
@@ -23,23 +23,23 @@ const SpotsItems = () => {
                 { spots.map(spot => (
                     <div key={spot.id} className="spot-card-container" style={{ textDecoration: 'none'}}>
                         <NavLink to={`/spots/${spot.id}`} style={{ textDecoration: 'none'}}>
-                            <div className="spotCard">
-                                <img src={spot.previewImages} alt={spot.name} className='spotcard-img'/>
-
+                            <div className="spotcard">
+                                <div className="spot-img-div">
+                                    <img src={spot.previewImages} alt={spot.name} className='spot-img'/>
+                                </div>
                                 <div className="spotcard-info">
-                                    <div className="info-first">
+                                    <div className="spotcard-info-top">
                                         <span className="spotcard-location">
-                                            {spot.city}{", "}{spot.state}
+                                            {spot.city}{`, `}{spot.state}
                                         </span>
 
                                         <div className="spotcard-avgRating">
                                             <i className="fa-solid fa-star"></i>
-                                            <span>{spot.avgRating}</span>
+                                            <span>{!Number(spot.avgStarRating) ? "New" : Number(spot.avgStarRating).toFixed(1)}</span>
                                         </div>
                                     </div>
 
                                     <div className="spotcard-price">
-
                                         <span>{`$${spot.price} `}{" "}night</span>
                                     </div>
                                 </div>

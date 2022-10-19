@@ -13,14 +13,17 @@
     font-weight: 450;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
-/* .create-review-form {
+.create-review-form {
     display:flex;
-    justify-content: center;
-} */
+    flex-direction: column;
+    width: 300px;
+
+}
 
 .review-div {
     display:flex;
     justify-content: center;
+    flex-direction: column;
 
 }
 .review-label {
@@ -28,11 +31,13 @@
     font-weight: 600;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
     color: rgb(255, 56, 92);
+    flex-direction: column;
 }
 
 .stars-div {
     display:flex;
     justify-content: center;
+    flex-direction: column;
 
 }
 
@@ -41,6 +46,7 @@
     font-weight: 600;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
     color: rgb(255, 56, 92);
+    flex-direction: column;
 }
 
 .button-div {

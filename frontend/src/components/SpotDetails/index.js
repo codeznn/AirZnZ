@@ -37,52 +37,94 @@ const SpotDetails = () => {
     return (
         <div className="single-spot-wrapper">
              <h1 className="spot-name">{spot.name}</h1>
+
             <div className="single-spot-content">
-                <span className="single-spot-avgStarRating">
-                <i className="fa-solid fa-star"></i>
-                    {spot.avgStarRating}</span>
-                <span className="single-spot-numReviews">{spot.numReviews} reviews</span>
-                <span className="single-spot-address">{spot.city}, {spot.state}, {spot.country}</span>
+                <div className="single-spot-avgStarRating">
+                    <i className="fa-solid fa-star"></i>
+                    <span> {!Number(spot.avgStarRating) ? "New" : Number(spot.avgStarRating).toFixed(1)}</span>
+                </div>
+                <div>
+                    <span id='dots'>•</span>
+                </div>
+                <div className="single-spot-numReviews">{spot.numReviews} reviews</div>
+                <div>
+                        <span id='dots'>•</span>
+                </div>
+                <div className="single-spot-address">
+                    {spot.city}, {spot.state}, {spot.country}
+                </div>
             </div>
-            <div className="single-spot-imgs">
-                {spot.SpotImages.map(img => (
-                    <img key={img.url} src={img.url} alt={img.name}/>
-                ))}
+
+            <div className='spot-images'>
+                    <div className='spot-imgs-prview'>
+                        {/* {spot.SpotImages.map(img => ( */}
+                        <img src={spot?.SpotImages[0]?.url} alt={spot?.SpotImages[0]?.url} />
+
+                    </div>
+                    <div className='spot-imgs-small'>
+                        <img src={spot.SpotImages[1] ? spot.SpotImages[1].url : spot.SpotImages[0]?.url} alt={spot.SpotImages[0]?.url} className="samll-img1" />
+                        <img src={spot.SpotImages[2] ? spot.SpotImages[2].url : spot.SpotImages[0]?.url} alt={spot.SpotImages[0]?.url} className="small-img2" />
+                        <img src={spot.SpotImages[3] ? spot.SpotImages[3].url : spot.SpotImages[0]?.url} alt={spot.SpotImages[0]?.url} className="small-img3" />
+                        <img src={spot.SpotImages[4] ? spot.SpotImages[4].url : spot.SpotImages[0]?.url} alt={spot.SpotImages[0]?.url} className="small-img4" />
+
+                    </div>
             </div>
-            <div>Entire home hosted by {spot.Owner?.firstName}</div>
-            <div>
+
+            <div className='price-review-side-div'>
+                    <div className="price-side-div">
+                        <span className='s-number'>{`$${spot.price}`}</span>
+                        <span className='s-night'> night</span>
+                    </div>
+
+                    <div className='review-side-div'>
+                        <i className="fa-sharp fa-solid fa-star"></i>
+                        <span> {!Number(spot.avgStarRating) ? "New" : Number(spot.avgStarRating).toFixed(1)}</span>
+                        <span className='dots'> • </span>
+                        <span className='numReviews'>{spot.numReviews} reviews
+                        </span>
+                    </div>
+            </div>
+
+            <div className="host-div">
+                Entire home hosted by {spot.Owner?.firstName}
+            </div>
+
+            <div className="aircover">
                 <img src="https://a0.muscache.com/im/pictures/54e427bb-9cb7-4a81-94cf-78f19156faad.jpg"></img>
-                <div>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</div>
+                <div className="cover-info">Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</div>
             </div>
             <div className="single-spot-description">
                 {spot.description}
             </div>
-            <section>
-                <div>
-                    <div>
+
+            <div className="spot-reviews">
+                <div className="review-div">
+                    <div className="spot-avgRating">
                         <i className="fa-solid fa-star"></i>
                         <span>{!Number(spot.avgStarRating) ? "New" : Number(spot.avgStarRating).toFixed(1)}</span>
                         <span id='dots'> • </span>
                         <span>{spot.numReviews} review(s)</span>
                     </div>
-                    {reviewsArr.map( review => (
-                    <div key={review}>
-                        <div>
-                        {review.User?.firstName}
-                        </div>
-                        <div>
-                        {new Date(review.createdAt).toString().slice(3, -42)}
-                        </div>
-                        <div>
-                        {review.review}
-                        </div>
 
+                    <div className="review-wrap">
+                        {reviewsArr.map( review => (
+                        <div key={review} className="review-details">
+                            <div className="review-creators">
+                            {review.User?.firstName}
+                            </div>
+                            <div className="review-date">
+                            {new Date(review.createdAt).toString().slice(3, -42)}
+                            </div>
+                            <div className="review-contents">
+                            {review.review}
+                            </div>
+                        </div>
+                        ))}
                     </div>
-                    ))}
                 </div>
-            </section>
-            <div>
-                {currentOwner !== sessionUser?.id
+            </div>
+            <div className="review-button">
+                {sessionUser && currentOwner !== sessionUser?.id
                 ?
                 <Link to={`/spots/${spotId}/new-review`}>
                     <button>Create Review</button>

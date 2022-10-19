@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { Redirect, useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllSpots, updateSpot } from '../../store/spots';
+import './EditSpotForm.css'
 
 
-const UpdateSpotForm = (spots) => {
+const UpdateSpotForm = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const { spotId } = useParams();
@@ -56,7 +57,7 @@ const UpdateSpotForm = (spots) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const payload = { address, city, state, country, lat, lng, name, description, price,}
+        const payload = { address, city, state, country, name, lat, lng, description, price,}
         console.log(payload)
         await dispatch(updateSpot(payload, spotId)).then(spotId => history.push('/my-spots'))
         .catch(async (res) => {
@@ -80,130 +81,142 @@ const UpdateSpotForm = (spots) => {
 
     return (
         <>
-            <div className='create-spot-wrapper'>
+            <div className='eidtspot-wrapper'>
+                <div className='editspot-title'>Edit {spot?.name} </div>
+                <form className='editspot-form' onSubmit={handleSubmit}>
+                <div className='editspot-content'>
+                    <div className='editspot-errors'>
+                        <ul>
+                            {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                        </ul>
+                    </div>
 
-                <h1>Update Spot</h1>
+                    <div className='editspot-container-outer'>
 
-                <div className='create-spot-errors'>
-                    <ul>
-                        {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                    </ul>
+                        <div className='editspot-container'>
+                            <label className='edit-label'>
+                                Address
+                                <br></br>
+                                <input className='edit-input'
+                                    type="text"
+                                    value={address}
+                                    required
+                                    onChange={(e) => setAddress(e.target.value)}
+                                />
+                            </label>
+                        </div>
+
+                        <div className='editspot-container'>
+                            <label className='edit-label'>
+                                City
+                                <br></br>
+                                <input className='edit-input'
+                                    type="text"
+                                    value={city}
+                                    required
+                                    onChange={(e) => setCity(e.target.value)}
+                                />
+                            </label>
+                        </div>
+
+                        <div className='editspot-container'>
+                            <label className='edit-label'>
+                                State
+                                <br></br>
+                                <input className='edit-input'
+                                    type="text"
+                                    value={state}
+                                    required
+                                    onChange={(e) => setState(e.target.value)}
+                                />
+                            </label>
+                        </div>
+
+                        <div className='editspot-container'>
+                            <label className='edit-label'>
+                                Country
+                                <br></br>
+                                <input  className='edit-input'
+                                    type="text"
+                                    value={country}
+                                    required
+                                    onChange={(e) => setCountry(e.target.value)}
+                                />
+                            </label>
+                        </div>
+
+                        <div className='editspot-container'>
+                            <label className='edit-label'>
+                                Lat
+                                <br></br>
+                                <input className='edit-input'
+                                    type="text"
+                                    value={lat}
+                                    required
+                                    onChange={(e) => setLat(e.target.value)}
+                                />
+                            </label>
+                        </div>
+
+                        <div className='editspot-container'>
+                            <label className='edit-label'>
+                                Lng
+                                <br></br>
+                                <input className='edit-input'
+                                    type="text"
+                                    value={lng}
+                                    required
+                                    onChange={(e) => setLng(e.target.value)}
+                                />
+                            </label>
+                        </div>
+
+                        <div className='editspot-container'>
+                            <label className='edit-label'>
+                                Name
+                                <br></br>
+                                <input className='edit-input'
+                                    type="text"
+                                    value={name}
+                                    required
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                            </label>
+                        </div>
+
+                        <div className='editspot-container'>
+                            <label className='edit-label'>
+                                Description
+                                <br></br>
+                                <input className='edit-input'
+                                    type="text"
+                                    value={description}
+                                    required
+                                    onChange={(e) => setDescription(e.target.value)}
+                                />
+                            </label>
+                        </div>
+
+                        <div className='editspot-container-last'>
+                            <label className='edit-label'>
+                                Price
+                                <br></br>
+                                <input className='edit-input-last'
+                                    type="text"
+                                    value={price}
+                                    required
+                                    onChange={(e) => setPrice(e.target.value)}
+                                />
+                            </label>
+                        </div>
+                    </div>
+
+                    <div className='editspot-button-container'>
+                        <button id='editbutton-submit' type='submit'>Submit</button>
+                        <button id='editbutton-cancel' type="button" onClick={handleCancelClick}>Cancel</button>
+                    </div>
+
                 </div>
-
-                <form className='create-spot-form' onSubmit={handleSubmit}>
-                    <div className='address'>
-                        <label>
-                            Address:
-                            <input
-                                type="text"
-                                value={address}
-                                required
-                                onChange={(e) => setAddress(e.target.value)}
-                            />
-                        </label>
-                    </div>
-
-                    <div className='city'>
-                        <label>
-                            City:
-                            <input
-                                type="text"
-                                value={city}
-                                required
-                                onChange={(e) => setCity(e.target.value)}
-                            />
-                        </label>
-                    </div>
-
-                    <div className='state'>
-                        <label>
-                            State:
-                            <input
-                                type="text"
-                                value={state}
-                                required
-                                onChange={(e) => setState(e.target.value)}
-                            />
-                        </label>
-                    </div>
-
-                    <div className='country'>
-                        <label>
-                            Country:
-                            <input
-                                type="text"
-                                value={country}
-                                required
-                                onChange={(e) => setCountry(e.target.value)}
-                            />
-                        </label>
-                    </div>
-
-                    <div className='lat'>
-                        <label>
-                            Lat:
-                            <input
-                                type="text"
-                                value={lat}
-                                required
-                                onChange={(e) => setLat(e.target.value)}
-                            />
-                        </label>
-                    </div>
-
-                    <div className='lng'>
-                        <label>
-                            Lng:
-                            <input
-                                type="text"
-                                value={lng}
-                                required
-                                onChange={(e) => setLng(e.target.value)}
-                            />
-                        </label>
-                    </div>
-
-                    <div className='name'>
-                        <label>
-                            Name:
-                            <input
-                                type="text"
-                                value={name}
-                                required
-                                onChange={(e) => setName(e.target.value)}
-                            />
-                        </label>
-                    </div>
-
-                    <div className='description'>
-                        <label>
-                            Description:
-                            <input
-                                type="text"
-                                value={description}
-                                required
-                                onChange={(e) => setDescription(e.target.value)}
-                            />
-                        </label>
-                    </div>
-
-                    <div className='price'>
-                        <label>
-                            Price:
-                            <input
-                                type="text"
-                                value={price}
-                                required
-                                onChange={(e) => setPrice(e.target.value)}
-                            />
-                        </label>
-                    </div>
-
-                    <div className='update-spot-wrapper'>
-                        <button id='update-spot-button' type='submit'>Submit</button>
-                        <button type="button" onClick={handleCancelClick}>Cancel</button>
-                    </div>
-
                 </form>
 
             </div>

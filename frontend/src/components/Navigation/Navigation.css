@@ -1,126 +1,208 @@
-.navi-ul {
-    height: 100px;
-    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
-  }
+.session {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-left: 80px;
+  margin-right: 100px;
+}
 
-  .navi-li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-    margin-left: 40px;
-    margin-right: 150px;
-    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
-  }
+.sessionlinks {
+  padding-right: 10px;
+}
 
-  .logo {
-    left: 60px;
-    width: 250px;
-    margin-top: 0.1em;
-    margin-left: 0.5em;
-  }
+.sessionlinks span {
+  padding: 20px;
+}
 
-  .navi-right{
-    display: flex;
-    justify-content: space-between;
-  }
+ul {
+  list-style: none
+}
 
-  .profile-dropdown {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    width: 156px;
-    z-index: 9999;
-    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
-  }
 
-  .fa-circle-user {
-    color: rgb(118, 115, 115);
-    margin-top: 5.5px;
-    font-size: 2.2em;
-  }
+.dropdownwrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: -15px;
+  margin-right: 4px;
+}
 
-  .fa-bars {
-    color: rgb(102, 100, 100);
-    margin-left: 6px;
-    margin-top: 11px;
-    font-size: 1.5em;
-  }
+.logo {
+  width: 150px;
+  margin-top: -20px;
+}
 
-  .profile-button {
-    margin-top: 5px;
-    height: 42px;
-    width: 78px;
-    border-radius: 20px;
-    border: 1px solid rgb(210, 208, 208);
-    background-color: white;
-    display: flex;
-    justify-content: space-around;
-  }
+#login-dropdown {
+  border: solid rgb(198, 198, 198) 1px;
+  box-shadow: 0px 0px 5px #ababab99;
+  background-color: white;
+  border-radius: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
+  position: absolute;
+  padding-bottom: 5px;
+  padding-top: 10px;
+  width: 120px;
+  z-index: 9999;
+  top: 65px;
+}
+#login-nav {
+  padding-left: 10px;
+  padding-top: 5px;
+  color: black;
+  background-color: none;
+}
+.login-nav-login {
+  font-weight: 400;
+}
+.login-nav-signup {
+  font-weight: 200
+}
+#login-nav-wrapper {
+  height: 25px;
+  margin-bottom: 10px;
+  /* background-color: pink; */
+}
+#login-nav-wrapper :hover {
+  width: 100%;
+  height: 120%;
+  background-color: rgb(223, 223, 223);
+}
 
-  .profile-button:hover {
-    box-shadow: 0 2px 2px 0 rgba(157, 158, 156, 0.2), 0 3px 3px 0 rgba(122, 120, 120, 0.19);
-    cursor: pointer;
-  }
+.headerbreak {
+  background-color: #dedede99;
+  width: 100%;
+  height: 1px;
+  margin-top: 30px;
+  /* margin-bottom: -40px; */
+}
 
-  .menuShown{
-    visibility: visible;
-    width: 130px;
-    margin-top: 10px;
-    padding-top: 2px;
-    padding-bottom: 10px;
-    border-radius: 8px;
-    background-color: white;
-    box-shadow: 0px 3px 3px 2px rgba(157, 158, 156, 0.2), 0px 3px 5px 5px rgba(122, 120, 120, 0.19);
-    z-index: 9999;
-    position: relative;
-    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
-  }
+#profile-dropdown {
+  border: solid rgb(198, 198, 198) 1px;
+  box-shadow: 0px 0px 5px #ababab99;
+  background-color: white;
+  border-radius: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
+  position: absolute;
+  height: 275px;
+  width: 156px;
+  z-index: 9999;
+  top: 65px;
+}
 
-  .not-menuShown {
-    visibility: hidden;
-  }
+.profile-info-wrapper {
+  margin-top: 25px;
+  margin-bottom: -10px;
+}
 
-  .profile-dropdown {
-    width: auto;
-    margin-top: 10px;
-    padding-top: 2px;
-    padding-bottom: 5px;
-    border-radius: 10px;
-    background-color: white;
-    box-shadow: 0px 3px 3px 2px rgba(157, 158, 156, 0.2), 0px 3px 5px 5px rgba(122, 120, 120, 0.19);
-    z-index: 9999;
-    position: relative;
-    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
-  }
+.profile-info {
+  margin-top: 15px;
+  font-size:14px;
+  font-weight:300;
+  padding-left: 12px;
+}
 
-  .profile-username{
-    margin: 10px;
-  }
 
-  .profile-email{
-    margin: 10px;
-  }
+.menu-visible{
+  visibility:visible;
+  border: solid red 1px
+}
+.menu-not-visible {
+  visibility: hidden;
+}
 
-  .profile-blank {
-    background-color: #dedede99;
-    width: 100%;
-    height: 1px;
-    margin-top: 10px;
-    /* margin-bottom: -40px; */
-  }
+.login-inner-div {
+  color: black;
+  font-size: 14px;
+  font-weight: 400;
+  padding-left: 12px;
+  padding-top: 10px;
+}
+.login-menu-wrapper {
+  color: black;
+  padding-top: 15px;
+  height: 20px;
+  font-size: 12px;
+}
 
-  .profile-btm-div {
-    color: black;
-    font-size: 14px;
-    font-weight: 400;
-    padding-left: 12px;
-    padding-top: 10px;
-    margin-bottom: 8px;
-    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
-  }
 
-  .profile-btm-div:hover {
-    /* box-shadow: 0 2px 2px 0 rgba(157, 158, 156, 0.2), 0 3px 3px 0 rgba(122, 120, 120, 0.19); */
-    cursor: pointer;
-  }
+.login-menu-wrapper :hover {
+  background-color: rgb(230, 230, 230);
+  width: 92.3%;
+  height: 150%;
+  cursor:pointer;
+}
+
+.profilebuttonwrapper {
+  justify-self: right;
+  /* width: 70px;
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid rgb(171, 171, 171);
+  justify-self: left;
+  background-color: white; */
+}
+
+.profilebutton {
+  width: 70px;
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid rgb(171, 171, 171);
+  justify-self: left;
+  background-color: white;
+}
+.profilebutton:hover {
+  box-shadow: 2px 2px 2px rgb(213, 213, 213);
+  cursor: pointer;
+}
+
+.fa-user {
+  color: rgb(171, 171, 171);
+  margin-left: 5px;
+}
+
+.fa-bars {
+  color: rgb(171, 171, 171);
+  margin-right: 8px;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgb(171, 171, 171);
+  background-color: white;
+  width: 100%;
+  margin-top: 100px;
+  height: 50px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-bottom: 0px;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.clone {
+  margin-left: 120px;
+}
+.name {
+  margin-right: 120px;
+}
+.name > a {
+  text-decoration: none;
+  font-weight: 400;
+  color: black;
+}
+.name> :hover {
+  /* font-weight: 500; */
+  color: pink;
+}
+
+.whoops {
+  font-weight: 300;
+  width: fit-content;
+  margin: auto;
+  margin-top: 100px;
+}

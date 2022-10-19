@@ -1,5 +1,4 @@
-
-.login-form-container {
+/* .editspt-wrapper {
     width: 568px;
     height: 450px;
 
@@ -7,68 +6,73 @@
     border-width: 1px;
     border-radius: 15px;
     border-style: solid;
-  }
+  } */
 
 
-  .login-title {
+  .editspot-title {
     display:flex;
     align-items: center;
     justify-content: center;
     height: 64px;
-    font-size: 20px;
+    font-size: 40px;
     font-weight: 600;
+    color: rgb(255, 56, 179);
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
-    border-bottom: lightgray solid 1px;
   }
 
-  .content-container {
+  .editspot-content {
     box-sizing: border-box;
     padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: aquamarine; */
   }
 
-  .welcome-title {
-    font-size: 22px;
-    font-weight: 450;
-    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
-    margin-top: 8px;
-    margin-bottom: 30px;
-  }
-
-  .errors {
-    color: rgb(255, 56, 92);
+  .editspot-errors {
+    color: rgb(255, 56, 179);
     font-size: 14px;
     font-weight: 450;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
   }
-  .input-info{
+  .editspot-container-outer{
     border:  1px solid lightgray;
     border-radius: 8px;
     margin-bottom: 30px;
     margin-top: 20px;
+    width: 800px;
+    height: 720px;
+    /* background-color: blue; */
+    position: relative;
+
    }
 
-   .input-userName {
+  .editspot-container {
     display: flex;
     align-items: center;
-    height: 56px;
-    border-bottom: lightgray solid 1px;
+    height: 80px;
+    border-bottom: 1px solid #c2c0c2;
   }
 
-  .input-container {
+
+  .editspot-container-container-last {
     display: flex;
     align-items: center;
-    height: 56px;
+    height: 60px;
   }
 
-  .input-label {
+  .edit-label {
     padding: 15px 0px 10px 10px;
+    color: rgb(255, 56, 179);
     font-size: 14px;
     font-weight: 400;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
   }
 
-  .input {
-    height: 20px;
+
+  .edit-input {
+    height: 40px;
+    width: 780px;
     margin: 0px 0px;
     font-size: 15px;
     font-weight: 350;
@@ -76,11 +80,30 @@
     color: black;
     border: none;
     outline: none;
+    color:gray
+  }
+  .edit-input-last {
+    height: 40px;
+    width: 780px;
+    margin-left:10px;
+    font-size: 15px;
+    font-weight: 350;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    color: black;
+    border: none;
+    outline: none;
+    color:gray
   }
 
-  .styled-button {
+  .editspot-button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 800px;
+  }
+  #editbutton-submit, #editbutton-cancel {
     height: 48px;
-    width: 520px;
+    width: 100px;
     margin-top: 16px;
     padding: 12px 24px;
     outline: none;
@@ -89,7 +112,7 @@
     color: #FFFFFF;
     font-size: 16px;
     font-weight: 400;
-    background-color: rgb(255, 56, 92);
+    background-color: rgb(255, 56, 179);
     background-size: 200% 200%;
     cursor: pointer;
   }

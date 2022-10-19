@@ -1,65 +1,85 @@
 // frontend/src/components/Navigation/ProfileButton.js
-import React, { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
-import { useHistory } from "react-router-dom";
-import * as sessionActions from '../../store/session';
-import './Navigation.css'
+import { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { Link, useHistory } from 'react-router-dom'
+import { logout } from '../../store/session'
 
-function ProfileButton({ user }) {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const [showMenu, setShowMenu] = useState(false);
+export const ProfileButton = ({ user }) => {
+    const dispatch = useDispatch()
+    const history = useHistory()
+    let [showMenu, setShowMenu] = useState(false)
 
-  const openMenu = () => {
-    if (showMenu) return;
-    setShowMenu(true);
-  };
+    const openMenu = () => {
+        if (showMenu) return;
+        else setShowMenu(true);
+    }
 
-  useEffect(() => {
-    if (!showMenu) return;
+    useEffect(() => {
+        if (!showMenu) return;
 
-    const closeMenu = () => {
-      setShowMenu(false);
-    };
+        const closeMenu = () => {
+            setShowMenu(false);
+        };
 
-    document.addEventListener('click', closeMenu);
+        document.addEventListener('click', closeMenu);
 
-    return () => document.removeEventListener("click", closeMenu);
-  }, [showMenu]);
+        return () => document.removeEventListener("click", closeMenu);
+    }, [showMenu]);
 
-  const logout = (e) => {
-    e.preventDefault();
-    dispatch(sessionActions.logout());
-    return history.push('/');
-  };
+    const logoutUser = e => {
+        e.preventDefault()
+        dispatch(logout())
+    }
 
-  return (
-    <>
-      <div className="dropdown-container">
-        <button onClick={openMenu} className='profile-button'>
-          <i className="fa-solid fa-bars"></i>
-          <i className="fa-sharp fa-solid fa-circle-user"></i>
-        </button>
-        <div>
-          {showMenu && (
-            <div className="'dropdown-outer-container">
-              <div className="profile-username">{user.username}</div>
-              <div className="profile-email">{user.email}</div>
-              <div className='profile-blank'></div>
-              <div className="profile-bottom">
-                <div onClick={() => history.push('/new-spot')} className="profile-newspots">Host Your Spot</div>
-                <div onClick={() => history.push('/my-spots')} className="profile-myspots">My Spots</div>
-                <div onClick={() => history.push('/my-reviews')} className="profile-myreviews">My Reviews</div>
-                <div className='profile-blank'></div>
-                <div onClick={logout} className="profile-btm-logout">Log Out</div>
-              </div>
+    return (
+        <>
+            <div className='dropdownwrapper'>
+                    <div className='this-on-top'>
+
+                    </div>
+                <div className='profilebuttonwrapper'>
+
+                    <button onClick={openMenu} className='profilebutton'>
+                        <div className='fa'>
+                            <i id='bars' className="fa-solid fa-bars"></i>
+                            <i className="fa-regular fa-user"></i>
+                        </div>
+                    </button>
+                </div>
+                {showMenu && (
+
+                    <div id='profile-dropdown' className='profile dropdown'>
+                        <div className='profile-info-wrapper'>
+                            <div className='profile-info' key='username'>
+                                {user.username.length < 20  ? user.username : user.username.slice(0,19)+"..."}
+                                </div>
+                            <div className='profile-info' key='email'>
+                                {user.email.length < 20 ? user.email : user.email.slice(0,19)+"..."}
+                                </div>
+                        </div>
+                        <div className='headerbreak'></div>
+                        <div className='login-menu-wrapper'>
+                            <div className='login-inner-div' key='myspots' onClick={() => history.push('/my-spots')}>
+                                My Spots
+                            </div>
+                        </div>
+                        <div className='login-menu-wrapper'>
+                            <div className='login-inner-div' key='newspot' onClick={() => history.push('/new-spot')}>Host Your Spot
+                            </div>
+                        </div>
+                        <div className='login-menu-wrapper'>
+
+                            <div className='login-inner-div' key='myreviews' onClick={() => history.push('/my-reviews')}>My Reviews
+                            </div>
+                        </div>
+                        <div>
+                            <div className='login-menu-wrapper'>
+                                <div className='login-inner-div' onClick={logoutUser}> Log Out</div>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
-          )}
-         </div>
-
-      </div>
-    </>
-  );
+        </>
+    )
 }
-
-export default ProfileButton;

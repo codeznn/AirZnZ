@@ -5,6 +5,7 @@ import { getUserSpots } from "../../store/spots";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { deleteSpot } from "../../store/spots";
+import './userSpots.css'
 
 const UserSpots = () => {
     const dispatch = useDispatch();
@@ -21,8 +22,8 @@ const UserSpots = () => {
     }, [dispatch]);
 
     if (!spotsArr) return (
-        <div >
-           <h2>Sorry, you are not hosting any Spots </h2>
+        <div className="no-spots">
+           Sorry, you are not hosting any Spots!
        </div>
     )
     const spothandleClick= async(spotId) => {
@@ -31,51 +32,52 @@ const UserSpots = () => {
     }
 
 return (
-    <div className='user-spots'>
-        <h2>My Spots</h2>
-        <div className="spots-wrapper">
-                {spotsArr.map(spot => (
-                    <div key={spot.id} className="spot-card">
-                        <NavLink to={`/spots/${spot.id}`} className="link--spot">
-                            <div className="spotCard">
-                                <img src={spot.previewImages} alt={spot.name} className='spotcard-img'/>
+    <>
+        <div className='user-myspots'>
+            <h1>My Spots</h1>
+        </div>
+        <div className="myspot-outer-container">
+            {spotsArr.map(spot => (
+                <div key={spot.id} className="spot-card-outer">
+                    <NavLink to={`/spots/${spot.id}`} style={{ textDecoration: 'none'}} className="link--spot">
+                        <div className="myspot-img-div">
+                            <img src={spot.previewImages} alt={spot.name} className='myspot-img'/>
+                        </div>
 
-                                <div className="spotcard-info">
+                        <div className="myspot-info">
+                                    <div className="myspot-info-top">
+                                        <span className="myspot-location">
+                                            {spot.city}{`, `}{spot.state}
+                                        </span>
 
-                                    <div className="spotcard-location">
-                                        {spot.city}, {spot.state}
+                                        <div className="myspot-avgRating">
+                                            <i className="fa-solid fa-star"></i>
+                                            <span>{!Number(spot.avgStarRating) ? "New" : Number(spot.avgStarRating).toFixed(1)}</span>
+                                        </div>
                                     </div>
 
-                                    <div className="spotcard-avgRating">
-                                        <i className="fa-solid fa-star"></i>
-                                        {spot.avgRating}
-                                    </div>
-
-                                    <div className="spotcard-price">
-                                        {`$${spot.price} `}
-                                        <span>night</span>
-                                    </div>
+                            <div className="myspot-price-container">
+                                <div>
+                                    <span className="myspot-price-span">{`$${spot.price}`}</span>{' '}
+                                    night
                                 </div>
                             </div>
-                        </NavLink>
-                        <div>
-                            <Link to={`/spots/${spot.id}/edit`} spots={spotsObj}>
-                                <button>Edit Spot</button>
-                            </Link>
                         </div>
-                        <div>
-                            <button onClick={() => spothandleClick(spot.id)}>Delete Spot</button>
-                        </div>
+                    </NavLink>
+
+                    <div className="myspot-button-container">
+                        <Link to={`/spots/${spot.id}/edit`} spots={spotsObj}>
+                            <button className="myspot-button">Edit Spot</button>
+                        </Link>
+                        <button onClick={() => spothandleClick(spot.id)} className="myspot-button">Delete Spot</button>
                     </div>
-                ))}
+
+                </div>
+            ))}
+
         </div>
-
-
-
-    </div>
+    </>
 )
-
-
 };
 
 export default UserSpots;
