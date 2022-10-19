@@ -1,1 +1,107 @@
+.createspot-title {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 64px;
+    font-size: 40px;
+    font-weight: 600;
+    color: rgb(255, 56, 179);
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  }
 
+  .createspot-content {
+    box-sizing: border-box;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: aquamarine; */
+  }
+
+  .createspot-errors {
+    color: rgb(255, 56, 179);
+    font-size: 14px;
+    font-weight: 450;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  }
+  .createspot-container-outer{
+    border:  1px solid lightgray;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    width: 800px;
+    height: 800px;
+    /* background-color: blue; */
+
+   }
+
+  .createspot-container {
+    display: flex;
+    align-items: center;
+    height: 80px;
+    border-bottom: 1px solid #c2c0c2;
+  }
+
+
+  .createspot-container-container-last {
+    display: flex;
+    align-items: center;
+    height: 60px;
+  }
+
+  .create-label {
+    padding: 15px 0px 10px 10px;
+    color: rgb(255, 56, 179);
+    font-size: 16px;
+    font-weight: 400;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  }
+
+
+  .create-input {
+    height: 40px;
+    width: 780px;
+    margin: 0px 0px;
+    font-size: 18px;
+    font-weight: 350;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    color: black;
+    border: none;
+    outline: none;
+    color:gray
+  }
+  .create-input-last {
+    height: 40px;
+    width: 780px;
+    margin-left:10px;
+    font-size: 18px;
+    font-weight: 350;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    color: black;
+    border: none;
+    outline: none;
+    color:gray
+  }
+
+  .creatspot-button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 800px;
+  }
+
+  #createspot-button-create, #createspot-button-cancel {
+    height: 48px;
+    width: 100px;
+    margin-top: 16px;
+    padding: 12px 24px;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 400;
+    background-color: rgb(255, 56, 179);
+    background-size: 200% 200%;
+    cursor: pointer;
+  }

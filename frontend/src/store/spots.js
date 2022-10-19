@@ -99,7 +99,7 @@ export const getUserSpots = () => async dispatch => {
 
 // createSpot thunk
 export const createSpot = (spot) => async dispatch => {
-    const { url, preview } = spot;
+    const { url } = spot;
     //console.log('in creatOneSpot thunk-spot///////', spot)
     //console.log('in creatOneSpot thunk-imgDate///////', { url, preview })
     try {
@@ -121,7 +121,7 @@ export const createSpot = (spot) => async dispatch => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ url, preview })
+                body: JSON.stringify({ url, preview: true })
             });
 
             console.log('in addSpot thunk-resAddImg', resAddImg);

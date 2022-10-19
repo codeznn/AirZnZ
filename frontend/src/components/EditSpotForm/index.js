@@ -212,7 +212,7 @@ const UpdateSpotForm = () => {
                     </div>
 
                     <div className='editspot-button-container'>
-                        <button id='editbutton-submit' type='submit'>Submit</button>
+                        <button id='editbutton-submit' type='submit'>Edit</button>
                         <button id='editbutton-cancel' type="button" onClick={handleCancelClick}>Cancel</button>
                     </div>
 

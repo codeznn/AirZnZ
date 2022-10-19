@@ -64,7 +64,7 @@
   .edit-label {
     padding: 15px 0px 10px 10px;
     color: rgb(255, 56, 179);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
   }
@@ -74,7 +74,7 @@
     height: 40px;
     width: 780px;
     margin: 0px 0px;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 350;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
     color: black;
@@ -86,7 +86,7 @@
     height: 40px;
     width: 780px;
     margin-left:10px;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 350;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
     color: black;
@@ -110,7 +110,7 @@
     border: none;
     border-radius: 8px;
     color: #FFFFFF;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 400;
     background-color: rgb(255, 56, 179);
     background-size: 200% 200%;

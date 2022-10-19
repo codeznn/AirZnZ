@@ -87,23 +87,27 @@ const CreateSpot = () => {
 
     return (
         <>
-            <div className='create-spot-wrapper'>
+            <div className='createspot-wrapper'>
 
-                <h1>Create A New Spot</h1>
+            <div className='createspot-title'>Create A New Spot </div>
 
-                <div className='create-spot-errors'>
-                        <ul className='errors'>
-                            {errors && errors.map((err) => (
-                                <li key={err}>{err}</li>
-                            ))}
-                        </ul>
-                </div>
+                <form className='createspot-form' onSubmit={handleSubmit}>
+                    <div className='createspot-content'>
+                    <div className='createspot-errors'>
+                            <ul>
+                                {errors && errors.map((err) => (
+                                    <li key={err}>{err}</li>
+                                ))}
+                            </ul>
+                    </div>
+                    <div className='createspot-container-outer'>
 
-                <form className='create-spot-form' onSubmit={handleSubmit}>
-                    <div className='address'>
-                        <label>
-                            Address:
-                            <input
+
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            Address
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={address}
                                 required
@@ -112,10 +116,11 @@ const CreateSpot = () => {
                         </label>
                     </div>
 
-                    <div className='city'>
-                        <label>
-                            City:
-                            <input
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            City
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={city}
                                 required
@@ -124,10 +129,11 @@ const CreateSpot = () => {
                         </label>
                     </div>
 
-                    <div className='state'>
-                        <label>
-                            State:
-                            <input
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            State
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={state}
                                 required
@@ -136,10 +142,11 @@ const CreateSpot = () => {
                         </label>
                     </div>
 
-                    <div className='country'>
-                        <label>
-                            Country:
-                            <input
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            Country
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={country}
                                 required
@@ -148,10 +155,11 @@ const CreateSpot = () => {
                         </label>
                     </div>
 
-                    <div className='lat'>
-                        <label>
-                            Lat:
-                            <input
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            Lat
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={lat}
                                 required
@@ -160,10 +168,11 @@ const CreateSpot = () => {
                         </label>
                     </div>
 
-                    <div className='lng'>
-                        <label>
-                            Lng:
-                            <input
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            Lng
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={lng}
                                 required
@@ -172,10 +181,11 @@ const CreateSpot = () => {
                         </label>
                     </div>
 
-                    <div className='name'>
-                        <label>
-                            Name:
-                            <input
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            Name
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={name}
                                 required
@@ -184,10 +194,11 @@ const CreateSpot = () => {
                         </label>
                     </div>
 
-                    <div className='description'>
-                        <label>
-                            Description:
-                            <input
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            Description
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={description}
                                 required
@@ -196,10 +207,11 @@ const CreateSpot = () => {
                         </label>
                     </div>
 
-                    <div className='price'>
-                        <label>
-                            Price:
-                            <input
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            Price
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={price}
                                 required
@@ -207,28 +219,30 @@ const CreateSpot = () => {
                             />
                         </label>
                     </div>
-                    <div className = 'url'>
-                        <label>
-                            Image:
-                            <input
+                    <div className = 'createspot-container-last'>
+                        <label className='create-label'>
+                            ImageUrl
+                            <br></br>
+                            <input className='create-input-last'
                                 type="text"
                                 value={url}
                                 required
                                 onChange={(e) => setUrl(e.target.value)}
                             />
                         </label>
-                        <label>Preview Image:</label>
+                        {/* <label>Preview Image:</label>
                             <select onChange={e => setPreview(e.target.value)} value={preview}>
                                 <option key='true'>true</option>
                                 <option key='false'>false</option>
-                            </select>
+                            </select> */}
                     </div>
 
-                    <div className='creat-spot-wrapper'>
-                        <button id='create-spot-button' type='submit'>Submit</button>
-                        <button type="button" onClick={handleCancelClick}>Cancel</button>
+                    <div className='creatspot-button-container'>
+                        <button id='createspot-button-create' type='submit'>Create</button>
+                        <button id='createspot-button-cancel' type="button" onClick={handleCancelClick}>Cancel</button>
                     </div>
-
+                    </div>
+                    </div>
                 </form>
 
             </div>
