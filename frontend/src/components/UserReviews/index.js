@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUserReviews } from "../../store/review";
 import { deleteReview } from "../../store/review";
+import './userReviews.css'
 
 const UserReviews = () => {
     const dispatch = useDispatch();
@@ -31,30 +32,29 @@ const UserReviews = () => {
     </div>)
 
     return (
-        <div className="user-review-div">
-            <div className='user-review-title'>
-                <h2 className="review-title">
-                    My reviews
-                </h2>
+        <div className="myreview-div">
+            <div className='myreview-title'>
+                My Reviews
             </div>
-            <div className="review-Lists">
+            <div className="myreview-content">
                 {reviewsArr.map(review => (
-                    <div className="review-details" key={review.id}>
+                    <div className="myreview-details" key={review.id}>
                         {/* <div className="review-spot" >
                             <img src={review.Spot?.previewImage} alt={review.Spot?.description}></img>
                         </div> */}
-                        <div className="review-spot-title">
+                        <div className="myreview-spot-title">
                             {review.Spot?.name === null ? "" : `Review for ${review.Spot?.name}`}
                         </div>
-                        <div className="review-contents">
-                            {review.review}
-                        </div>
-                        <div className='review-star'>
+                        <div className='myreview-star'>
                             <i className="fa-sharp fa-solid fa-star"></i>
                             <span>{review.stars}</span>
+                        <div className="myreview-review">
+                            {review.review}
                         </div>
-                        <div className="delete-review">
-                            <button className="deleteReview-button" onClick={() => handleDelete(review.id)}>Delete Review</button>
+                        </div>
+                        <div className="myreview-button-container">
+                            <button className="myreview-button" disabled={true}>Edit</button>
+                            <button className="myreview-button" onClick={() => handleDelete(review.id)}>Delete</button>
                         </div>
                     </div>
                 ))}

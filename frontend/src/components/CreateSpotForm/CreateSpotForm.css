@@ -9,7 +9,7 @@
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
   }
 
-  .createreview-form-container {
+  .createspot-content {
     box-sizing: border-box;
     padding: 25px;
     display: flex;
@@ -88,6 +88,7 @@
     flex-direction: row;
     justify-content: space-between;
     width: 800px;
+    padding-top: 20px;
   }
 
   #createspot-button-create, #createspot-button-cancel {
