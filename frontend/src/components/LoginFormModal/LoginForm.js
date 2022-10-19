@@ -44,7 +44,8 @@ function LoginForm() {
               ))}
             </ul>
           </div>
-            <div className="input-container">
+          <div className="input-info">
+            <div className="input-userName">
               <label className="input-label">
                 Username or Email
                 <br></br>
@@ -55,19 +56,19 @@ function LoginForm() {
                   required
                 />
               </label>
-            </div>
-            <div className="input-container">
-              <label className="input-label">
-                Password
-                <br></br>
-                <input className="input"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </label>
-
+              </div>
+              <div className="input-container">
+                <label className="input-label">
+                  Password
+                  <br></br>
+                  <input className="input"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </label>
+              </div>
           </div>
           <div>
             <button className="styled-button" type="submit">Log In</button>

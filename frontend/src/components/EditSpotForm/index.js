@@ -39,18 +39,18 @@ const UpdateSpotForm = (spots) => {
     useEffect(() => {
         dispatch(getAllSpots())
     }, []);
-    
-    useEffect(() => {
-        setAddress(spot?.address);
-        setCity(spot?.city);
-        setState(spot?.state);
-        setCountry(spot?.country);
-        setLat(spot?.lat);
-        setLng(spot?.lng);
-        setName(spot?.name);
-        setDescription(spot?.description);
-        setPrice(spot?.price);
-    }, [spot])
+
+    // useEffect(() => {
+    //     setAddress(spot?.address);
+    //     setCity(spot?.city);
+    //     setState(spot?.state);
+    //     setCountry(spot?.country);
+    //     setLat(spot?.lat);
+    //     setLng(spot?.lng);
+    //     setName(spot?.name);
+    //     setDescription(spot?.description);
+    //     setPrice(spot?.price);
+    // }, [spot])
 
 
     const handleSubmit = async (e) => {

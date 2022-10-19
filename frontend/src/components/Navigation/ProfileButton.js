@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import * as sessionActions from '../../store/session';
+import './Navigation.css'
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -34,19 +35,29 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        {/* <i className="fas fa-user-circle" /> */}
-        <i className="fa-sharp fa-solid fa-circle-user"></i>
-      </button>
-      {showMenu && (
-        <ul className="profile-dropdown">
-          <li>{user.username}</li>
-          <li>{user.email}</li>
-          <li>
-            <button onClick={logout}>Log Out</button>
-          </li>
-        </ul>
-      )}
+      <div className="dropdown-container">
+        <button onClick={openMenu} className='profile-button'>
+          <i className="fa-solid fa-bars"></i>
+          <i className="fa-sharp fa-solid fa-circle-user"></i>
+        </button>
+        <div>
+          {showMenu && (
+            <div className="'dropdown-outer-container">
+              <div className="profile-username">{user.username}</div>
+              <div className="profile-email">{user.email}</div>
+              <div className='profile-blank'></div>
+              <div className="profile-bottom">
+                <div onClick={() => history.push('/new-spot')} className="profile-newspots">Host Your Spot</div>
+                <div onClick={() => history.push('/my-spots')} className="profile-myspots">My Spots</div>
+                <div onClick={() => history.push('/my-reviews')} className="profile-myreviews">My Reviews</div>
+                <div className='profile-blank'></div>
+                <div onClick={logout} className="profile-btm-logout">Log Out</div>
+              </div>
+            </div>
+          )}
+         </div>
+
+      </div>
     </>
   );
 }

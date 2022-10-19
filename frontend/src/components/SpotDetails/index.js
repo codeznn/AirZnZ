@@ -49,7 +49,7 @@ const SpotDetails = () => {
                     <img key={img.url} src={img.url} alt={img.name}/>
                 ))}
             </div>
-            <div>Entire home hosted by {spot.Owner.firstName}</div>
+            <div>Entire home hosted by {spot.Owner?.firstName}</div>
             <div>
                 <img src="https://a0.muscache.com/im/pictures/54e427bb-9cb7-4a81-94cf-78f19156faad.jpg"></img>
                 <div>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</div>

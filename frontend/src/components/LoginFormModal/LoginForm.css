@@ -40,17 +40,28 @@
     font-weight: 450;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
   }
+  .input-info{
+    border:  1px solid lightgray;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+   }
+
+   .input-userName {
+    display: flex;
+    align-items: center;
+    height: 56px;
+    border-bottom: lightgray solid 1px;
+  }
 
   .input-container {
     display: flex;
     align-items: center;
     height: 56px;
-    border: 1px solid #c2c0c2;
   }
-  
+
   .input-label {
     padding: 15px 0px 10px 10px;
-    color:gray;
     font-size: 14px;
     font-weight: 400;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;

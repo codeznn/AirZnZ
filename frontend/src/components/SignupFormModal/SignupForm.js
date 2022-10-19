@@ -35,15 +35,15 @@ function SignupForm() {
     <div className="signup-form-continer">
       <form onSubmit={handleSubmit}>
         <div className="signup-title">Sign Up</div>
-        <div className="content-container">
-          <div className="welcome-title">Welcome to AirZnZ</div>
-          <ul className="errors">
+        <div className="signup-content-container">
+          <div className="signup-welcome-title">Welcome to AirZnZ</div>
+          <ul className="signup-errors">
             {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
           </ul>
-          <div className="input-container-outer">
+          <div className="signup-input-container-outer">
 
-            <div className="input-container">
-              <label className="input-label">
+            <div className="signup-input-container">
+              <label className="signup-input-label">
                 Email
                 <br></br>
                 <input
@@ -51,12 +51,12 @@ function SignupForm() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="input"
+                  className="signup-input"
                 />
               </label>
             </div>
-            <div className="input-container">
-              <label className="input-label">
+            <div className="signup-input-container">
+              <label className="signup-input-label">
                 Username
                 <br></br>
                 <input
@@ -64,12 +64,12 @@ function SignupForm() {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   required
-                  className="input"
+                  className="signup-input"
                 />
               </label>
             </div>
-            <div className="input-container">
-              <label className="input-label">
+            <div className="signup-input-container">
+              <label className="signup-input-label">
                 First Name
                 <br></br>
                 <input
@@ -77,12 +77,12 @@ function SignupForm() {
                   value={firstName}
                   onChange={(e) => setFirstname(e.target.value)}
                   required
-                  className="input"
+                  className="signup-input"
                 />
               </label>
             </div>
-            <div className="input-container">
-              <label className="input-label">
+            <div className="signup-input-container">
+              <label className="signup-input-label">
                 Last Name
                 <br></br>
                 <input
@@ -90,12 +90,12 @@ function SignupForm() {
                   value={lastName}
                   onChange={(e) => setLastname(e.target.value)}
                   required
-                  className="input"
+                  className="signup-input"
                 />
               </label>
             </div>
-            <div className="input-container">
-              <label className="input-label">
+            <div className="signup-input-container">
+              <label className="signup-input-label">
                 Password
                 <br></br>
                 <input
@@ -103,12 +103,12 @@ function SignupForm() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="input"
+                  className="signup-input"
                 />
               </label>
             </div>
-            <div className="input-container">
-              <label className="input-label">
+            <div className="signup-input-container-last">
+              <label className="signup-input-label">
                 Confirm Password
                 <br></br>
                 <input
@@ -116,12 +116,12 @@ function SignupForm() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
-                  className="input"
+                  className="signup-input"
                 />
               </label>
             </div>
           </div >
-          <button type="submit" className="styled-button">Sign Up</button>
+          <button type="submit" className="signup-styled-button">Sign Up</button>
         </div>
       </form>
     </div>
