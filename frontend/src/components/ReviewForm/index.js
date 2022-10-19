@@ -16,7 +16,12 @@ const CreateReviewForm = () => {
     const [errors, setErrors] = useState([]);
     const [submitted, setSubmitted] = useState(false);
 
-    console.log('in createReviewForm-spotId', spotId)
+    //console.log('in createReviewForm-spotId', spotId)
+
+    useEffect(() => {
+        dispatch(getOneSpot(spotId))
+    }, [dispatch])
+
     const onSubmit = async (e) => {
         e.preventDefault();
         setSubmitted(true)
@@ -47,44 +52,48 @@ const CreateReviewForm = () => {
     return (
         <>
             <div className='create-review-container'>
-                <div className='review-title'>Create Review for {spot.name}</div>
+                <div className='createreview-title'>Create Review for {spot?.name}</div>
                 <div>
-                    <ul className='errors'>
+                    <ul className='createreview-errors'>
                         {errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}
                     </ul>
                 </div>
-                <form className="create-review-form" onSubmit={onSubmit}>
-                    <div className='review-div'>
-                        <label className='review-label'>
-                            Review
-                        </label>
-                        <br></br>
-                            <input
-                                className='review-content'
-                                type="text"
-                                value={review}
-                                onChange={(e) => setReview(e.target.value)}
-                                required
-                            />
-                    </div>
-                    <div className='stars-div'>
-                        <label className='stars-label'>
-                            Stars
-                        </label>
-                            <input
-                                className='review-star'
-                                type='number'
-                                min='1'
-                                max='5'
-                                value={stars}
-                                onChange={e => setStars(e.target.value)}
-                            />
-                    </div>
-                    <div className='button-div'>
-                        <button className='create-review-button' type="submit">Submit</button>
-                        <button type="button" onClick={handleCancelClick} className='create-review-button'>Cancel</button>
-                    </div>
-                </form>
+                <div className='createreview-form-container'>
+                    <form className="create-review-form" onSubmit={onSubmit}>
+                        <div className='createreview-div'>
+                            <label className='review-label'>
+                                Review
+                            </label>
+                            <br></br>
+                                <textarea
+                                    className='review-content'
+                                    type="text"
+                                    value={review}
+                                    onChange={(e) => setReview(e.target.value)}
+                                    placeholder="Amazing place..."
+                                    required
+                                />
+                        </div>
+                        <div className='stars-div'>
+                            <label className='stars-label'>
+                                Stars
+                            </label>
+                            <br></br>
+                                <input
+                                    className='review-star'
+                                    type='number'
+                                    min='1'
+                                    max='5'
+                                    value={stars}
+                                    onChange={e => setStars(e.target.value)}
+                                />
+                        </div>
+                        <div className='button-div'>
+                            <button className='create-review-button' type="submit">Create</button>
+                            <button type="button" onClick={handleCancelClick} className='create-review-button'>Cancel</button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
         </>
