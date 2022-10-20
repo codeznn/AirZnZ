@@ -1,0 +1,96 @@
+.create-review-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 30px;
+}
+.createreview-title{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    font-size: 30px;
+    font-weight: 600;
+    color: rgb(255, 56, 179);
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+
+.createreview-errors {
+    color: rgb(255, 56, 179);
+    font-size: 14px;
+    font-weight: 450;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+.createreview-form-container {
+    display:flex;
+    flex-direction: column;
+    width: 400px;
+    /* background-color: aquamarine; */
+
+}
+
+.createreview-div {
+    display:flex;
+    flex-direction: column;
+    padding-bottom: 25px;
+
+}
+.review-label {
+    font-size: 16px;
+    font-weight: 600;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    color:  rgb(255, 56, 179);
+    flex-direction: column;
+}
+.review-content {
+    height: 100px;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    outline: none;
+}
+
+.stars-div {
+    display:flex;
+    flex-direction: column;
+
+}
+
+.review-star {
+    height: 20px;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    outline: none;;
+}
+
+.stars-label {
+    font-size: 16px;
+    font-weight: 600;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    color: rgb(255, 56, 179);
+    flex-direction: column;
+
+}
+
+.button-div {
+    display:flex;
+    justify-content: space-between;
+
+}
+
+.create-review-button {
+    height: 40px;
+    width: 100px;
+    margin-top: 16px;
+    /* margin-right: 20px;
+    padding: 12px 24px; */
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 400;
+    background-color: rgb(255, 56, 179);
+    cursor: pointer;
+  }

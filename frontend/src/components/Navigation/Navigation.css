@@ -1,0 +1,200 @@
+.navigation-container {
+  height: 4em;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+
+.navigtion-li {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 125px;
+  margin-right: 150px;
+  vertical-align: middle;
+}
+
+.nevigation-other-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.logo {
+  width: 200px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0.9em;
+}
+
+.become-host {
+  color: black;
+  margin-right: 80px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+
+.sessionlinks {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.sessionlinks span {
+  padding: 20px;
+}
+
+.dropdownwrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: -15px;
+  margin-right: 4px;
+}
+
+
+
+#login-dropdown {
+  border: solid rgb(189, 186, 186) 1px;
+  box-shadow: 0px 0px 5px #ababab99;
+  background-color: white;
+  border-radius: 5px;
+  /* margin-right: 5px; */
+  margin-top: 12px;
+  position: absolute;
+  padding-bottom: 5px;
+  padding-top: 10px;
+  width: 120px;
+  height: 62px;
+  z-index: 9999;
+  top: 65px;
+}
+#login-nav {
+  padding-left: 10px;
+  padding-top: 5px;
+  color: black;
+  background-color: none;
+}
+.login-nav-login {
+  font-weight: 400;
+}
+.login-nav-signup {
+  font-weight: 200
+}
+#login-nav-wrapper {
+  height: 25px;
+  margin-bottom: 10px;
+  /* background-color: pink; */
+}
+#login-nav-wrapper :hover {
+  width: 100%;
+  height: 120%;
+  background-color: rgb(223, 223, 223);
+}
+
+.navigation-break {
+  background-color: #dedede99;
+  width: 100%;
+  height: 1px;
+  margin-top: 30px;
+}
+
+.profile-break {
+  background-color: #dedede99;
+  width: 100%;
+  height: 2px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+#profile-dropdown {
+  border: solid rgb(198, 198, 198) 1px;
+  box-shadow: 0px 0px 5px #ababab99;
+  background-color: white;
+  border-radius: 5px;
+  /* margin-right: 5px; */
+  margin-top: 12px;
+  position: absolute;
+  height: 245px;
+  width: 156px;
+  z-index: 9999;
+  top: 65px;
+}
+
+.profile-info-wrapper {
+  margin-top: 25px;
+  margin-bottom: -10px;
+}
+
+.profile-info {
+  margin-top: 15px;
+  font-size:14px;
+  font-weight:300;
+  padding-left: 12px;
+}
+
+
+.menu-visible{
+  visibility:visible;
+  border: solid red 1px
+}
+.menu-not-visible {
+  visibility: hidden;
+}
+
+.login-inner-div {
+  color: black;
+  font-size: 14px;
+  font-weight: 400;
+  padding-left: 12px;
+  padding-top: 10px;
+}
+.login-menu-wrapper {
+  color: black;
+  padding-top: 15px;
+  height: 20px;
+  font-size: 12px;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;;
+}
+
+
+.login-menu-wrapper :hover {
+  background-color: rgb(230, 230, 230);
+  width: 92.3%;
+  height: 150%;
+  cursor:pointer;
+}
+
+.profilebuttonwrapper {
+  justify-self: right;
+}
+
+.profilebutton {
+  width: 70px;
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid rgb(152, 150, 150);
+  justify-self: left;
+  background-color: white;
+  margin-top: 15px;
+}
+.profilebutton:hover {
+  box-shadow: 3px 3px 3px rgb(187, 184, 184);
+  cursor: pointer;
+}
+
+.fa-circle-user {
+  color: rgb(109, 105, 105);
+  margin-left: 5px;
+}
+
+.fa-bars {
+  color: rgb(154, 151, 151);
+  margin-right: 8px;
+}
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+};
+/* .profile-login {
+  background-color: aquamarine;
+} */

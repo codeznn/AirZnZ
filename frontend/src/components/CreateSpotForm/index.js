@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { createSpot, addSpotImage } from '../../store/spots';
+import { createSpot } from '../../store/spots';
 import './CreateSpotForm.css'
 
 const CreateSpot = () => {
@@ -22,28 +22,31 @@ const CreateSpot = () => {
     const [preview, setPreview] = useState(true);
     const [submitted, setSubmitted] = useState(false);
     const [validationErrors, setValidationErrors] = useState([]);
+    const [errors, setErrors] = useState([]);
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     const errors = [];
+        // const errors = [];
 
-    //     if (!address) errors.push('Address is required');
-    //     if (!city) errors.push('City is required');
-    //     if (!state) errors.push('State is required')
-    //     if (!country) errors.push('Country is required');
-    //     if (!name) errors.push('Name is required');
-    //     if (!description) errors.push('Description is required');
-    //     if(!lat) errors.push('Latitude is required');
-    //     if (lat < -90 || lat > 90) errors.push('Latitude must be a value in the range of -90 and 90');
-    //     if(!lng) errors.push('Longitute is required');
-    //     if (lng < -180 || lng > 180) errors.push('Longitude must be a value in the range of -180 and 180');
-    //     if(!price) errors.push('Price is required');
-    //     if(typeof +price !== 'Number') errors.push('Price must be a number');
-    //     if (price < 0) validationErrors.push('Price must be greater than 0');
-    //     if (!url.includes('http//:')) errors.push('url is not valid');
+        // if (!address.length) errors.push('Address is required');
+        // if (!city.length) errors.push('City is required');
+        // if (!state.length) errors.push('State is required')
+        // if (!country.length) errors.push('Country is required');
+        // if (!name.length) errors.push('Name is required');
+        // if (!description.length) errors.push('Description is required');
+        // if(!lat.length) errors.push('Latitude is required');
+        // if(typeof +lat !== 'number') errors.push('Lat must be a number');
+        // if (lat < -90 || lat > 90) errors.push('Latitude must be a value in the range of -90 and 90');
+        // if(!lng.length) errors.push('Longitute is required');
+        // if(typeof +lng !== 'number') errors.push('Lng must be a number');
+        // if (lng < -180 || lng > 180) errors.push('Longitude must be a value in the range of -180 and 180');
+        // if(!price) errors.push('Price is required');
+        // if(typeof +price !== 'number') errors.push('Price must be a number');
+        // if (price < 0) validationErrors.push('Price must be greater than 0');
+        // if (!url.includes('https://')) errors.push('url is not valid');
 
-    //     setValidationErrors(errors)
-    // }, [name, address, city, state, country, description, price, url])
+        // setValidationErrors(errors)
+    }, [name, address, city, state, country, description, lat, lng, price, url])
 
     if (!sessionUser) {
         alert("You need to be logged in first!");
@@ -52,50 +55,28 @@ const CreateSpot = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setSubmitted(true)
+        // setSubmitted(true)
 
         // console.log('in CreatSpotForm-Validation', validationErrors);
+        // const newSpot = { name, address, city, state, country, lat, lng, description, price, url, preview }
+        // const createdSpot = await dispatch(createSpot(newSpot))
 
-        // const payload = { name, address, city, state, country, description, price }
-
-        // const createdSpot = await dispatch(createSpot(payload));
-
-        // console.log('in CreatSpotForm-createdSpot', createSpot);
-
-        // if(createSpot) {
-        //     const imgData = { url, preview };
-        //     await dispatch(addSpotImage(imgData, createSpot.id))
-        //     history.push(`/spots/${createSpot.id}`)
+        // if(createdSpot) {
+        //     setValidationErrors([]);
+        //     console.log('in CreatSpotForm-setValidationErrors', setValidationErrors)
+        //     history.push(`/spots/${createdSpot.id}`)
         // }
 
+        const payload = { name, address, city, state, country, lat, lng, description, price, url, preview }
 
-
-
-        // dispatch(createSpot(payload)).then(async (res) => {
-        //     console.log("res", res)
-        //     const message = await res.json();
-
-        //     console.log('in CreatSpotForm-message', message)
-        //     if (message && message.errors) {
-        //         setErrors(message.errors);
-        //         console.log('in CreatSpotForm-errors', message.errors)
-        //     } else {
-        //         console.log("res.id", res.id)
-        //         const imgData = { url, preview }
-        //         console.log('imgData', imgData)
-        //         dispatch(addSpotImage(imgData, res.id))}
-                //return history.push(`/spots/${res.id}`);
-                //.then(async(res) => {
-                //     const data =  res.json();
-                //     console.log("in create-spotImage", data)
-                //     if (data && data.errors) {
-                //         setErrors(data.errors)
-                //     } else {
-                //         return history.push('/');
-                //     }
-                //}))
-
-        // });
+        await dispatch(createSpot(payload)).then(newSpot => history.push(`/spots/${newSpot.id}`))
+        .catch(async (res) => {
+            const message = await res.json();
+            console.log('in CreatSpotForm-message', message)
+            if (message.errors) {
+                setErrors(message.errors);
+                console.log('in CreatSpotForm-errors', message.errors)
+            }});
     }
 
     const handleCancelClick = () => {
@@ -106,26 +87,27 @@ const CreateSpot = () => {
 
     return (
         <>
-            <div className='create-spot-wrapper'>
+            <div className='createspot-wrapper'>
 
-                <h1>Create A New Spot</h1>
+            <div className='createspot-title'>Create A New Spot </div>
 
-                <div className='create-spot-errors'>
-                    {/* {!validationErrors.length && submitted && (
-                        <ul> errors:
-                            {validationErrors.map((err) => (
-                                <li key={err}>{err}</li>
-                            ))}
-                        </ul>
-                    )} */}
-                    
-                </div>
+                <form className='createspot-form' onSubmit={handleSubmit}>
+                    <div className='createspot-content'>
+                    <div className='createspot-errors'>
+                            <ul>
+                                {errors && errors.map((err) => (
+                                    <li key={err}>{err}</li>
+                                ))}
+                            </ul>
+                    </div>
+                    <div className='createspot-container-outer'>
 
-                <form className='create-spot-form' onSubmit={handleSubmit}>
-                    <div className='address'>
-                        <label>
-                            Address:
-                            <input
+
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            Address
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={address}
                                 required
@@ -134,10 +116,11 @@ const CreateSpot = () => {
                         </label>
                     </div>
 
-                    <div className='city'>
-                        <label>
-                            City:
-                            <input
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            City
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={city}
                                 required
@@ -146,10 +129,11 @@ const CreateSpot = () => {
                         </label>
                     </div>
 
-                    <div className='state'>
-                        <label>
-                            State:
-                            <input
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            State
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={state}
                                 required
@@ -158,10 +142,11 @@ const CreateSpot = () => {
                         </label>
                     </div>
 
-                    <div className='country'>
-                        <label>
-                            Country:
-                            <input
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            Country
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={country}
                                 required
@@ -170,10 +155,11 @@ const CreateSpot = () => {
                         </label>
                     </div>
 
-                    <div className='lat'>
-                        <label>
-                            Lat:
-                            <input
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            Lat
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={lat}
                                 required
@@ -182,10 +168,11 @@ const CreateSpot = () => {
                         </label>
                     </div>
 
-                    <div className='lng'>
-                        <label>
-                            Lng:
-                            <input
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            Lng
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={lng}
                                 required
@@ -194,10 +181,11 @@ const CreateSpot = () => {
                         </label>
                     </div>
 
-                    <div className='name'>
-                        <label>
-                            Name:
-                            <input
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            Name
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={name}
                                 required
@@ -206,10 +194,11 @@ const CreateSpot = () => {
                         </label>
                     </div>
 
-                    <div className='description'>
-                        <label>
-                            Description:
-                            <input
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            Description
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={description}
                                 required
@@ -218,10 +207,11 @@ const CreateSpot = () => {
                         </label>
                     </div>
 
-                    <div className='price'>
-                        <label>
-                            Price:
-                            <input
+                    <div className='createspot-container'>
+                        <label className='create-label'>
+                            Price
+                            <br></br>
+                            <input className='create-input'
                                 type="text"
                                 value={price}
                                 required
@@ -229,28 +219,30 @@ const CreateSpot = () => {
                             />
                         </label>
                     </div>
-                    <div className = 'url'>
-                        <label>
-                            Image:
-                            <input
+                    <div className = 'createspot-container-last'>
+                        <label className='create-label'>
+                            ImageUrl
+                            <br></br>
+                            <input className='create-input-last'
                                 type="text"
                                 value={url}
                                 required
                                 onChange={(e) => setUrl(e.target.value)}
                             />
                         </label>
-                        <label>Preview Image:</label>
+                        {/* <label>Preview Image:</label>
                             <select onChange={e => setPreview(e.target.value)} value={preview}>
                                 <option key='true'>true</option>
                                 <option key='false'>false</option>
-                            </select>
+                            </select> */}
                     </div>
 
-                    <div className='creat-spot-wrapper'>
-                        <button id='create-spot-button' type='submit'>Submit</button>
-                        <button type="button" onClick={handleCancelClick}>Cancel</button>
+                    <div className='creatspot-button-container'>
+                        <button id='createspot-button-create' type='submit'>Create</button>
+                        <button id='createspot-button-cancel' type="button" onClick={handleCancelClick}>Cancel</button>
                     </div>
-
+                    </div>
+                    </div>
                 </form>
 
             </div>

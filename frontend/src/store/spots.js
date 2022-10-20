@@ -6,10 +6,18 @@ const REMOVE_SPOT = 'spots/deletespot';
 const CREATE_SPOT = 'spots/createspot';
 const UPDATE_SPOT = 'spots/updatespot';
 const ADD_IMG = 'spots/addimg';
+const USER_SPOTS = 'spots/userspots';
 
 export const loadAllSpots = (spots) => {
     return {
         type: LOAD_ALL_SPOTS,
+        spots
+    }
+};
+
+export const userSpots = (spots) => {
+    return {
+        type: USER_SPOTS,
         spots
     }
 };
@@ -47,7 +55,8 @@ export const removeSpot = (spotId) => {
         type: REMOVE_SPOT,
         spotId
     }
-}
+};
+
 
 
 // getAllSpots thunk
@@ -74,96 +83,81 @@ export const getOneSpot = (spotId) => async dispatch => {
     }
 };
 
+// getUserSpots thunk
+export const getUserSpots = () => async dispatch => {
+    const response = await csrfFetch(`/api/spots/current`)
+
+    if (response.ok) {
+        const spots = await response.json();
+        //console.log('in getUserSpots thunk++++++', spots)
+        dispatch(userSpots(spots));
+        return spots
+    }
+}
+
+
+
 // createSpot thunk
 export const createSpot = (spot) => async dispatch => {
+    const { url } = spot;
+    //console.log('in creatOneSpot thunk-spot///////', spot)
+    //console.log('in creatOneSpot thunk-imgDate///////', { url, preview })
     try {
         const response = await csrfFetch(`/api/spots`, {
-          method: 'POST',
-          headers: {
+            method: 'POST',
+            headers: {
             'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(spot)
-        });
+            },
+            body: JSON.stringify(spot)
+            });
 
-        if (!response.ok) {
-          let error;
-          if (response.status === 404) {
-            error = await response.json();
-            return error;
-          } else {
-            let errorJSON;
-            error = await response.text();
-            console.log('in creatOneSpot thunk-error', error)
-            try {
-              errorJSON = JSON.parse(error);
-              console.log('in creatOneSpot thunk-errorJSON', errorJSON)
-            } catch {
-              console.log('in creatOneSpot thunk-error', error)
-              throw new Error(error);
+        if (response.ok) {
+            const newSpot = await response.json();
+            //console.log('in creatOneSpot thunk-newSpot', newSpot)
+            dispatch(createOneSpot(newSpot));
+
+            const resAddImg = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ url, preview: true })
+            });
+
+            //console.log('in addSpot thunk-resAddImg', resAddImg);
+
+            if (resAddImg.ok) {
+                const img = await resAddImg.json();
+                console.log('in addSpot thunk-img', img);
+                dispatch(addImage(img))
+                newSpot['spotImage'] = [img];
+                console.log('in addSpot thunk-newSpot+img', newSpot)
+                return newSpot;
             }
-            console.log('in creatOneSpot thunk-errortitle&message', `${errorJSON.title}: ${errorJSON.message}`)
-            throw new Error(`${errorJSON.title}: ${errorJSON.message}`)
-          }
-        }
-
-        const newSpot = await response.json();
-        console.log('in creatOneSpot thunk-newSpot', newSpot)
-        dispatch(createOneSpot(newSpot));
-        return newSpot;
-      } catch(error) {
+        };
+    } catch(error) {
         throw error;
-      }
-    // const response = await csrfFetch(`/api/spots`, {
-    //     method: 'POST',
-    //     headers: {
-    //     'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(spot)
-    //     });
-
-    // if (response.ok) {
-    //     const newSpot = await response.json();
-    //     console.log('in creatOneSpot thunk-newSpot', newSpot)
-    //     dispatch(createOneSpot(newSpot));
-    //     return newSpot;
-    // };
-    // const {url, preview} = imgData
-    // console.log('in addSpotImage thunk-imgDate///////', { url, preview });
-    // const response = await csrfFetch(`/api/spots/${spotId}/images`, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({ url, preview})
-    // });
-
-    // if (response.ok) {
-    //     const img = await response.json()
-    //     console.log('in addSpotImage thunk-img///////', img);
-    //     dispatch(addImage(img))
-    //     return img;
-    // }
 }
 
 // addSpotImage thunk
-export const addSpotImage = (imgData, spotId) => async dispatch => {
-    const {url, preview} = imgData
-    console.log('in addSpotImage thunk-imgDate///////', { url, preview });
-    const response = await csrfFetch(`/api/spots/${spotId}/images`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ url, preview})
-    });
+// export const addSpotImage = (imgData, spotId) => async dispatch => {
+//     const {url, preview} = imgData
+//     console.log('in addSpotImage thunk-imgDate///////', { url, preview });
+//     const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({ url, preview})
+//     });
 
-    if (response.ok) {
-        const img = await response.json()
-        console.log('in addSpotImage thunk-img///////', img);
-        dispatch(addImage(img))
-        return img;
-    }
-}
+//     if (response.ok) {
+//         const img = await response.json()
+//         console.log('in addSpotImage thunk-img///////', img);
+//         dispatch(addImage(img))
+//         return img;
+//     }
+// }
 
 //updateSpot thunk
 export const updateSpot = (spot, spotId) => async dispatch => {
@@ -174,29 +168,8 @@ export const updateSpot = (spot, spotId) => async dispatch => {
             body: JSON.stringify(spot)
         });
 
-        if (!response.ok) {
-          let error;
-          if (response.status === 404) {
-            error = await response.json();
-            return error;
-          } else {
-            let errorJSON;
-            error = await response.text();
-            console.log('in updataSpot thunk-error', error)
-            try {
-              errorJSON = JSON.parse(error);
-              console.log('in updataSpot thunk-errorJSON', errorJSON)
-            } catch {
-              console.log('in updataSpot thunk-error', error)
-              throw new Error(error);
-            }
-            console.log('in updataSpot thunk-errortitle&message', `${errorJSON.title}: ${errorJSON.message}`)
-            throw new Error(`${errorJSON.title}: ${errorJSON.message}`)
-          }
-        }
-
         const newSpot = await response.json();
-        console.log('in updataSpot thunk-newSpot', newSpot)
+        //console.log('in updataSpot thunk-newSpot', newSpot)
         dispatch(updateOneSpot(newSpot));
         return newSpot;
       } catch(error) {
@@ -209,7 +182,7 @@ export const deleteSpot = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'DELETE'
     });
-    console.log('in deleteSpot thunk********', response)
+    //console.log('in deleteSpot thunk********', response)
 
     if (response.ok) {
         dispatch(removeSpot(spotId));
@@ -230,6 +203,7 @@ const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_ALL_SPOTS:
             newState = { ...state, allSpots: { ...action.spots } };
+            newState.singleSpot= {}
             //console.log("in reducer", newState)
             return newState;
         case LOAD_ONE_SPOT:
@@ -237,19 +211,36 @@ const spotsReducer = (state = initialState, action) => {
             //console.log("in reducer----", newState)
             return newState;
         case REMOVE_SPOT:
-            newState = {...state};
-            delete newState.allSpots[action.spotId];
+            newState = {...state, allSpots:{...state.allSpots}};
+            // console.log("in reducer----", newState)
+            // const spotArr = newState.allSpots.Spots;
+            // console.log("in reducer-spotArr", spotArr)
+            // const deleteSpot = spotArr.find(spot => spot.id === +action.spotId);
+            // const deleteId = spotArr.indexOf(deleteSpot);
+            // console.log("in reducer-deleteId", deleteId)
+            delete newState.allSpots[action.spotId]
+
+            //delete newState.allSpots[action.spotId];
+            //console.log("in reducer----", newState)
             return newState;
         case CREATE_SPOT:
             newState = { ...state, allSpots: { ...state.allSpots, [action.spot.id]: action.spot } };
             //console.log("in reducer----", newState)
             return newState;
         case UPDATE_SPOT:
+            //newState = { ...state, allSpots: { ...state.allSpots, [action.spot.id]: action.spot } };
             newState = { ...state, allSpots:{ [action.spot.id]: {...state[action.spot.id]}, ...action.spot} };
             //console.log("in reducer----", newState)
             return newState;
         case ADD_IMG:
             newState = { ...state, singleSpot: { ...state.singleSpot, SpotImages:[action.imgData]}}
+            return newState;
+        case USER_SPOTS:
+            newState = { ...state, allSpots: { ...action.spots } };
+            action.spots.Spots.forEach(spot => {
+                newState.allSpots[spot.id] = spot
+            });
+            delete newState.allSpots.Spots;
             return newState;
         default:
             return state;

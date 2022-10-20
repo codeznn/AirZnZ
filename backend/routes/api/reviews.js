@@ -118,13 +118,9 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
     const { review, stars } = req.body;
     console.log(stars)
     if (stars < 1 || stars > 5) {
-        res.status(400);
-        res.json({
-            "message": "Validation error",
+        res.status(400).json({
+            "message": "Stars must be an integer from 1 to 5",
             "statusCode": 400,
-            "errors": {
-                "stars": "Stars must be an integer from 1 to 5",
-            }
         })
 
     };

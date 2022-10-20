@@ -11,7 +11,8 @@ module.exports = {
       spotId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {model: 'Spots'}
+        references: {model: 'Spots', key: 'id'},
+        onDelete: "cascade"
       },
       url: {
         type: Sequelize.STRING,

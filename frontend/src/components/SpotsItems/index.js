@@ -21,9 +21,30 @@ const SpotsItems = () => {
     return (
             <div className="spots-wrapper">
                 { spots.map(spot => (
-                    <div key={spot.id} className="spot-card">
-                        <NavLink to={`/spots/${spot.id}`} className="link--spot">
-                            <SpotCard key={spot.id}spot={spot} />
+                    <div key={spot.id} className="spot-card-container" style={{ textDecoration: 'none'}}>
+                        <NavLink to={`/spots/${spot.id}`} style={{ textDecoration: 'none'}}>
+                            <div className="spotcard">
+                                <div className="spot-img-div">
+                                    <img src={spot.previewImages} alt={spot.name} className='spot-img'/>
+                                </div>
+                                <div className="spotcard-info">
+                                    <div className="spotcard-info-top">
+                                        <span className="spotcard-location">
+                                            {spot.city}{", "}{spot.state}
+                                        </span>
+
+                                        <div className="spotcard-avgRating">
+                                            <i className="fa-solid fa-star"></i>
+                                            <span>{!Number(spot.avgRating) ? "New" : Number(spot.avgRating).toFixed(1)}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="spotcard-price">
+                                        <span>{`$${spot.price}`}</span>
+                                        <div className="night">night</div>
+                                    </div>
+                                </div>
+                            </div>
                         </NavLink>
                     </div>
                 )

@@ -1,1 +1,10 @@
 /* TODO Add site wide styles */
+button,input:focus{
+    outline:none;
+
+}
+
+input:focus::placeholder{
+    opacity: 0;
+}
+

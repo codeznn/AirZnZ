@@ -1,0 +1,92 @@
+.user-myspots {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 50px;
+    color:rgb(255, 56, 129);
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  }
+
+  .myspot-outer-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* grid-template-rows: 1fr 1fr 1fr 1fr; */
+    margin-top: 40px;
+    margin-left: 130px;
+    margin-right: 130px;
+    flex-wrap: wrap;
+    column-gap: 30px;
+}
+
+  .myspot-button-container {
+    padding-left: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .myspot-button {
+    background-color: rgb(255, 56, 129);
+    color: white;
+    border-radius: 4px;
+    border: none;
+    padding: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    cursor: pointer;
+  }
+
+
+  .no-spots {
+    margin-top: 30px;
+    margin-left: 15px;
+    width: 500px;
+    color: rgb(255, 56, 129);
+    font-size: 22px;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  }
+
+.spot-card-outer {
+    margin-bottom: 60px;
+}
+
+
+.myspot-img-div {
+    width: 100%;
+    padding-bottom: 100%;
+    margin: 1em auto;
+    overflow: hidden;
+    position: relative;
+    border-radius: 15px;
+}
+
+.myspot-img {
+    position: absolute;
+    object-fit: cover;
+    width: auto;
+    max-width: 100%;
+    min-height: 100%;
+    border-radius: 15px;
+}
+
+.myspot-info-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 2px;
+    padding-bottom: 3px;
+}
+
+.myspot-price-span {
+    font-weight: 600;
+    padding-left: 2px;
+
+}
+
+.myspot-info {
+    font-weight: 400;
+    color: black;
+    padding-bottom: 10px;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}

@@ -1,14 +1,11 @@
 import { useEffect } from "react";
-import { Redirect, useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getOneSpot } from "../../store/spots";
 import { Link } from "react-router-dom";
-import { deleteSpot } from "../../store/spots";
-//import SpotReviews from "../SpotReview";
 import { getReviews } from "../../store/review";
-import { deleteReview } from "../../store/review";
-import CreateReviewForm from "../ReviewForm";
 import './SpotDetails.css';
+import aircover from './aircover.png';
 
 
 const SpotDetails = () => {
@@ -16,30 +13,17 @@ const SpotDetails = () => {
     //console.log(+spotId)
     const dispatch = useDispatch();
     const history = useHistory();
-    const sessionUser = useSelector((state) => state.session.user.id || true);
-    const currentOwner = useSelector((state) => state.spots.singleSpot.ownerId || false)
+    const sessionUser = useSelector((state) => state.session.user);
+    //console.log('in spotDetails--sessionUser', sessionUser)
+    const currentOwner = useSelector((state) => state.spots.singleSpot.ownerId)
     const spot = useSelector(state => state.spots.singleSpot)
-    const reviews = useSelector(state => state.reviews.spot)
-    // const review = reviews.map(ele => {
-    //     if (ele.userId === sessionUser) {
-    //         return ele
-    //     }
-    // })
-    // const reviewId = review.id
-    let reviewId
+    const reviewsObj = useSelector(state => state.reviews.spot)
+    const reviewsArr = Object.values(reviewsObj)
+    //console.log('in spotDetails-reviews', reviewsArr)
 
-
-    // reviews.map(ele => {
-    //     console.log('ele', ele.User.id)
-    // })
-    // console.log('in spotdetails+++++', spot)
-    console.log('in spotdetails+++++reviewId', reviews)
-    console.log('in spotdetails+++++sessionUser', sessionUser)
-    // console.log('in spotdetails+++++', reviews)
-    // console.log('in spotdetails+++++', currentOwner)
 
     useEffect(() => {
-        dispatch(getOneSpot(+spotId))
+        dispatch(getOneSpot(spotId))
     }, [dispatch, spotId])
 
     useEffect(() => {
@@ -48,101 +32,117 @@ const SpotDetails = () => {
 
 
     if (!Object.keys(spot).length) return null;
+    if (!reviewsArr) return null;
 
-
-    const reviewhandleClick= async() => {
-
-        await dispatch(deleteReview(+reviewId))
-        history.replace('/')
-    }
-    const spothandleClick= async() => {
-        // if (!sessionUser) {
-        //     alert("You need to logged in first!");
-        //     return <Redirect to="/" />;
-        // }
-        // if (currentOwner !== sessionUser) {
-        //     alert("You are not the owner!");
-        //     return <Redirect to="/" />;
-        // }
-        await dispatch(deleteSpot(spotId))
-        history.replace('/')
-    }
 
     return (
         <div className="single-spot-wrapper">
              <h1 className="spot-name">{spot.name}</h1>
+
             <div className="single-spot-content">
-                <span className="single-spot-avgStarRating">
-                <i className="fa-solid fa-star"></i>
-                    {spot.avgStarRating}</span>
-                <span className="single-spot-numReviews">{spot.numReviews} reviews</span>
-                <span className="single-spot-address">{spot.city}, {spot.state}, {spot.country}</span>
-            </div>
-            <div className="single-spot-imgs">
-                {spot.SpotImages.map(img => (
-                    <img key={img.url} src={img.url} alt={img.name}/>
-                ))}
-            </div>
-            <div className="single-spot-description">
-                {spot.description}
-            </div>
-            <section> Reviews:
-                <br></br>
+                <div className="single-spot-avgStarRating">
+                    <i className="fa-solid fa-star"></i>
+                    <span> {!Number(spot.avgStarRating) ? "New" : Number(spot.avgStarRating).toFixed(1)}</span>
+                </div>
                 <div>
-                    {reviews.map( ele => (
-                    <div key={ele}>
-                        <div>
-                        <i className="fa-solid fa-star"></i>{ele.stars}
-                        {ele.User.firstName}
-                        </div>
-                        <div>
-                        {ele.createdAt.slice(0,10)}
-                        </div>
-                        <div>
-                        {ele.review}
-                        </div>
+                    <span id='dots'>•</span>
+                </div>
+                <div className="single-spot-numReviews">{spot.numReviews} reviews</div>
+                <div>
+                        <span id='dots'>•</span>
+                </div>
+                <div className="single-spot-address">
+                    {spot.city}, {spot.state}, {spot.country}
+                </div>
+            </div>
+
+            <div className='spot-images'>
+                    <div className='spot-imgs-prview'>
+                        {/* {spot.SpotImages.map(img => ( */}
+                        <img className="preview-img" src={spot?.SpotImages[0]?.url} alt={spot?.SpotImages[0]?.url} />
 
                     </div>
-                    ))}
+                    <div className='spot-imgs-continer'>
+                        <img src={spot.SpotImages[1] ? spot.SpotImages[1].url : spot.SpotImages[0]?.url} alt={spot.SpotImages[0]?.url} className="small-img" />
+                        <img src={spot.SpotImages[2] ? spot.SpotImages[2].url : spot.SpotImages[0]?.url} alt={spot.SpotImages[0]?.url} className="small-img" />
+                        <img src={spot.SpotImages[3] ? spot.SpotImages[3].url : spot.SpotImages[0]?.url} alt={spot.SpotImages[0]?.url} className="small-img" />
+                        <img src={spot.SpotImages[4] ? spot.SpotImages[4].url : spot.SpotImages[0]?.url} alt={spot.SpotImages[0]?.url} className="small-img" />
+
+                    </div>
+            </div>
+
+            <div className='spot-details-scroll'>
+                <div className="one-spot-details">
+                    <div className="host-div">
+                        Entire home hosted by {spot.Owner?.firstName}
+                    </div>
+                    <div className='descriptionbreak'></div>
+                    <div className="aircover">
+                        <img src={aircover} alt={aircover.png}></img>
+                        <div className="cover-info">Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</div>
+                    </div>
+                    <div className='descriptionbreak'></div>
+                    <div className="single-spot-description">
+                        {spot.description}
+                    </div>
                 </div>
-            </section>
-            {/* <Link to={`/spots/${spotId}/add-image`}>
-                Add SpotImages
-            </Link> */}
-            <div>
-                {currentOwner !== sessionUser
-                ?
-                <Link to={`/spots/${spotId}/new-review`}>
-                    <button>Create Review</button>
-                </Link>
-                : null
-                }
+                <div className="price-review-side-div-container">
+                    <div className="price-review-side-div">
+                        <div className="price-side-div">
+                            <span className='border-number'>{`$${spot.price}`}</span>
+                            <span className='border-night'> night</span>
+                        </div>
+
+                        <div className='review-side-div'>
+                            <i className="fa-sharp fa-solid fa-star"></i>
+                            <span> {!Number(spot.avgStarRating) ? "New" : Number(spot.avgStarRating).toFixed(1)}</span>
+                            <span className='dots'> • </span>
+                            <span className='numReviews'>{spot.numReviews} reviews
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div>
-                {currentOwner !== sessionUser
-                ?
-                <button onClick={reviewhandleClick}>Delete Review</button>
-                : null
+            <div className='descriptionbreak'></div>
+
+
+            <div className="spotdetails-reviews">
+                <div className="spotdetails-review-div">
+                    <div className="spotdetails-avgRating">
+                        <i className="fa-solid fa-star"></i> {' '}
+                        <span>{!Number(spot.avgStarRating) ? "New" : Number(spot.avgStarRating).toFixed(1)}</span>
+                        <span id='dots'> • </span>
+                        <span>{spot.numReviews} review(s)</span>
+                    </div>
+                </div>
+                <div>
+                    {sessionUser && currentOwner !== sessionUser?.id
+                    ?
+                    <Link to={`/spots/${spotId}/new-review`}>
+                        <button className="spotdetails-review-button">Review this spot</button>
+                    </Link>
+                    : null
                 }
+                </div>
+
+                    <div className="spotdetails-review-wrap">
+                        {reviewsArr.map( review => (
+                        <div key={review} className="spotdetails-review-details">
+                            <div className="spotdetails-review-creators">
+                            {review.User?.firstName}
+                            </div>
+                            <div className="spotdetails-review-date">
+                            {new Date(review.createdAt).toString().slice(3, -42)}
+                            </div>
+                            <div className="spotdetails-review-contents">
+                            {review.review}
+                            </div>
+                        </div>
+                        ))}
+                    </div>
             </div>
-            <br></br>
-            <div>
-                {currentOwner === sessionUser
-                ?
-                <Link to={`/spots/${spotId}/edit`}>
-                <button>Edit Spot</button>
-                </Link>
-                : null
-                }
-            </div>
-            <div>
-                {currentOwner === sessionUser
-                ?
-                <button onClick={spothandleClick}>Delete Spot</button>
-                : null
-                }
-            </div>
-            <br></br>
+
         </div>
     )
 

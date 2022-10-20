@@ -1,0 +1,95 @@
+
+.login-form-container {
+    width: 568px;
+    height: 500px;
+
+    border-color: lightgray;
+    border-width: 1px;
+    border-radius: 15px;
+    border-style: solid;
+  }
+
+
+  .login-title {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 64px;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    border-bottom: lightgray solid 1px;
+  }
+
+  .content-container {
+    box-sizing: border-box;
+    padding: 25px;
+  }
+
+  .welcome-title {
+    font-size: 22px;
+    font-weight: 450;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    margin-top: 8px;
+    margin-bottom: 30px;
+  }
+
+  .errors {
+    color: rgb(255, 56, 92);
+    font-size: 14px;
+    font-weight: 450;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  }
+  .input-info{
+    border:  1px solid lightgray;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+   }
+
+   .input-userName {
+    display: flex;
+    align-items: center;
+    height: 56px;
+    border-bottom: lightgray solid 1px;
+  }
+
+  .input-container {
+    display: flex;
+    align-items: center;
+    height: 56px;
+  }
+
+  .input-label {
+    padding: 15px 0px 10px 10px;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  }
+
+  .input {
+    height: 20px;
+    margin: 0px 0px;
+    font-size: 15px;
+    font-weight: 350;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    color: black;
+    border: none;
+    outline: none;
+  }
+
+  .styled-button {
+    height: 48px;
+    width: 520px;
+    margin-top: 16px;
+    padding: 12px 24px;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 400;
+    background-color: rgb(255, 56, 92);
+    background-size: 200% 200%;
+    cursor: pointer;
+  }

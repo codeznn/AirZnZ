@@ -1,0 +1,73 @@
+.myreview-title{
+    margin-top: 30px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 64px;
+    font-size: 40px;
+    font-weight: 600;
+    color: rgb(255, 56, 179);
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+
+.myreview-content {
+    padding-top: 80px;
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    /* background-color:aqua; */
+    /* display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    flex-wrap: wrap;
+    column-gap: 20px;
+    margin: 0px 110px 0px 110px; ; */
+
+}
+
+.myreview-details {
+    width: 500px;
+    display:flex;
+    flex-direction: column;
+    padding-bottom: 25px;
+    border: 0.8mm ridge rgb(255, 56, 179, 0.6);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 20px;
+
+}
+
+.myreview-spot-title {
+    font-size: 20px;
+    font-weight: 400;
+    color: rgb(255, 56, 179);
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    padding-bottom: 20px;
+}
+
+.myreview-review {
+    font-size: 18px;
+    font-weight: 300px;
+    padding-bottom: 20px;
+}
+
+.myreview-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.myreview-button {
+    height: 30px;
+    width: 60px;
+    margin-top: 16px;
+    padding: 6px 12px;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 400;
+    background-color: rgb(255, 56, 179);
+    background-size: 200% 200%;
+    cursor: pointer;
+}
