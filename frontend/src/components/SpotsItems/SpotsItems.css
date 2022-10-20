@@ -1,6 +1,6 @@
-.allspot-img:hover{
-  cursor: pointer;
-  box-shadow:  0px 0px 5px rgba(148, 148, 148,0.5);
+
+.not-actually-real {
+  display: block
 }
 
 .allspots-wrapper {
@@ -11,6 +11,10 @@
   column-gap: 20px;
 }
 
+/* .allspot-img:hover{
+  cursor: pointer;
+  box-shadow:  0px 0px 5px rgba(148, 148, 148,0.5);
+} */
 .allspot-img-div {
   max-width: 500px;
   max-height: 500px;
