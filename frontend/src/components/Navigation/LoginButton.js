@@ -33,20 +33,20 @@ export  const LoginButton = () => {
                 <div className='profilebuttonwrapper'>
                     <button onClick={openMenu} className='profilebutton'>
                         <i className="fa-solid fa-bars"></i>
-                        <i className="fa-regular fa-user"></i>
+                        <i className="fa-sharp fa-solid fa-circle-user"></i>
                     </button>
                 </div>
 
                 <div id='login-dropdown' className={menuVisibility}>
                     <div className='sessionlinks'>
-                        <div className='login-wrapper'>
-                            <div>
+                            <div className="profile-login">
                             <LoginFormModal />
                             </div>
-                        </div>
-                        <div>
-                        <SignUpFormModal />
-                        </div>
+                            <div className='profile-break'></div>
+                            <div>
+                            <SignUpFormModal />
+                            </div>
+
                     </div>
 
                 </div>

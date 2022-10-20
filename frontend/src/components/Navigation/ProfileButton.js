@@ -42,7 +42,7 @@ export const ProfileButton = ({ user }) => {
                     <button onClick={openMenu} className='profilebutton'>
                         <div className='fa'>
                             <i id='bars' className="fa-solid fa-bars"></i>
-                            <i className="fa-regular fa-user"></i>
+                            <i className="fa-sharp fa-solid fa-circle-user"></i>
                         </div>
                     </button>
                 </div>
@@ -55,16 +55,12 @@ export const ProfileButton = ({ user }) => {
                                 </div>
                             <div className='profile-info' key='email'>
                                 {user.email.length < 20 ? user.email : user.email.slice(0,19)+"..."}
-                                </div>
+                            </div>
                         </div>
-                        <div className='headerbreak'></div>
+                        <div className='navigation-break'></div>
                         <div className='login-menu-wrapper'>
                             <div className='login-inner-div' key='myspots' onClick={() => history.push('/my-spots')}>
                                 My Spots
-                            </div>
-                        </div>
-                        <div className='login-menu-wrapper'>
-                            <div className='login-inner-div' key='newspot' onClick={() => history.push('/new-spot')}>Host Your Spot
                             </div>
                         </div>
                         <div className='login-menu-wrapper'>

@@ -28,17 +28,23 @@ const Navigation = () => {
 
         <>
 
-            <ul>
-                <li className='session'>
-                    <NavLink style={{ 'textDecoration': 'none', 'color': '#45454599' }} exact to="/">
-                        <img className='logo' alt='logo' src={logo} />
-                    </NavLink>
-                    <div className='sessionlinks'>
-                        {sessionLinks}
+            <div className="navigation-container">
+                <div className='navigtion-li'>
+                    <div className="logo-div">
+                        <NavLink style={{ 'textDecoration': 'none'}} exact to="/">
+                            <img className='logo' alt='logo' src={logo} />
+                        </NavLink>
                     </div>
-                </li>
-            </ul>
-            <div className='headerbreak'>
+                    <div className="nevigation-other-div">
+                        <NavLink className="become-host" to={'/new-spot'} style={{ 'textDecoration': 'none'}}>Become a Host</NavLink>
+
+                        <div className='navigation-button'>
+                            {sessionLinks}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className='navigation-break'>
             </div>
 
         </>
