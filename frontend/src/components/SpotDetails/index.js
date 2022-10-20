@@ -5,6 +5,7 @@ import { getOneSpot } from "../../store/spots";
 import { Link } from "react-router-dom";
 import { getReviews } from "../../store/review";
 import './SpotDetails.css';
+import aircover from './aircover.png';
 
 
 const SpotDetails = () => {
@@ -58,101 +59,90 @@ const SpotDetails = () => {
             <div className='spot-images'>
                     <div className='spot-imgs-prview'>
                         {/* {spot.SpotImages.map(img => ( */}
-                        <img src={spot?.SpotImages[0]?.url} alt={spot?.SpotImages[0]?.url} />
+                        <img className="preview-img" src={spot?.SpotImages[0]?.url} alt={spot?.SpotImages[0]?.url} />
 
                     </div>
-                    <div className='spot-imgs-small'>
-                        <img src={spot.SpotImages[1] ? spot.SpotImages[1].url : spot.SpotImages[0]?.url} alt={spot.SpotImages[0]?.url} className="samll-img1" />
-                        <img src={spot.SpotImages[2] ? spot.SpotImages[2].url : spot.SpotImages[0]?.url} alt={spot.SpotImages[0]?.url} className="small-img2" />
-                        <img src={spot.SpotImages[3] ? spot.SpotImages[3].url : spot.SpotImages[0]?.url} alt={spot.SpotImages[0]?.url} className="small-img3" />
-                        <img src={spot.SpotImages[4] ? spot.SpotImages[4].url : spot.SpotImages[0]?.url} alt={spot.SpotImages[0]?.url} className="small-img4" />
+                    <div className='spot-imgs-continer'>
+                        <img src={spot.SpotImages[1] ? spot.SpotImages[1].url : spot.SpotImages[0]?.url} alt={spot.SpotImages[0]?.url} className="small-img" />
+                        <img src={spot.SpotImages[2] ? spot.SpotImages[2].url : spot.SpotImages[0]?.url} alt={spot.SpotImages[0]?.url} className="small-img" />
+                        <img src={spot.SpotImages[3] ? spot.SpotImages[3].url : spot.SpotImages[0]?.url} alt={spot.SpotImages[0]?.url} className="small-img" />
+                        <img src={spot.SpotImages[4] ? spot.SpotImages[4].url : spot.SpotImages[0]?.url} alt={spot.SpotImages[0]?.url} className="small-img" />
 
-                    </div>
-            </div>
-
-            <div className='price-review-side-div'>
-                    <div className="price-side-div">
-                        <span className='s-number'>{`$${spot.price}`}</span>
-                        <span className='s-night'> night</span>
-                    </div>
-
-                    <div className='review-side-div'>
-                        <i className="fa-sharp fa-solid fa-star"></i>
-                        <span> {!Number(spot.avgStarRating) ? "New" : Number(spot.avgStarRating).toFixed(1)}</span>
-                        <span className='dots'> • </span>
-                        <span className='numReviews'>{spot.numReviews} reviews
-                        </span>
                     </div>
             </div>
 
-            <div className="host-div">
-                Entire home hosted by {spot.Owner?.firstName}
-            </div>
+            <div className='spot-details-scroll'>
+                <div className="one-spot-details">
+                    <div className="host-div">
+                        Entire home hosted by {spot.Owner?.firstName}
+                    </div>
+                    <div className='descriptionbreak'></div>
+                    <div className="aircover">
+                        <img src={aircover} alt={aircover.png}></img>
+                        <div className="cover-info">Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</div>
+                    </div>
+                    <div className='descriptionbreak'></div>
+                    <div className="single-spot-description">
+                        {spot.description}
+                    </div>
+                </div>
+                <div className="price-review-side-div-container">
+                    <div className="price-review-side-div">
+                        <div className="price-side-div">
+                            <span className='border-number'>{`$${spot.price}`}</span>
+                            <span className='border-night'> night</span>
+                        </div>
 
-            <div className="aircover">
-                <img src="https://a0.muscache.com/im/pictures/54e427bb-9cb7-4a81-94cf-78f19156faad.jpg"></img>
-                <div className="cover-info">Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</div>
-            </div>
-            <div className="single-spot-description">
-                {spot.description}
-            </div>
+                        <div className='review-side-div'>
+                            <i className="fa-sharp fa-solid fa-star"></i>
+                            <span> {!Number(spot.avgStarRating) ? "New" : Number(spot.avgStarRating).toFixed(1)}</span>
+                            <span className='dots'> • </span>
+                            <span className='numReviews'>{spot.numReviews} reviews
+                            </span>
+                        </div>
+                    </div>
+                </div>
 
-            <div className="spot-reviews">
-                <div className="review-div">
-                    <div className="spot-avgRating">
-                        <i className="fa-solid fa-star"></i>
+            </div>
+            <div className='descriptionbreak'></div>
+
+
+            <div className="spotdetails-reviews">
+                <div className="spotdetails-review-div">
+                    <div className="spotdetails-avgRating">
+                        <i className="fa-solid fa-star"></i> {' '}
                         <span>{!Number(spot.avgStarRating) ? "New" : Number(spot.avgStarRating).toFixed(1)}</span>
                         <span id='dots'> • </span>
                         <span>{spot.numReviews} review(s)</span>
                     </div>
+                </div>
+                <div>
+                    {sessionUser && currentOwner !== sessionUser?.id
+                    ?
+                    <Link to={`/spots/${spotId}/new-review`}>
+                        <button className="spotdetails-review-button">Review this spot</button>
+                    </Link>
+                    : null
+                }
+                </div>
 
-                    <div className="review-wrap">
+                    <div className="spotdetails-review-wrap">
                         {reviewsArr.map( review => (
-                        <div key={review} className="review-details">
-                            <div className="review-creators">
+                        <div key={review} className="spotdetails-review-details">
+                            <div className="spotdetails-review-creators">
                             {review.User?.firstName}
                             </div>
-                            <div className="review-date">
+                            <div className="spotdetails-review-date">
                             {new Date(review.createdAt).toString().slice(3, -42)}
                             </div>
-                            <div className="review-contents">
+                            <div className="spotdetails-review-contents">
                             {review.review}
                             </div>
                         </div>
                         ))}
                     </div>
-                </div>
             </div>
-            <div className="review-button">
-                {sessionUser && currentOwner !== sessionUser?.id
-                ?
-                <Link to={`/spots/${spotId}/new-review`}>
-                    <button>Create Review</button>
-                </Link>
-                : null
-            }
-            {/* <Link to={`/spots/${spotId}/add-image`}>
-                Add SpotImages
-            </Link> */}
-            </div>
-            {/* <br></br>
-            <div>
-                {currentOwner === sessionUser
-                ?
-                <Link to={`/spots/${spotId}/edit`}>
-                <button>Edit Spot</button>
-                </Link>
-                : null
-                }
-            </div>
-            <div>
-                {currentOwner === sessionUser
-                ?
-                <button onClick={spothandleClick}>Delete Spot</button>
-                : null
-                }
-            </div>
-            <br></br> */}
+
         </div>
     )
 

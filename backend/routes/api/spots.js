@@ -62,10 +62,10 @@ const validateQuery = [
       .withMessage('Country is required'),
     check('lat')
       .isDecimal()
-      .withMessage('Latitude is not valid'),
+      .withMessage('Latitude should be Decimal'),
     check('lng')
       .isDecimal()
-      .withMessage('Longitude is not valid'),
+      .withMessage('Longitude should be Decimal'),
     check('name')
       .isLength({ max: 50 })
       .withMessage('Name must be less than 50 characters'),
@@ -102,10 +102,10 @@ const validateQuery = [
       .withMessage('Country is required'),
     check('lat')
       .isDecimal()
-      .withMessage('Latitude is not valid'),
+      .withMessage('Lat should be Decimal'),
     check('lng')
       .isDecimal()
-      .withMessage('Longitude is not valid'),
+      .withMessage('Longitude should be Decimal'),
     check('name')
       .isLength({ max: 50 })
       .withMessage('Name must be less than 50 characters'),
@@ -185,7 +185,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
 
     let spotsArr = [];
 
-    for(let i = 0; i< allSpotsforCurrOwner.length; i++){
+    for(let i = 0; i < allSpotsforCurrOwner.length; i++){
       let SpotsObj = allSpotsforCurrOwner[i].toJSON()
       let currSpotId = allSpotsforCurrOwner[i].id;
 

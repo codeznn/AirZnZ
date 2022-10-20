@@ -51,8 +51,8 @@ return (
                                         </span>
 
                                         <div className="myspot-avgRating">
-                                            <i className="fa-solid fa-star"></i>
-                                            <span>{!Number(spot.avgStarRating) ? "New" : Number(spot.avgStarRating).toFixed(1)}</span>
+                                            <i className="fa-solid fa-star"></i>{' '}
+                                            <span>{!Number(spot.avgRating) ? "New" : Number(spot.avgRating).toFixed(1)}</span>
                                         </div>
                                     </div>
 
