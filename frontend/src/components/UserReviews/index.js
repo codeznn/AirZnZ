@@ -53,7 +53,7 @@ const UserReviews = () => {
                         </div>
                         </div>
                         <div className="myreview-button-container">
-                            <button className="myreview-button" disabled={true}>Edit</button>
+                            {/* <button className="myreview-button" disabled={true}>Edit</button> */}
                             <button className="myreview-button" onClick={() => handleDelete(review.id)}>Delete</button>
                         </div>
                     </div>
