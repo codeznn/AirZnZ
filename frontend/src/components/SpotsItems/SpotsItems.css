@@ -8,7 +8,7 @@
 }
 
 .allspot-img-div {
-  width: 100%;
+  max-width: 500px;
   max-height: 500px;
   padding-bottom: 100%;
   margin: 1em auto;
