@@ -46,7 +46,7 @@ const UserReviews = () => {
                             {review.Spot?.name === null ? "" : `Review for ${review.Spot?.name}`}
                         </div>
                         <div className='myreview-star'>
-                            <i className="fa-sharp fa-solid fa-star"></i>
+                            <i className="fa-sharp fa-solid fa-star"></i>{" "}
                             <span>{review.stars}</span>
                         <div className="myreview-review">
                             {review.review}

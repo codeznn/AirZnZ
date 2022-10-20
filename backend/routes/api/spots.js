@@ -75,7 +75,13 @@ const validateQuery = [
     check('price')
       .notEmpty()
       .isDecimal()
-      .withMessage('Price should be Decimal'),//'Price per day is required'),
+      .withMessage('Price should be Decimal')
+      .custom(val => {
+        if (val > 0) {
+          return true
+        }
+      })
+      .withMessage("Price must be greater than 0"),
     check('url')
       .notEmpty()
       .withMessage('Url cannot be empty')
@@ -115,7 +121,13 @@ const validateQuery = [
     check('price')
       .notEmpty()
       .isDecimal()
-      .withMessage('Price should be Decimal'),//'Price per day is required'),
+      .withMessage('Price should be Decimal')
+      .custom(val => {
+        if (val > 0) {
+          return true
+        }
+      })
+      .withMessage("Price must be greater than 0"),
     handleValidationErrors
   ];
 
