@@ -11,7 +11,7 @@
   width: 100%;
   padding-bottom: 100%;
   margin: 1em auto;
-  /* overflow: hidden; */
+  overflow: hidden;
   position: relative;
 }
 
@@ -30,8 +30,7 @@
   justify-content: space-between;
   width: 100%;
   font-size: 15px;
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
-		Helvetica Neue, sans-serif;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
 
 .spotcard-avgRating {
@@ -61,8 +60,7 @@
 .spotcard-location {
 	font-size: 16px;
   font-weight: 500;
-	font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
-		Helvetica Neue, sans-serif;
+	font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 	color: #222222;
   margin-top: 10px;
 }
@@ -74,8 +72,7 @@
 	align-items: flex-end;
 	color: #222222;
   margin-top: 10px;
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
-		Helvetica Neue, sans-serif;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
 
 .spotcard-price span {
@@ -86,8 +83,7 @@
 .spotcard-price {
   font-size: 16px;
 	font-weight: 350;
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
-		Helvetica Neue, sans-serif;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
 .night{
   margin-left: 5px;
