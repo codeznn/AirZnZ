@@ -19,13 +19,13 @@ const SpotsItems = () => {
     if (!spots) return null;
 
     return (
-            <div className="spots-wrapper">
+            <div className="allspots-wrapper">
                 { spots.map(spot => (
-                    <div key={spot.id} className="spot-card-container" style={{ textDecoration: 'none'}}>
+                    <div key={spot.id} className="allspot-card-container" style={{ textDecoration: 'none'}}>
                         <NavLink to={`/spots/${spot.id}`} style={{ textDecoration: 'none'}}>
-                            <div className="spotcard">
-                                <div className="spot-img-div">
-                                    <img src={spot.previewImages} alt={spot.name} className='spot-img'/>
+                            <div className="allspotcard">
+                                <div className="allspot-img-div">
+                                    <img src={spot.previewImages} alt={spot.name} className='allspot-img'/>
                                 </div>
                                 <div className="spotcard-info">
                                     <div className="spotcard-info-top">
