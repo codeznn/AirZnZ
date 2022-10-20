@@ -4,10 +4,12 @@
   margin-top: 40px;
   margin-left: 80px;
   margin-right: 100px;
+  background-color:aqua;
 }
 
 .sessionlinks {
-  padding-right: 10px;
+  width: 70px;
+  margin-right: -4px;
 }
 
 .sessionlinks span {
@@ -15,7 +17,8 @@
 }
 
 ul {
-  list-style: none
+  list-style: none;
+  background-color: purple;
 }
 
 

@@ -30,7 +30,7 @@ const SpotsItems = () => {
                                 <div className="spotcard-info">
                                     <div className="spotcard-info-top">
                                         <span className="spotcard-location">
-                                            {spot.city}{`, `}{spot.state}
+                                            {spot.city}{", "}{spot.state}
                                         </span>
 
                                         <div className="spotcard-avgRating">
@@ -40,7 +40,8 @@ const SpotsItems = () => {
                                     </div>
 
                                     <div className="spotcard-price">
-                                        <span>{`$${spot.price} `}{" "}night</span>
+                                        <span>{`$${spot.price}`}</span>
+                                        <div className="night">night</div>
                                     </div>
                                 </div>
                             </div>
