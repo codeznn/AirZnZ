@@ -19,7 +19,7 @@ const SpotDetails = () => {
     const spot = useSelector(state => state.spots.singleSpot)
     const reviewsObj = useSelector(state => state.reviews.spot)
     const reviewsArr = Object.values(reviewsObj)
-    console.log('in spotDetails-reviews', reviewsArr)
+    //console.log('in spotDetails-reviews', reviewsArr)
 
 
     useEffect(() => {

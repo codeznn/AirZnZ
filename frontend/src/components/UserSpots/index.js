@@ -12,10 +12,10 @@ const UserSpots = () => {
     const history = useHistory();
     const sessionUser = useSelector((state) => state.session.user);
     const spotsObj = useSelector(state => state.spots.allSpots);
-    console.log("in UserSpots--spotsObj", spotsObj)
+    //console.log("in UserSpots--spotsObj", spotsObj)
 
     const spotsArr = Object.values(spotsObj)
-    console.log("in UserSpots--spotsArr", spotsArr)
+    //console.log("in UserSpots--spotsArr", spotsArr)
 
     useEffect(() => {
         dispatch(getUserSpots())

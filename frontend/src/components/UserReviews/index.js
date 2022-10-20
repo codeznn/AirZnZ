@@ -11,8 +11,8 @@ const UserReviews = () => {
 
     const reviewsObj = useSelector(state => (state.reviews.user));
     const reviewsArr = Object.values(reviewsObj);
-    console.log('in UserReviewsbefore-obj', reviewsObj);
-    console.log('in UserReviewsbefore-Arr', reviewsArr);
+    //console.log('in UserReviewsbefore-obj', reviewsObj);
+    //console.log('in UserReviewsbefore-Arr', reviewsArr);
 
 
     useEffect(() => {
@@ -20,9 +20,9 @@ const UserReviews = () => {
     }, [dispatch])
 
     const handleDelete = async (reviewId) => {
-        console.log("11111")
-        console.log('delete-reviewObj', reviewsObj)
-        console.log('delete-reviewArr', reviewsArr)
+        //console.log("11111")
+        //console.log('delete-reviewObj', reviewsObj)
+        //console.log('delete-reviewArr', reviewsArr)
         await dispatch(deleteReview(reviewId));
         history.push(`/my-reviews`);
     };

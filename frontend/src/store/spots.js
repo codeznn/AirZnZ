@@ -113,7 +113,7 @@ export const createSpot = (spot) => async dispatch => {
 
         if (response.ok) {
             const newSpot = await response.json();
-            console.log('in creatOneSpot thunk-newSpot', newSpot)
+            //console.log('in creatOneSpot thunk-newSpot', newSpot)
             dispatch(createOneSpot(newSpot));
 
             const resAddImg = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
@@ -124,7 +124,7 @@ export const createSpot = (spot) => async dispatch => {
                 body: JSON.stringify({ url, preview: true })
             });
 
-            console.log('in addSpot thunk-resAddImg', resAddImg);
+            //console.log('in addSpot thunk-resAddImg', resAddImg);
 
             if (resAddImg.ok) {
                 const img = await resAddImg.json();
@@ -171,7 +171,7 @@ export const updateSpot = (spot, spotId) => async dispatch => {
         });
 
         const newSpot = await response.json();
-        console.log('in updataSpot thunk-newSpot', newSpot)
+        //console.log('in updataSpot thunk-newSpot', newSpot)
         dispatch(updateOneSpot(newSpot));
         return newSpot;
       } catch(error) {
@@ -184,7 +184,7 @@ export const deleteSpot = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'DELETE'
     });
-    console.log('in deleteSpot thunk********', response)
+    //console.log('in deleteSpot thunk********', response)
 
     if (response.ok) {
         dispatch(removeSpot(spotId));
@@ -223,7 +223,7 @@ const spotsReducer = (state = initialState, action) => {
             delete newState.allSpots[action.spotId]
 
             //delete newState.allSpots[action.spotId];
-            console.log("in reducer----", newState)
+            //console.log("in reducer----", newState)
             return newState;
         case CREATE_SPOT:
             newState = { ...state, allSpots: { ...state.allSpots, [action.spot.id]: action.spot } };

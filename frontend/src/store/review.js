@@ -40,7 +40,7 @@ export const getReviews = (spotId) => async (dispatch) => {
 
     if (response.ok) {
         const reviews = await response.json();
-        console.log('in getReviews thunk////', reviews)
+        //console.log('in getReviews thunk////', reviews)
         dispatch(loadReviews(reviews));
         return reviews;
     }
@@ -64,7 +64,7 @@ export const createReview = (review, spotId) => async (dispatch) => {
             body: JSON.stringify(review)
         });
 
-        console.log('in creatReview thunk -response', response)
+       // console.log('in creatReview thunk -response', response)
 
         const newReview = await response.json();
         dispatch(createOneReview(newReview));
@@ -81,8 +81,8 @@ export const deleteReview = (reviewId) => async (dispatch) => {
     });
     if (response.ok) {
         const review = await response.json();
-        console.log("22222")
-        console.log('in deleteReviews thunk////', review)
+        //console.log("22222")
+        //console.log('in deleteReviews thunk////', review)
         dispatch(removeReview(reviewId));
         return review;
     }

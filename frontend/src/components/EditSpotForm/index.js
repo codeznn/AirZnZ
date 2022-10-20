@@ -9,14 +9,14 @@ const UpdateSpotForm = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const { spotId } = useParams();
-    console.log('in editform-spotId', spotId)
+    //console.log('in editform-spotId', spotId)
     // const sessionUser = useSelector((state) => state.session.user.id);
     // const currentOwner = useSelector((state) => state.spots.singleSpot.ownerId)
     const spot = useSelector((state) => state.spots.allSpots[spotId])
 
     // console.log('in editform-spotsObj', spotsObj)
     // const spot = spotsObj[spotId]
-    console.log('in editform-spot', spot)
+    //console.log('in editform-spot', spot)
 
     const [address, setAddress] = useState(spot?.address)
     const [city, setCity] = useState(spot?.city)
@@ -58,18 +58,18 @@ const UpdateSpotForm = () => {
         e.preventDefault()
 
         const payload = { address, city, state, country, name, lat, lng, description, price,}
-        console.log(payload)
+        //console.log(payload)
         await dispatch(updateSpot(payload, spotId)).then(spotId => history.push('/my-spots'))
         .catch(async (res) => {
             const message = await res.json();
-            console.log('in updateSpotForm-message', message.errors)
+            //console.log('in updateSpotForm-message', message.errors)
             const backendErrors = message.errors;
             if (backendErrors.length) {
                 setErrors(backendErrors);
-                console.log('success')
+                //console.log('success')
             }
 
-            console.log('in updateSpotForm-errors', errors)
+            //console.log('in updateSpotForm-errors', errors)
         });
 
 
