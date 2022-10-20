@@ -30,3 +30,65 @@ AirZnZ is a cloned web application based on [AirBnB](https://www.airbnb.com/).
 
 ## Features:
 
+### HomePage
+
+The homepage presents all the spots and user can click any spot to get the single-spot details information.
+
+![HomePage](https://user-images.githubusercontent.com/99756315/197034735-64d8f28a-7174-4f5c-b70a-b772427d6200.jpeg)
+
+### Sign Up
+
+Users can sign up a new account with validated information.
+
+![signup](https://user-images.githubusercontent.com/99756315/197035099-790b405e-96f8-492a-a93c-7b2707fd3139.jpeg)
+
+### Log in
+
+Registered User can log in with their username/email and password.
+
+![login](https://user-images.githubusercontent.com/99756315/197035293-d335f439-3d58-4054-a079-c361329d6469.jpeg)
+
+### Dropdown Menu
+
+Dropdown menu presents the information of current user.
+
+![DropdownMenu](https://user-images.githubusercontent.com/99756315/197035354-cd70f49a-a42f-462d-9486-872af9536160.jpeg)
+
+### Single-spot Page
+
+Single-spot page presents the details of each spot.
+
+![spotDetails](https://user-images.githubusercontent.com/99756315/197035598-eecf62ec-f5b5-4f6c-b927-1eb48f2bdc5b.jpeg)
+
+### Create a Spot
+
+Registered User can create a new spot.
+
+![createSpot](https://user-images.githubusercontent.com/99756315/197036251-a8cc8f63-2c99-46fb-b2e9-2acbd5adec22.jpeg)
+
+### Edit/Delete a Spot
+
+Spot-owner can update or delete their spot.
+
+![myspots](https://user-images.githubusercontent.com/99756315/197036505-86c62ceb-303d-4d7d-8f00-cbf989cfdaff.jpeg)
+
+### Create a Review
+
+User can create a new review for spot.
+
+![createreview](https://user-images.githubusercontent.com/99756315/197037466-6b8640ba-ea2b-46c2-9483-a220421c4d89.jpeg)
+
+### delete a Review
+
+User can delete their reviews.
+
+![myreviews](https://user-images.githubusercontent.com/99756315/197037496-0231eaf9-5f6a-4253-9a3c-26f4e6cdb12f.jpeg)
+
+## TO-DO List:
+
+* Edit a spot review.
+* Booking Feature.
+
+## Contact Information:
+
+https://github.com/codeznn
