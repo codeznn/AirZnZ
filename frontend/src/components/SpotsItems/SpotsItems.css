@@ -1,4 +1,9 @@
-/* .allspots-wrapper {
+.allspot-img:hover{
+  cursor: pointer;
+  box-shadow:  0px 0px 5px rgba(148, 148, 148,0.5);
+}
+
+.allspots-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   margin: 60px 150px 60px 150px;
@@ -23,10 +28,11 @@
   max-height: 500px;
   min-height: 500px;
   border-radius: 10px;
-} */
+  cursor: pointer;
+}
 
 
-.allspot-img {
+/* .allspot-img {
   height: 280px;
   width: 306px;
   border-radius: 10px;
@@ -47,7 +53,7 @@
   font-size: 13px;
   font-weight: 600;
   margin-top: 20px;
-}
+} */
 
 
 .spotcard-info-top {
