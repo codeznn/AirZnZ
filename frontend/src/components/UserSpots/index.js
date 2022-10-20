@@ -21,7 +21,7 @@ const UserSpots = () => {
         dispatch(getUserSpots())
     }, [dispatch]);
 
-    if (!spotsArr) return (
+    if (!spotsArr.length) return (
         <div className="no-spots">
            Sorry, you are not hosting any Spots!
        </div>
