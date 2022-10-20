@@ -137,6 +137,7 @@ export const createSpot = (spot) => async dispatch => {
         };
     } catch(error) {
         throw error;
+    }
 }
 
 // addSpotImage thunk
