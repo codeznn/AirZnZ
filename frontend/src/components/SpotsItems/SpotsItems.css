@@ -1,6 +1,6 @@
 .allspots-wrapper {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   margin: 60px 150px 60px 150px;
   flex-wrap: wrap;
   column-gap: 20px;
