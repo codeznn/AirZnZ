@@ -9,6 +9,7 @@
 
 .allspot-img-div {
   width: 100%;
+  max-height: 500px;
   padding-bottom: 100%;
   margin: 1em auto;
   overflow: hidden;
@@ -19,8 +20,7 @@
 .allspot-img {
   position: absolute;
   object-fit: cover;
-  width: auto;
-  max-width: 100%;
+  width: 100%;
   max-height: 500px;
   min-height: 500px;
   border-radius: 10px;
