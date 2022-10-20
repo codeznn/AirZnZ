@@ -29,6 +29,7 @@ export const ProfileButton = ({ user }) => {
     const logoutUser = e => {
         e.preventDefault()
         dispatch(logout())
+        history.push('/')
     }
 
     return (
