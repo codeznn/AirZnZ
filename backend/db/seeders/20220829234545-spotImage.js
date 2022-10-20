@@ -28,6 +28,16 @@ module.exports = {
         preview: true
       },
       {
+        spotId: 1,
+        url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s1-4.webp',
+        preview: true
+      },
+      {
+        spotId: 1,
+        url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s1-5.webp',
+        preview: true
+      },
+      {
         spotId: 2,
         url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s2-1.webp',
         preview: true
@@ -44,6 +54,18 @@ module.exports = {
         preview: true
       },
       {
+        spotId: 2,
+        url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s2-4.webp',
+        preview: true
+      },
+
+      {
+        spotId: 2,
+        url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s2-5.webp',
+        preview: true
+      },
+
+      {
         spotId: 3,
         url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s3-1.webp',
         preview: true
@@ -56,6 +78,16 @@ module.exports = {
       {
         spotId: 3,
         url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s3-3.webp',
+        preview: true
+      },
+      {
+        spotId: 3,
+        url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s3-4.webp',
+        preview: true
+      },
+      {
+        spotId: 3,
+        url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s3-5.webp',
         preview: true
       },
       {
@@ -74,6 +106,16 @@ module.exports = {
         preview: true
       },
       {
+        spotId: 4,
+        url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s4-4.webp',
+        preview: true
+      },
+      {
+        spotId: 4,
+        url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s4-5.webp',
+        preview: true
+      },
+      {
         spotId: 5,
         url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s5-1.webp',
         preview: true
@@ -86,6 +128,16 @@ module.exports = {
       {
         spotId: 5,
         url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s5-3.webp',
+        preview: true
+      },
+      {
+        spotId: 5,
+        url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s5-4.webp',
+        preview: true
+      },
+      {
+        spotId: 5,
+        url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s5-5.webp',
         preview: true
       },
       {
@@ -104,6 +156,16 @@ module.exports = {
         preview: true
       },
       {
+        spotId: 6,
+        url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s6-4.webp',
+        preview: true
+      },
+      {
+        spotId: 6,
+        url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s6-5.webp',
+        preview: true
+      },
+      {
         spotId: 7,
         url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s7-1.webp',
         preview: true
@@ -116,6 +178,16 @@ module.exports = {
       {
         spotId: 7,
         url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s7-3.webp',
+        preview: true
+      },
+      {
+        spotId: 7,
+        url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s7-4.webp',
+        preview: true
+      },
+      {
+        spotId: 7,
+        url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s7-5.webp',
         preview: true
       },
       {
@@ -134,6 +206,16 @@ module.exports = {
         preview: true
       },
       {
+        spotId: 8,
+        url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s8-4.webp',
+        preview: true
+      },
+      {
+        spotId: 8,
+        url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s8-5.webp',
+        preview: true
+      },
+      {
         spotId: 9,
         url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s9-1.webp',
         preview: true
@@ -146,6 +228,16 @@ module.exports = {
       {
         spotId: 9,
         url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s9-3.webp',
+        preview: true
+      },
+      {
+        spotId: 9,
+        url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s9-4.webp',
+        preview: true
+      },
+      {
+        spotId: 9,
+        url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s9-5.webp',
         preview: true
       },
       {
@@ -164,6 +256,16 @@ module.exports = {
         preview: true
       },
       {
+        spotId: 10,
+        url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s10-4.webp',
+        preview: true
+      },
+      {
+        spotId: 10,
+        url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s10-5.webp',
+        preview: true
+      },
+      {
         spotId: 11,
         url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s11-1.webp',
         preview: true
@@ -176,6 +278,16 @@ module.exports = {
       {
         spotId: 11,
         url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s11-3.webp',
+        preview: true
+      },
+      {
+        spotId: 11,
+        url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s10-4.webp',
+        preview: true
+      },
+      {
+        spotId: 11,
+        url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s10-5.webp',
         preview: true
       },
       {
@@ -195,6 +307,17 @@ module.exports = {
         preview: true
       },
       {
+        spotId: 12,
+        url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s12-4.webp',
+        preview: true
+      },
+
+      {
+        spotId: 12,
+        url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s12-5.webp',
+        preview: true
+      },
+      {
         spotId: 13,
         url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s13-1.webp',
         preview: true
@@ -210,6 +333,16 @@ module.exports = {
         preview: true
       },
       {
+        spotId: 13,
+        url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s13-4.webp',
+        preview: true
+      },
+      {
+        spotId: 13,
+        url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s13-5.webp',
+        preview: true
+      },
+      {
         spotId: 14,
         url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s14-1.webp',
         preview: true
@@ -222,6 +355,16 @@ module.exports = {
       {
         spotId: 14,
         url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s14-3.webp',
+        preview: true
+      },
+      {
+        spotId: 14,
+        url: 'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s14-4.webp',
+        preview: true
+      },
+      {
+        spotId: 14,
+        url:'https://airbnb-pictures.s3.us-west-1.amazonaws.com/airbnb-pictures/s14-5.webp',
         preview: true
       },
 

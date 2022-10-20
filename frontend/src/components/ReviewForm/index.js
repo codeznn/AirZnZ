@@ -31,7 +31,7 @@ const CreateReviewForm = () => {
             review,
             stars: starNum
         };
-        console.log('in createReviewForm-newReview', newReview)
+        //console.log('in createReviewForm-newReview', newReview)
 
         await dispatch(createReview(newReview, spotId)).then(spotId => history.push(`/spots/${spotId}`))
         .catch(async (res) => {

@@ -35,7 +35,7 @@ const SpotsItems = () => {
 
                                         <div className="spotcard-avgRating">
                                             <i className="fa-solid fa-star"></i>
-                                            <span>{!Number(spot.avgStarRating) ? "New" : Number(spot.avgStarRating).toFixed(1)}</span>
+                                            <span>{!Number(spot.avgRating) ? "New" : Number(spot.avgRating).toFixed(1)}</span>
                                         </div>
                                     </div>
 

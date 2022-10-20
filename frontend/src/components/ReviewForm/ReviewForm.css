@@ -1,3 +1,9 @@
+.create-review-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 30px;
+}
 .createreview-title{
     display:flex;
     align-items: center;
@@ -15,16 +21,16 @@
     font-weight: 450;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
-.create-review-form {
+.createreview-form-container {
     display:flex;
     flex-direction: column;
-    width: 350px;
+    width: 400px;
+    /* background-color: aquamarine; */
 
 }
 
 .createreview-div {
     display:flex;
-    justify-content: center;
     flex-direction: column;
     padding-bottom: 25px;
 
@@ -46,7 +52,6 @@
 
 .stars-div {
     display:flex;
-    justify-content: center;
     flex-direction: column;
 
 }
