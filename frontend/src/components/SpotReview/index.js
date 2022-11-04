@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useHistory, useParams} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getReviews } from '../../store/review';
-import { deleteReview } from '../../store/review';
 
 const SpotReviews = ({spotId}) => {
     const history = useHistory();
@@ -15,14 +14,6 @@ const SpotReviews = ({spotId}) => {
         dispatch(getReviews(spotId))
     }, [dispatch, spotId]);
 
-
-    const deleteReviewHandler = (review) => async (e) => {
-        e.preventDefault();
-        await dispatch(deleteReview(review));
-        alert('Review deleted.')
-        history.push(`/`)
-
-    }
 
     if (!reviews[0]) return console.log('waiting on reviews');
 
