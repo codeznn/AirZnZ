@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { getReviews } from "../../store/review";
 import './SpotDetails.css';
 import aircover from './aircover.png';
+import SpotReviewFormModal from "../SpotReviewForm";
 
 
 const SpotDetails = () => {
@@ -47,7 +48,10 @@ const SpotDetails = () => {
                 <div>
                     <span id='dots'>•</span>
                 </div>
-                <div className="single-spot-numReviews">{spot.numReviews} reviews</div>
+                {/* <div className="single-spot-numReviews">{spot.numReviews} reviews</div> */}
+                <div className="single-spot-numReviews">
+                    <SpotReviewFormModal spot={spot} />
+                </div>
                 <div>
                         <span id='dots'>•</span>
                 </div>
@@ -97,7 +101,7 @@ const SpotDetails = () => {
                             <i className="fa-sharp fa-solid fa-star"></i>
                             <span> {!Number(spot.avgStarRating) ? "New" : Number(spot.avgStarRating).toFixed(1)}</span>
                             <span className='dots'> • </span>
-                            <span className='numReviews'>{spot.numReviews} reviews
+                            <span className='numReviews'><SpotReviewFormModal spot={spot} />
                             </span>
                         </div>
                     </div>
