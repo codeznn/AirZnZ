@@ -19,7 +19,7 @@ const UserReviews = () => {
         dispatch(getUserReviews())
     }, [dispatch])
 
-    const handleDelete = async (reviewId) => {
+    const handleReviewDelete = async (reviewId) => {
         //console.log("11111")
         //console.log('delete-reviewObj', reviewsObj)
         //console.log('delete-reviewArr', reviewsArr)
@@ -54,7 +54,7 @@ const UserReviews = () => {
                         </div>
                         <div className="myreview-button-container">
                             {/* <button className="myreview-button" disabled={true}>Edit</button> */}
-                            <button className="myreview-button" onClick={() => handleDelete(review.id)}>Delete</button>
+                            <button className="myreview-button" onClick={() => handleReviewDelete(review.id)}>Delete</button>
                         </div>
                     </div>
                 ))}
