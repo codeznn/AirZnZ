@@ -37,16 +37,15 @@ The homepage presents all the spots and user can click any spot to get the singl
 ![HomePage](https://user-images.githubusercontent.com/99756315/197034735-64d8f28a-7174-4f5c-b70a-b772427d6200.jpeg)
 
 ### Sign Up
-
 Users can sign up a new account with validated information.
 
-![signup](https://user-images.githubusercontent.com/99756315/197035099-790b405e-96f8-492a-a93c-7b2707fd3139.jpeg)
+![image](https://user-images.githubusercontent.com/99756315/229934420-f98fb9d9-2286-4dc1-a6bc-ade131a630cb.png)
 
 ### Log in
-
 Registered User can log in with their username/email and password.
 
-![login](https://user-images.githubusercontent.com/99756315/197035293-d335f439-3d58-4054-a079-c361329d6469.jpeg)
+![image](https://user-images.githubusercontent.com/99756315/229934387-9923f7d7-ca46-40fe-b3d0-0882914ac0c8.png)
+
 
 ### Dropdown Menu
 
